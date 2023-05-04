@@ -14,6 +14,8 @@ const request = {
     getRoleId: (params) => { return axios('get', service.getRoleId, params) }, //角色id
     getDeptTree: (params) => { return axios('post', service.getDeptTree, params) },  //获取机构
     duplicateCheck: (params) => { return axios('get', service.duplicateCheck, params) },  //重复校验
+    getmenulist: (params) => { return axios('get', service.getmenulist, params) },  //系统管理-菜单列表
+    deletePermission: (params) => { return axios('get', service.deletePermission, params) },  //系统管理-删除菜单
 
     //上传文件
     upLoadFileNew: (url, params) => {

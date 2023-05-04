@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter, HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 
-import routes from "@/routes"
-
 import AutnToken from "@/components/autnToken"
 import Commonview from "@/pages/commonview";
 import Login from "@/pages/login";

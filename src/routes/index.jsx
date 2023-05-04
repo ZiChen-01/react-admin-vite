@@ -21,6 +21,8 @@ let routes = [
     },
 ]
 
-routes =await getMenu()
-console.log(routes);
+if (localStorage.getItem('Autn-Token')) {
+    // location.reload()
+    routes = await getMenu()
+}
 export default routes

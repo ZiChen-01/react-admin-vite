@@ -131,7 +131,7 @@ const Addusers = forwardRef((props, ref) => {
     }
     return (
         <>
-            <Modal title={isStatus == 1 ? "添加用户" : "编辑用户"} visible={isModalVisible} okText='提交' cancelText='取消' onOk={handleOk} onCancel={() => { setIsModalVisible(false); form.resetFields() }} width='80%'>
+            <Modal title={isStatus == 1 ? "添加用户" : "编辑用户"} open={isModalVisible} okText='提交' cancelText='取消' onOk={handleOk} onCancel={() => { setIsModalVisible(false); form.resetFields() }} width='80%'>
                 <Form
                     name="basic"
                     form={form}

@@ -5,7 +5,7 @@ import "./index.less";
 import { Space, Spin } from 'antd';
 
 const Loading = () => {
-
+    // location.reload()
     return (
         <>
             <div className="loading">

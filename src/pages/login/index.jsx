@@ -27,8 +27,9 @@ const Login = () => {
       localStorage.setItem('Autn-Token', res.data.result.token)
       localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
       localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
-      navigate('/dashboard/analysis')
-      message.success('登录成功！', 0.3)
+      setTimeout(() => {
+        navigate('/dashboard/analysis')
+      }, 1000);
     }
   };
   useEffect(() => {

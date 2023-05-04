@@ -12,10 +12,12 @@
     --content-padding: 10px 20px;
     --base-color: var(--main-color);
 }
+
 /* 弹出框头部 */
 .ant-modal-header {
     background-color: var(--main-bg);
 }
+
 /* 弹出框标题 */
 .ant-modal-title {
     color: var(--main-color);
@@ -43,4 +45,21 @@
 .ant-checkbox:hover .ant-checkbox-inner,
 .ant-checkbox-input:focus+.ant-checkbox-inner {
     border-color: var(--main-bg);
+}
+
+.ant-dropdown-trigger {
+    margin: 0 10px;
+}
+
+.ant-popover-message-icon {
+    display: inline-block;
+    margin-right: 8px;
+    color: #faad14;
+    font-size: 14px;
+}
+.ant-popover-message{
+    display: flex;
+}
+.ant-popover-message-title{
+    padding: 0;
 }

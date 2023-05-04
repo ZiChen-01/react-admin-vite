@@ -4,11 +4,11 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined } f
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
-import routes from "@/routes"
-import logo from "@/assets/images/logo.png"
+import logo from "@/assets/images/wzblogo.png"
 import nprogress from "nprogress";
 import "@/components/progress/index.less";
 import Loading from "@/components/loading";
+import routes from "@/routes"
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -97,8 +97,7 @@ const Commonview = () => {
                 <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={collapsed}>
                     <div className="logo">
                         <img src={logo} alt="" />
-                        {title ? <span className='logoTitle'>{titleH2}</span> : ''}
-                        {/* <span style={{ opacity: title ? 1 : 0 }}>{titleH2}</span> */}
+                        {/* {title ? <span className='logoTitle'>{titleH2}</span> : ''} */}
                     </div>
                     <Menu
                         theme='dark'
@@ -130,7 +129,7 @@ const Commonview = () => {
                     <div className='breadcrumb'>
                         {routeList.map((item, index) => {
                             return (
-                                <div key={index} style={{ color: item.colordisabled == 'true' ? 'var(--main-color)' : '' }}>
+                                <div key={index} style={{ color: item.colordisabled == 'true' ? 'var(--main-bg)' : '' }}>
                                     <span>{item.icon}</span>
                                     <span onClick={() => { toRouter(item) }} className="breadcrumbTitle"> {item.label}</span>
                                     {index != 0 ? <CloseOutlined onClick={() => { delRouter(item, index) }} /> : <span style={{ width: '14px' }}></span>}

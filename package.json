@@ -1,6 +1,6 @@
 {
   "name": "react-admin",
-  "description": "React.js + TS + Vite",
+  "description": "React.js + Vite",
   "author": "江子辰 <18307106535@163.com>",
   "private": true,
   "version": "1.0.0",
@@ -12,8 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
-    "antd": "^4.24.8",
+    "antd": "^4.22.8",
     "axios": "^1.3.6",
     "crypto-js": "^4.1.1",
     "history": "^5.3.0",

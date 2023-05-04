@@ -10,12 +10,12 @@ import Addusers from "@/components/users/addusers";
 const { Option } = Select;
 
 function Users() {
-    let [username, setUsername] = useState('')
-    let [sex, setSex] = useState(undefined)
-    let [realname, setRealname] = useState('')
-    let [phone, setPhone] = useState('')
-    let [status, setStatus] = useState(undefined)
-    let [pageIndex, setPageIndex] = useState(1)
+    const [username, setUsername] = useState('')
+    const [sex, setSex] = useState(undefined)
+    const [realname, setRealname] = useState('')
+    const [phone, setPhone] = useState('')
+    const [status, setStatus] = useState(undefined)
+    const [pageIndex, setPageIndex] = useState(1)
     const [dataSource, setDataSource] = useState([])
     const [loading, setLoading] = useState(false)
     const childRef = useRef(null);
@@ -90,7 +90,7 @@ function Users() {
                 return (
                     <>
                         <a onClick={() => enti(record)}>编辑</a>
-                        <Dropdown overlay={menu}>
+                        <Dropdown menu={{ items: itemsFun(record), onClick: (e) => onMenu(e, record) }}>
                             <a onClick={e => { e.preventDefault() }}>
                                 <Space>
                                     更多
@@ -103,24 +103,41 @@ function Users() {
         }
 
     ];
-    const menu = (
-        <Menu
-            items={[
-                {
-                    label: (<a> 详情</a>),
-                    key: '1',
-                },
-                {
-                    label: (<a> 密码</a>),
-                    key: '2',
-                },
-                {
-                    label: (<a> 删除</a>),
-                    key: '3',
-                },
-            ]}
-        />
-    )
+    const items = [
+        {
+            label: (<a> 详情</a>),
+            key: '1',
+        },
+        {
+            label: (<a> 删除</a>),
+            key: '2',
+        },
+        {
+            label: (<a> 修改密码</a>),
+            key: '3',
+        },
+    ]
+    const itemsFun = (record) => {
+        return [
+            {
+                label: (<a> 详情</a>),
+                key: '1',
+                disabled: record.sex != 1
+            },
+            {
+                label: (<a> 删除</a>),
+                key: '2',
+            },
+            {
+                label: (<a> 修改密码</a>),
+                key: '3',
+            },
+        ]
+    }
+    // 更多
+    const onMenu = ({ key }, record) => {
+        console.log(key, record);
+    }
     // 编辑
     const enti = (e) => {
         childRef.current.setIsModalVisible(true)
@@ -225,22 +242,21 @@ function Users() {
                     </Select>
                 </Form.Item>
             </Col>
-            <Col span={5}>
-                <Button type="primary" icon={<SearchOutlined />} onClick={getUserlist}>
-                    查询
-                </Button>
-                <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} style={{ marginLeft: '10px' }}>
-                    重置
-                </Button>
-            </Col>
         </Row>
-            <Row gutter={16} className="buttonbox">
-                <Button type="primary" icon={<PlusOutlined />} onClick={onAdduser}>
-                    添加用户
-                </Button>
-                <Upload {...props}>
-                    <Button icon={<UploadOutlined />}>上传文件</Button>
-                </Upload>
+            <Row justify="space-between" className="buttonbox">
+                <Col>
+                    <Button type="primary" icon={<SearchOutlined />} onClick={getUserlist}>
+                        查询
+                    </Button>
+                    <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} style={{ marginLeft: '10px' }}>
+                        重置
+                    </Button>
+                </Col>
+                <Col>
+                    <Button type="primary" icon={<PlusOutlined />} onClick={onAdduser}>
+                        添加用户
+                    </Button>
+                </Col>
             </Row>
             <Table rowKey={(row) => row.id} dataSource={dataSource} columns={columns} loading={loading} />;
             <Addusers ref={childRef} getlist={getUserlist} />
