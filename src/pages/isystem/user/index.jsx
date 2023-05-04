@@ -90,7 +90,23 @@ function Users() {
                 return (
                     <>
                         <a onClick={() => enti(record)}>编辑</a>
-                        <Dropdown menu={{ items: itemsFun(record), onClick: (e) => onMenu(e, record) }}>
+                        <Dropdown menu={{
+                            items: [
+                                {
+                                    label: (<a> 详情</a>),
+                                    key: '1',
+                                },
+                                {
+                                    label: (<a> 删除</a>),
+                                    key: '2',
+                                },
+                                {
+                                    label: (<a> 修改密码</a>),
+                                    key: '3',
+                                },
+                            ],
+                            onClick: (e) => onMenu(e, record)
+                        }}>
                             <a onClick={e => { e.preventDefault() }}>
                                 <Space>
                                     更多
@@ -103,37 +119,6 @@ function Users() {
         }
 
     ];
-    const items = [
-        {
-            label: (<a> 详情</a>),
-            key: '1',
-        },
-        {
-            label: (<a> 删除</a>),
-            key: '2',
-        },
-        {
-            label: (<a> 修改密码</a>),
-            key: '3',
-        },
-    ]
-    const itemsFun = (record) => {
-        return [
-            {
-                label: (<a> 详情</a>),
-                key: '1',
-                disabled: record.sex != 1
-            },
-            {
-                label: (<a> 删除</a>),
-                key: '2',
-            },
-            {
-                label: (<a> 修改密码</a>),
-                key: '3',
-            },
-        ]
-    }
     // 更多
     const onMenu = ({ key }, record) => {
         console.log(key, record);
