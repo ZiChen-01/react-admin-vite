@@ -14,12 +14,12 @@
 }
 
 /* 弹出框头部 */
-.ant-modal-header {
+.ant-modal-header ,.ant-drawer-header{
     background-color: var(--main-bg);
 }
 
 /* 弹出框标题 */
-.ant-modal-title {
+.ant-modal-title ,.ant-drawer-title{
     color: var(--main-color);
 }
 

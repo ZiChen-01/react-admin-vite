@@ -48,10 +48,10 @@ Server.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 Server.interceptors.response.use(function (response) {
-
     // 对响应数据做点什么
     return response;
 }, function (error) {
+    console.log(error.response);
     // 请求超时提示
     if (error.message.includes('timeout')) {
         notification.error({
@@ -69,14 +69,25 @@ Server.interceptors.response.use(function (response) {
             message: `请求错误 ${status} :  ${data.path}`,
             description: errorText,
         });
+        // 500及401重新登录
+        if (status == 500 || status == 401) clearStorage()
     } else if (!response) {
         notification.error({
-            description: '您的网络发生异常，无法连接服务器',
+            description: '您的网络发生异常，无法连接服务器，可能为跨域、无效令牌、网络未连接等相关原因',
             message: '网络异常',
         });
+        clearStorage()
     }
 
     return Promise.reject(error);
 });
 
+// 清除本地所有缓存，重新登录
+const clearStorage = () => {
+    localStorage.clear();
+    sessionStorage.clear()
+    setTimeout(() => {
+        window.location.reload()
+    }, 1000)
+}
 export default Server

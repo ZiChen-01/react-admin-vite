@@ -1,16 +1,17 @@
-import { Space, Switch, Table, Menu, Popconfirm } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import React, { useState, useEffect } from 'react';
+import { Space, Switch, Table, Menu, Popconfirm, Button, Form, Input, Col, Row, Select, Alert } from 'antd';
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import React, { useState, useEffect, useRef } from 'react';
 import request from "@/api"
 import "./index.less"
-
+import PermissionModule from "./permissionModule"
 
 function RoleUserList() {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
     const [checkStrictly, setCheckStrictly] = useState(false);
     const [pageIndex, setPageIndex] = useState(1)
-
+    const [selectedRowKeys, setSelectedRowKeys] = useState([])
+    const PermissionModuleRef = useRef(null);
     const columns = [
         {
             title: '菜单名称',
@@ -102,6 +103,11 @@ function RoleUserList() {
 
         setLoading(false)
     }
+    // 新增用户
+    const newUser = () => {
+        PermissionModuleRef.current.setOpen(true)
+        PermissionModuleRef.current.setTitle("新增")
+    }
     // 编辑
     const edit = (item) => {
         console.log(item);
@@ -110,7 +116,7 @@ function RoleUserList() {
     const deleteMenu = (item) => {
         console.log(item);
     }
-    //添加
+    //添加下级
     const addMenu = (item) => {
         console.log(item);
     }
@@ -119,34 +125,49 @@ function RoleUserList() {
     };
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        onSelect: (record, selected, selectedRows) => {
-            console.log(record, selected, selectedRows);
-        },
-        onSelectAll: (selected, selectedRows, changeRows) => {
-            console.log(selected, selectedRows, changeRows);
+            setSelectedRowKeys(selectedRowKeys)
+            console.log(selectedRows);
         },
     };
     return (
         <>
-            <Space
-                align="center"
-                style={{
-                    marginBottom: 16,
-                }}
-            >
-                父子关联: <Switch checked={checkStrictly} onChange={setCheckStrictly} />
-            </Space>
-            <Table
-                columns={columns}
-                rowSelection={{
-                    ...rowSelection,
-                    checkStrictly,
-                }}
-                dataSource={data}
-                loading={loading}
-            />
+            <div id="permission">
+                <Row justify="space-between" className="buttonbox">
+                    <Col>
+                        <Button type="primary" icon={<PlusOutlined />} onClick={newUser}> 新增</Button>
+
+                    </Col>
+                    <Col>
+                        <Space
+                            align="center"
+                            style={{
+                                marginBottom: 16,
+                            }}
+                        >
+                            父子关联: <Switch checked={checkStrictly} onChange={setCheckStrictly} />
+                        </Space>
+                    </Col>
+                </Row>
+                <div className="alert">
+                    已选择<span>{selectedRowKeys.length}</span>项
+                    <a onClick={() => setSelectedRowKeys([])}>
+                        清空
+                    </a>
+                </div>
+                <Table
+                    columns={columns}
+                    rowSelection={{
+                        selectedRowKeys,
+                        ...rowSelection,
+                        checkStrictly,
+
+                    }}
+                    dataSource={data}
+                    loading={loading}
+                />
+
+                <PermissionModule ref={PermissionModuleRef} />
+            </div>
         </>
     )
 }

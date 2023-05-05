@@ -94,7 +94,7 @@ function Users() {
                             items: [
                                 {
                                     label: (<a> 详情</a>),
-                                    key: '1',
+                                    key: '1', 
                                 },
                                 {
                                     label: (<a> 删除</a>),
