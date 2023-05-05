@@ -1,4 +1,4 @@
-import { Space, Switch, Table, Menu, Popconfirm, Button, Form, Input, Col, Row, Select, Alert } from 'antd';
+import { Space, Switch, Table, Menu, Popconfirm, Button, Col, Row, } from 'antd';
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { useState, useEffect, useRef } from 'react';
 import request from "@/api"
@@ -106,11 +106,22 @@ function RoleUserList() {
     // 新增用户
     const newUser = () => {
         PermissionModuleRef.current.setOpen(true)
-        PermissionModuleRef.current.setTitle("新增")
+        PermissionModuleRef.current.setTitle("新增菜单")
+        let list = data
+        setList(list)
+        function setList(e) {
+            e.forEach(item => {
+                item.value = item.key
+                if (item.children) setList(item.children)
+            })
+        }
+
+        PermissionModuleRef.current.setTreeData(list)
     }
     // 编辑
     const edit = (item) => {
-        console.log(item);
+        PermissionModuleRef.current.setOpen(true)
+        PermissionModuleRef.current.setTitle("编辑菜单")
     }
     //删除
     const deleteMenu = (item) => {

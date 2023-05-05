@@ -238,16 +238,16 @@ const Addusers = forwardRef((props, ref) => {
                     <Form.Item
                         label="邮箱"
                         name="email"
-                        rules={[{ required: false, message: '请输入手机号码!' }, { validator: validateEmail, }]}
+                        rules={[{ required: false, message: '请输入邮箱!' }, { validator: validateEmail, }]}
                     >
-                        <Input placeholder="请输入工号" />
+                        <Input placeholder="请输入邮箱" />
                     </Form.Item>
                     <Form.Item
                         label="手机号码"
                         name="phone"
-                        rules={[{ required: true, message: '请输入手机号码!' }, { validator: validatePhone, }]}
+                        rules={[{ required: true, message: "" }, { validator: validatePhone, }]}
                     >
-                        <Input placeholder="请输入工号" />
+                        <Input placeholder="请输入手机号码" />
                     </Form.Item>
                 </Form>
             </Modal>
