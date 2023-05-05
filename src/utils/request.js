@@ -10,10 +10,7 @@ const Server = axios.create({
 
 
 const codeMessage = {
-    200: '服务器成功返回请求的数据。',
-    201: '新建或修改数据成功。',
     202: '一个请求已经进入后台排队（异步任务）。',
-    204: '删除数据成功。',
     400: '发出的请求有错误，服务器没有进行新建或修改数据的操作。',
     401: '用户没有权限（令牌、用户名、密码错误）。',
     403: '用户得到授权，但是访问是被禁止的。',
@@ -48,6 +45,17 @@ Server.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 Server.interceptors.response.use(function (response) {
+    if (response && response.data) {
+        if (response.data.code != 0 && response.data.code != 200) {
+            const errorText = codeMessage[response.data.code] || response.data.message;
+            const { config: { url }, data: { code } } = response;
+            notification.error({
+                message: `请求错误 ${code} :  ${url}`,
+                description: errorText,
+            });
+        }
+
+    }
     // 对响应数据做点什么
     return response;
 }, function (error) {

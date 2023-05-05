@@ -9,4 +9,5 @@ export const service = {
 	duplicateCheck: "sys/duplicate/check",///重复校验
 	getmenulist:"sys/permission/list",//系统管理-菜单列表
 	deletePermission:"/sys/permission/delete",//系统管理-删除菜单
+	addPermission:"/sys/permission/add",//系统管理-新增菜单
 }

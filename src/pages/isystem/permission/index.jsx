@@ -177,7 +177,7 @@ function RoleUserList() {
                     loading={loading}
                 />
 
-                <PermissionModule ref={PermissionModuleRef} />
+                <PermissionModule ref={PermissionModuleRef} getlist={getmenulist}/>
             </div>
         </>
     )
