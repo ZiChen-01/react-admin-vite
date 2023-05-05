@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
-import { Button, Drawer, Form, Input, TreeSelect, Alert, Radio, InputNumber, Switch,message } from 'antd';
+import { Button, Drawer, Form, Input, TreeSelect, Alert, Radio, InputNumber, Switch, message } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import request from "@/api"
 import "./index.less"
@@ -18,10 +18,11 @@ const PermissionModule = forwardRef((props, ref) => {
     const [keepAlive, setKeepAlive] = useState(false);
     const [alwaysShow, setAlwaysShown] = useState(false);
     const [internalOrExternal, setInternalOrExternal] = useState(false);
+    const [id, setId] = useState(null)
     const IconModuleRef = useRef(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
-        setOpen, setTitle, setTreeData
+        setOpen, setTitle, setTreeData, entiForm
     }))
 
     const onChange = (newValue) => {
@@ -36,15 +37,46 @@ const PermissionModule = forwardRef((props, ref) => {
         try {
             const values = await form.validateFields();
             let params = { ...values, menuType: radioValue, route, hidden, keepAlive, alwaysShow, internalOrExternal }
-            const res = await request.addPermission(params)
-            if (res.data.code == 200) {
-                message.success(res.data.message)
-                setOpen(false)
-                props.getlist()
+            if (title == '新增菜单') {
+                const res = await request.addPermission(params)
+                resSet(res)
+            } else if (title == '编辑菜单') {
+                const res = await request.editPermission({ ...params, id })
+                resSet(res)
+            }
+            function resSet(res) {
+                if (res.data.code == 200) {
+                    message.success(res.data.message)
+                    setOpen(false)
+                    form.resetFields()
+                    setRoute(true)
+                    setHidden(false)
+                    setKeepAlive(false)
+                    setAlwaysShown(false)
+                    setInternalOrExternal(false)
+                    props.getlist()
+                }
             }
         } catch (errorInfo) {
             //    错误
         }
+    }
+    //编辑
+    const entiForm = (data) => {
+        form.setFieldsValue({
+            name: data.name,
+            url: data.url,
+            component: data.component,
+            icon: data.icon,
+            sortNo: data.sortNo,
+        })
+        setId(data.id)
+        setRadioValue(data.menuType)
+        setRoute(data.route)
+        setHidden(data.hidden)
+        setKeepAlive(data.keepAlive)
+        setAlwaysShown(data.alwaysShow)
+        setInternalOrExternal(data.internalOrExternal)
     }
     return (
         <>
@@ -55,16 +87,14 @@ const PermissionModule = forwardRef((props, ref) => {
                     </Button>
                     <Button type="primary" onClick={submit}>
                         确认
-                    </Button></>
+                    </Button>
+                </>
             }>
-                <Alert
-                    banner
+                <Alert banner
                     closeText="取消"
-                    message={
-                        <Marquee pauseOnHover gradient={false}>
-                            新增以后请在前端工程pages目录下添加该组件，例如：pages/dashboard/Analysis/index.jsx。
-                        </Marquee>
-                    }
+                    message={<Marquee pauseOnHover gradient={false}>
+                        新增以后请在前端工程pages目录下添加该组件，例如：pages/dashboard/Analysis/index.jsx。
+                    </Marquee>}
                 />
                 <Form
                     name="basic"

@@ -15,8 +15,9 @@ const request = {
     getDeptTree: (params) => { return axios('post', service.getDeptTree, params) },  //获取机构
     duplicateCheck: (params) => { return axios('get', service.duplicateCheck, params) },  //重复校验
     getmenulist: (params) => { return axios('get', service.getmenulist, params) },  //系统管理-菜单列表
-    deletePermission: (params) => { return axios('get', service.deletePermission, params) },  //系统管理-删除菜单
+    deletePermission: (params) => { return axios('post', service.deletePermission + "?id=" + params.id, params) },  //系统管理-删除菜单
     addPermission: (params) => { return axios('post', service.addPermission, params) },  //系统管理-新增菜单
+    editPermission: (params) => { return axios('post', service.editPermission, params) },  //系统管理-编辑菜单
 
     //上传文件
     upLoadFileNew: (url, params) => {

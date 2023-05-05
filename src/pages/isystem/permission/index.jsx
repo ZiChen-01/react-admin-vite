@@ -1,4 +1,4 @@
-import { Space, Switch, Table, Menu, Popconfirm, Button, Col, Row, } from 'antd';
+import { Space, Switch, Table, Menu, Popconfirm, Button, Col, Row, message} from 'antd';
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { useState, useEffect, useRef } from 'react';
 import request from "@/api"
@@ -122,17 +122,19 @@ function RoleUserList() {
     const edit = (item) => {
         PermissionModuleRef.current.setOpen(true)
         PermissionModuleRef.current.setTitle("编辑菜单")
-    }
-    //删除
-    const deleteMenu = (item) => {
-        console.log(item);
+        PermissionModuleRef.current.entiForm(item)
     }
     //添加下级
     const addMenu = (item) => {
         console.log(item);
     }
-    const confirm = (record) => {
-        console.log(record);
+    //删除
+    const confirm = async (record) => {
+        const res = await request.deletePermission({id:record.id})
+        if (res.data.code == 200) {
+            message.success(res.data.message)
+            getmenulist()
+        }
     };
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -177,7 +179,7 @@ function RoleUserList() {
                     loading={loading}
                 />
 
-                <PermissionModule ref={PermissionModuleRef} getlist={getmenulist}/>
+                <PermissionModule ref={PermissionModuleRef} getlist={getmenulist} />
             </div>
         </>
     )
