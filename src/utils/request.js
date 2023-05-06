@@ -46,8 +46,8 @@ Server.interceptors.request.use(function (config) {
 // 添加响应拦截器
 Server.interceptors.response.use(function (response) {
     if (response && response.data) {
-        if (response.data.code != 0 && response.data.code != 200) {
-            const errorText = codeMessage[response.data.code] || response.data.message;
+        if (response.data.code != 0 && response.data.code != 200 && response.data.errCode != "000000") {
+            const errorText =  response.data.message || codeMessage[response.data.code];
             const { config: { url }, data: { code } } = response;
             notification.error({
                 message: `请求错误 ${code} :  ${url}`,

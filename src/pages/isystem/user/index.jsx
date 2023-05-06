@@ -10,14 +10,14 @@ import Addusers from "@/components/users/addusers";
 const { Option } = Select;
 
 function Users() {
-    const [username, setUsername] = useState('')
-    const [sex, setSex] = useState(undefined)
-    const [realname, setRealname] = useState('')
-    const [phone, setPhone] = useState('')
-    const [status, setStatus] = useState(undefined)
-    const [pageIndex, setPageIndex] = useState(1)
-    const [dataSource, setDataSource] = useState([])
-    const [loading, setLoading] = useState(false)
+    let [username, setUsername] = useState('')
+    let [sex, setSex] = useState(undefined)
+    let [realname, setRealname] = useState('')
+    let [phone, setPhone] = useState('')
+    let [status, setStatus] = useState(undefined)
+    let [pageIndex, setPageIndex] = useState(1)
+    let [dataSource, setDataSource] = useState([])
+    let [loading, setLoading] = useState(false)
     const childRef = useRef(null);
 
     const columns = [
@@ -94,7 +94,7 @@ function Users() {
                             items: [
                                 {
                                     label: (<a> 详情</a>),
-                                    key: '1', 
+                                    key: '1',
                                 },
                                 {
                                     label: (<a> 删除</a>),
@@ -152,10 +152,8 @@ function Users() {
         setPhone('')
         setStatus(undefined)
         setPageIndex(1)
-        username = ''
+        username = realname = phone = ''
         sex = undefined
-        realname = ''
-        phone = ''
         status = undefined
         pageIndex = 1
         getUserlist()

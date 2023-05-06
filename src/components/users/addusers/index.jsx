@@ -238,7 +238,7 @@ const Addusers = forwardRef((props, ref) => {
                     <Form.Item
                         label="邮箱"
                         name="email"
-                        rules={[{ required: false, message: '请输入邮箱!' }, { validator: validateEmail, }]}
+                        rules={[{ required: true, message: '请输入邮箱!' }, { validator: validateEmail, }]}
                     >
                         <Input placeholder="请输入邮箱" />
                     </Form.Item>
