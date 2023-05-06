@@ -19,10 +19,11 @@ const PermissionModule = forwardRef((props, ref) => {
     const [alwaysShow, setAlwaysShown] = useState(false);
     const [internalOrExternal, setInternalOrExternal] = useState(false);
     const [id, setId] = useState(null)
+    const [childenDisabled, setChildenDisabled] = useState(false)
     const IconModuleRef = useRef(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
-        setOpen, setTitle, setTreeData, entiForm, setRadioValue
+        setOpen, setTitle, setTreeData, entiForm, setRadioValue, childenForm
     }))
 
     const onChange = (newValue) => {
@@ -37,7 +38,7 @@ const PermissionModule = forwardRef((props, ref) => {
         try {
             const values = await form.validateFields();
             let params = { ...values, menuType: radioValue, route, hidden, keepAlive, alwaysShow, internalOrExternal, parentId: radioValue == 1 ? value : null }
-            if (title == '新增菜单') {
+            if (title == '新增菜单' || title == '添加下级菜单') {
                 const res = await request.addPermission(params)
                 resSet(res)
             } else if (title == '编辑菜单') {
@@ -48,6 +49,7 @@ const PermissionModule = forwardRef((props, ref) => {
             function resSet(res) {
                 if (res.data.code == 200) {
                     message.success(res.data.message)
+                    props.getlist()
                     setOpen(false)
                     form.resetFields()
                     setRoute(true)
@@ -55,7 +57,7 @@ const PermissionModule = forwardRef((props, ref) => {
                     setKeepAlive(false)
                     setAlwaysShown(false)
                     setInternalOrExternal(false)
-                    props.getlist()
+                    setChildenDisabled(false)
                 }
             }
         } catch (errorInfo) {
@@ -81,10 +83,17 @@ const PermissionModule = forwardRef((props, ref) => {
         setAlwaysShown(data.alwaysShow)
         setInternalOrExternal(data.internalOrExternal)
     }
+    const childenForm = (data) => {
+        form.setFieldsValue({
+            menuType: data.id
+        })
+        setValue(data.id)
+        setChildenDisabled(true)
+    }
     return (
         <>
             <Drawer title={title} placement="right" onClose={() => {
-                setOpen(false); form.resetFields(); setRoute(true); setHidden(false); setKeepAlive(false); setAlwaysShown(false); setInternalOrExternal(false)
+                setOpen(false); form.resetFields(); setRoute(true); setHidden(false); setKeepAlive(false); setAlwaysShown(false); setInternalOrExternal(false); setChildenDisabled(false)
             }} open={open} closable={false} width="35%" className='permissionModule' footer={
                 <>
                     <Button onClick={() => setOpen(false)} style={{ marginRight: "10px" }}>
@@ -110,7 +119,7 @@ const PermissionModule = forwardRef((props, ref) => {
                     autoComplete="off"
                 >
                     <Form.Item label="菜单类型" >
-                        <Radio.Group value={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
+                        <Radio.Group value={radioValue} onChange={(e) => setRadioValue(e.target.value)} disabled={childenDisabled}>
                             <Radio value="0"> 一级菜单 </Radio>
                             <Radio value="1"> 子菜单 </Radio>
                         </Radio.Group>
@@ -131,6 +140,7 @@ const PermissionModule = forwardRef((props, ref) => {
                                 treeDefaultExpandAll
                                 onChange={onChange}
                                 treeData={treeData}
+                                disabled={childenDisabled}
                             />
                         </Form.Item>
                         : ""}

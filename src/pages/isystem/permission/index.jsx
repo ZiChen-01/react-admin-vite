@@ -1,7 +1,8 @@
-import { Space, Switch, Table, Menu, Popconfirm, Button, Col, Row, message } from 'antd';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { Space, Switch, Table, Modal, Popconfirm, Button, Col, Row, message } from 'antd';
+import { DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import React, { useState, useEffect, useRef } from 'react';
 import request from "@/api"
+import { service } from '@/api/service';
 import "./index.less"
 import PermissionModule from "./permissionModule"
 
@@ -137,7 +138,20 @@ function RoleUserList() {
     }
     //添加下级
     const addMenu = (item) => {
-        console.log(item);
+        PermissionModuleRef.current.setOpen(true)
+        PermissionModuleRef.current.setRadioValue("1")
+        PermissionModuleRef.current.setTitle("添加下级菜单")
+        PermissionModuleRef.current.childenForm(item)
+        let list = data
+        setList(list)
+        function setList(e) {
+            e.forEach(item => {
+                item.value = item.key
+                if (item.children) setList(item.children)
+            })
+        }
+
+        PermissionModuleRef.current.setTreeData(list)
     }
     //删除
     const confirm = async (record) => {
@@ -150,8 +164,26 @@ function RoleUserList() {
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             setSelectedRowKeys(selectedRowKeys)
-            console.log(selectedRows);
         },
+    };
+    // 批量删除
+    const confirmModal = () => {
+        Modal.confirm({
+            title: '确认删除',
+            icon: <ExclamationCircleOutlined />,
+            content: '是否删除选中数据?',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: async () => {
+                let ids = selectedRowKeys.join(",")
+                const res = await request.deleteAllPermission( { ids })
+                if (res.data.code == 200) {
+                    message.success(res.data.message)
+                    getmenulist()
+                    setSelectedRowKeys([])
+                }
+            }
+        });
     };
     return (
         <>
@@ -159,7 +191,9 @@ function RoleUserList() {
                 <Row justify="space-between" className="buttonbox">
                     <Col>
                         <Button type="primary" icon={<PlusOutlined />} onClick={newUser}> 新增</Button>
-
+                        {
+                            selectedRowKeys.length != 0 ? <Button icon={<DeleteOutlined />} onClick={confirmModal} style={{ marginLeft: "10px" }}> 批量删除</Button> : ""
+                        }
                     </Col>
                     <Col>
                         <Space
@@ -183,7 +217,7 @@ function RoleUserList() {
                     rowSelection={{
                         selectedRowKeys,
                         ...rowSelection,
-                        checkStrictly,
+                        checkStrictly:!checkStrictly,
 
                     }}
                     dataSource={data}

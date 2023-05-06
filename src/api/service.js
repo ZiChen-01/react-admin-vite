@@ -11,4 +11,5 @@ export const service = {
 	deletePermission: "/sys/permission/delete",//系统管理-删除菜单
 	addPermission: "/sys/permission/add",//系统管理-新增菜单
 	editPermission: "/sys/permission/edit",//系统管理-编辑菜单
+	deleteAllPermission:"/sys/permission/deleteBatch",//批量删除菜单
 }
