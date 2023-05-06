@@ -1,6 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 import { Layout, Menu, Popconfirm } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined } from '@ant-design/icons';
+import Icon,{ MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 

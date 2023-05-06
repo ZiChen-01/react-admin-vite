@@ -34,8 +34,12 @@
 	border-bottom: 4px solid #fff;
 	padding-bottom: 5px;
 	width: 80% !important;
-	animation: haed 2s infinite;
+	// animation: haed 2s infinite;
 	position: relative;
+
+	h2 {
+		color: var(--main-color);
+	}
 }
 
 @keyframes haed {
@@ -109,7 +113,7 @@ h2 {
 	margin: -1.6%;
 	box-shadow: inset 0 0 0 2px;
 	animation: clipm 8s linear infinite;
-	color: var(--main-color)
+	color: var(--main-bg)
 }
 
 .login-content::before {
@@ -177,7 +181,7 @@ h2 {
 	left: 0;
 	right: 0;
 	height: 4px;
-	background-color: var(--main-color);
+	background-color: var(--main-bg);
 	transform-origin: bottom right;
 	transform: scaleX(0);
 	transition: transform 0.5s ease;

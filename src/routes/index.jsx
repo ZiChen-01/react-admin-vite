@@ -1,7 +1,6 @@
-import { UserOutlined, HomeOutlined } from '@ant-design/icons';
-
+import Icon, { UserOutlined, HomeOutlined } from '@ant-design/icons';
 // 使用路由懒加载
-import { lazy } from "react";
+import React, { lazy } from "react";
 import getMenu from "@/routes/routerConfig";
 let routes = [
     {
@@ -24,5 +23,16 @@ let routes = [
 if (localStorage.getItem('Autn-Token')) {
     // location.reload()
     routes = await getMenu()
+    function setIcon(res) {
+        for (let i = 0; i < res.length; i++) {
+            const element = res[i];
+            let IconItem = element.icon
+            // element.icon = < Icon component={IconItem} />
+            element.icon = <HomeOutlined />
+            if (element.children) setIcon(element.children)
+        }
+    }
+    setIcon(routes)
+
 }
 export default routes

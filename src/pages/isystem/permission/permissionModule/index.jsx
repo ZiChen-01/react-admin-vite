@@ -22,7 +22,7 @@ const PermissionModule = forwardRef((props, ref) => {
     const IconModuleRef = useRef(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
-        setOpen, setTitle, setTreeData, entiForm
+        setOpen, setTitle, setTreeData, entiForm, setRadioValue
     }))
 
     const onChange = (newValue) => {
@@ -36,12 +36,13 @@ const PermissionModule = forwardRef((props, ref) => {
     const submit = async () => {
         try {
             const values = await form.validateFields();
-            let params = { ...values, menuType: radioValue, route, hidden, keepAlive, alwaysShow, internalOrExternal }
+            let params = { ...values, menuType: radioValue, route, hidden, keepAlive, alwaysShow, internalOrExternal, parentId: radioValue == 1 ? value : null }
             if (title == '新增菜单') {
                 const res = await request.addPermission(params)
                 resSet(res)
             } else if (title == '编辑菜单') {
-                const res = await request.editPermission({ ...params, id })
+                params.id = id
+                const res = await request.editPermission(params)
                 resSet(res)
             }
             function resSet(res) {
@@ -69,9 +70,11 @@ const PermissionModule = forwardRef((props, ref) => {
             component: data.component,
             icon: data.icon,
             sortNo: data.sortNo,
+            menuType: data.menuType == 1 ? data.parentId : null
         })
         setId(data.id)
-        setRadioValue(data.menuType)
+        data.menuType == 1 ? setValue(data.parentId) : null
+        setRadioValue(String(data.menuType))
         setRoute(data.route)
         setHidden(data.hidden)
         setKeepAlive(data.keepAlive)
@@ -80,7 +83,9 @@ const PermissionModule = forwardRef((props, ref) => {
     }
     return (
         <>
-            <Drawer title={title} placement="right" onClose={() => setOpen(false)} open={open} closable={false} width="35%" className='permissionModule' footer={
+            <Drawer title={title} placement="right" onClose={() => {
+                setOpen(false); form.resetFields(); setRoute(true); setHidden(false); setKeepAlive(false); setAlwaysShown(false); setInternalOrExternal(false)
+            }} open={open} closable={false} width="35%" className='permissionModule' footer={
                 <>
                     <Button onClick={() => setOpen(false)} style={{ marginRight: "10px" }}>
                         取消

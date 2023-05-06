@@ -3,11 +3,11 @@ import { lazy } from "react";
 import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 const getMenu = () => {
     // if (localStorage.getItem('Autn-Token')) {
-        return request.getMenuBar({ _t: "1682558421" }).then((res) => {
-            if (res.data.code = 200) {
-                return setmenu(res.data.result.menu)
-            }
-        })
+    return request.getMenuBar({ _t: "1682558421" }).then((res) => {
+        if (res.data.code = 200) {
+            return setmenu(res.data.result.menu)
+        }
+    })
     // }
 }
 function setmenu(list) {
