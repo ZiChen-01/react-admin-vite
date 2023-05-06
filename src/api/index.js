@@ -12,6 +12,7 @@ const request = {
     getUserList: (params) => { return axios('get', service.UserList, params) }, //用户列表
     addUser: (params) => { return axios('post', service.userAdd, params) }, //添加用户
     userEdit: (params) => { return axios('post', service.userEdit, params) }, //编辑用户
+    changePassword: (params) => { return axios('post', service.changePassword, params) }, //修改密码
     userDelete: (params) => { return axios('post', service.userDelete + "?id=" + params.id, params) }, //删除用户
     getRoleList: (params) => { return axios('get', service.roleList, params) }, //角色列表
     getRoleId: (params) => { return axios('get', service.getRoleId, params) }, //角色id

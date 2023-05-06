@@ -5,7 +5,7 @@ import './index.less'
 import { useNavigate } from 'react-router-dom'
 import request from "@/api"
 import Addusers from "@/components/users/addusers";
-
+import ChangePassword from "@/components/users/changePassword/changePassword.jsx"
 
 const { Option } = Select;
 
@@ -19,6 +19,7 @@ function Users() {
     let [dataSource, setDataSource] = useState([])
     let [loading, setLoading] = useState(false)
     const childRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const columns = [
         {
@@ -64,8 +65,8 @@ function Users() {
         {
             title: '机构',
             align: "center",
-            key: "deptName",
-            dataIndex: 'deptName'
+            key: "orgCodeTxt",
+            dataIndex: 'orgCodeTxt'
         },
         {
             title: '状态',
@@ -152,7 +153,11 @@ function Users() {
 
                 break;
             case '3'://修改密码
-
+                passwordRef.current.setIsModalVisible(true)
+                passwordRef.current.form.setFieldsValue({
+                    username: record.username,
+                })
+                passwordRef.current.setUserId(record.id)
                 break;
             default:
                 break;
@@ -277,7 +282,10 @@ function Users() {
                 </Col>
             </Row>
             <Table rowKey={(row) => row.id} dataSource={dataSource} columns={columns} loading={loading} />;
+            {/* 添加  编辑 用户 */}
             <Addusers ref={childRef} getlist={getUserlist} />
+            {/* 修改密码 */}
+            <ChangePassword ref={passwordRef} />
         </>
     );
 }

@@ -6,6 +6,7 @@ export const service = {
 	userAdd: "sys/user/add",//添加用户
 	userEdit: "sys/user/edit",//编辑用户
 	userDelete: "/sys/user/delete",//删除用户
+	changePassword: "/sys/user/changePassword",//修改密码
 	roleList: "sys/role/queryall", //角色列表
 	getRoleId: "sys/user/queryUserRole",//角色id
 	getDeptTree: "sys/tmpDeptInfo/list",//获取机构

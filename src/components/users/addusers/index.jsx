@@ -28,13 +28,13 @@ const Addusers = forwardRef((props, ref) => {
         try {
             const values = await form.validateFields();
             if (isStatus == 1) {
-                const res = await request.addUser({ ...values, orgCodeTxt })
+                const res = await request.addUser(values)
                 if (res.data.code == 200) {
                     message.success(res.data.message)
                     setIsModalVisible(false)
                     props.getlist()
                 }
-            } else {
+            } else if (isStatus == 2){
                 const res = await request.userEdit({ ...values, id: userId })
                 if (res.data.code == 200) {
                     message.success(res.data.message)
@@ -79,7 +79,6 @@ const Addusers = forwardRef((props, ref) => {
     }
     //校验工号
     const validateWorkNo = async (rule, value) => {
-        console.log(value);
         if (!value) {
             callback();
         } else {
