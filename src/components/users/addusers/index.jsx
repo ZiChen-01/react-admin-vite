@@ -13,6 +13,7 @@ const Addusers = forwardRef((props, ref) => {
     const [queryalllist, setQueryalllist] = useState([]) //角色列表
     const [DeptTree, setGetDeptTree] = useState([]) //机构
     const [showEle, setShowEle] = useState(true);
+    const [userId, setUserId] = useState(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setIsModalVisible,
@@ -26,12 +27,23 @@ const Addusers = forwardRef((props, ref) => {
     const handleOk = async (values) => {
         try {
             const values = await form.validateFields();
-            const res = await request.addUser(values)
-            if (res.data.code == 200) {
-                message.success(res.data.message)
-                setIsModalVisible(false)
-                props.getlist()
+            if (isStatus == 1) {
+                const res = await request.addUser(values)
+                if (res.data.code == 200) {
+                    message.success(res.data.message)
+                    setIsModalVisible(false)
+                    props.getlist()
+                }
+            } else {
+                const res = await request.userEdit({...values,id:userId})
+                if (res.data.code == 200) {
+                    message.success(res.data.message)
+                    setIsModalVisible(false)
+                    props.getlist()
+                }
             }
+
+
         } catch (errorInfo) {
             //    错误
         }
@@ -58,7 +70,7 @@ const Addusers = forwardRef((props, ref) => {
             tableName: 'sys_user',
             fieldName: 'username',
             fieldVal: value,
-            dataId: userInfo.id
+            dataId: userId
         };
         const res = await request.duplicateCheck(params)
         if (res.data.code == 500) {
@@ -67,16 +79,22 @@ const Addusers = forwardRef((props, ref) => {
     }
     //校验工号
     const validateWorkNo = async (rule, value) => {
-        const params = {
-            tableName: 'sys_user',
-            fieldName: 'work_no',
-            fieldVal: value,
-            dataId: userInfo.id
-        };
-        const res = await request.duplicateCheck(params)
-        if (res.data.code == 500) {
-            throw new Error("工号已存在!")
+        console.log(value);
+        if (!value) {
+            callback();
+        } else {
+            const params = {
+                tableName: 'sys_user',
+                fieldName: 'work_no',
+                fieldVal: value,
+                dataId: userId
+            };
+            const res = await request.duplicateCheck(params)
+            if (res.data.code == 500) {
+                throw new Error("工号已存在!")
+            }
         }
+
     }
     //校验手机号
     const validatePhone = async (rule, value) => {
@@ -85,7 +103,7 @@ const Addusers = forwardRef((props, ref) => {
                 tableName: 'sys_user',
                 fieldName: 'phone',
                 fieldVal: value,
-                dataId: userInfo.id
+                dataId: userId
             };
             const res = await request.duplicateCheck(params)
             if (res.data.code == 500) {
@@ -104,7 +122,7 @@ const Addusers = forwardRef((props, ref) => {
                 tableName: 'sys_user',
                 fieldName: 'email',
                 fieldVal: value,
-                dataId: userInfo.id
+                dataId: userId
             };
             const res = await request.duplicateCheck(params)
             if (res.data.code == 500) {
@@ -117,17 +135,19 @@ const Addusers = forwardRef((props, ref) => {
     }
     //编辑
     const entiForm = (data) => {
+        console.log(data);
         form.setFieldsValue({
             username: data.username,
             realname: data.realname,
             workNo: data.workNo,
             selectedroles: data.selectedroles,
             orgCodeTxt: data.orgCodeTxt,
-            birthday: moment(data.birthday),
-            sex: String(data.sex),
+            birthday: data.birthday ? moment(data.birthday) : null,
+            sex: data.sex ? String(data.sex) : null,
             email: data.email,
             phone: data.phone,
         })
+        setUserId(data.id)
     }
     return (
         <>
@@ -163,7 +183,7 @@ const Addusers = forwardRef((props, ref) => {
                                 rules={[
                                     { required: true, message: '请确认密码!' },
                                     ({ getFieldValue }) => ({
-                                        validator(_,value) {
+                                        validator(_, value) {
                                             if (!value || getFieldValue('password') === value) {
                                                 return Promise.resolve();
                                             } else {
