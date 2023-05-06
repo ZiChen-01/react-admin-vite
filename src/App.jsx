@@ -23,8 +23,6 @@ function App() {
         <Route path="/*" element={<AutnToken><Commonview /></AutnToken>}></Route>
         {/*配置404页面*/}
         <Route path="/error404" element={<Error />}></Route>
-
-
       </Routes>
     </BrowserRouter>
   )

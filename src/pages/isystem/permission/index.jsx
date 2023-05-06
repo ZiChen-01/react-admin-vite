@@ -10,9 +10,33 @@ function RoleUserList() {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
     const [checkStrictly, setCheckStrictly] = useState(false);
-    const [pageIndex, setPageIndex] = useState(1)
     const [selectedRowKeys, setSelectedRowKeys] = useState([])
     const PermissionModuleRef = useRef(null);
+
+    // 分页
+    let [total, setTotal] = useState(0)
+    const [pageIndex, setPageIndex] = useState(1)
+    let [pageSize, setPageSize] = useState(10)
+    let pagination = {
+        current: pageIndex,
+        pageSize,
+        pageSizeOptions: ['10', '30', '30', "50", "100"],
+        showTotal: (total, range) => {
+            return range[0] + "-" + range[1] + " 共" + total + "条"
+        },
+        showQuickJumper: false,
+        showSizeChanger: true,
+        total,//数据的总条数
+        onChange: (pageIndex) => {
+            setPageIndex(pageIndex);
+            getmenulist()
+        },
+        onShowSizeChange: (current, pageSize) => {
+            setPageSize(pageSize);
+            setPageIndex(1);
+            getmenulist()
+        },
+    }
     const columns = [
         {
             title: '菜单名称',
@@ -96,10 +120,10 @@ function RoleUserList() {
     // 获取列表
     const getmenulist = async () => {
         setLoading(true)
-        const res = await request.getmenulist({})
-        console.log(res);
+        const res = await request.getmenulist({ pageIndex, pageSize })
         if (res.data.code == 0) {
             setData(res.data.result)
+            setTotal(res.data.result.total)
         }
 
         setLoading(false)
@@ -176,7 +200,7 @@ function RoleUserList() {
             cancelText: '取消',
             onOk: async () => {
                 let ids = selectedRowKeys.join(",")
-                const res = await request.deleteAllPermission( { ids })
+                const res = await request.deleteAllPermission({ ids })
                 if (res.data.code == 200) {
                     message.success(res.data.message)
                     getmenulist()
@@ -217,11 +241,12 @@ function RoleUserList() {
                     rowSelection={{
                         selectedRowKeys,
                         ...rowSelection,
-                        checkStrictly:!checkStrictly,
+                        checkStrictly: !checkStrictly,
 
                     }}
                     dataSource={data}
                     loading={loading}
+                    pagination={pagination}
                 />
 
                 <PermissionModule ref={PermissionModuleRef} getlist={getmenulist} />

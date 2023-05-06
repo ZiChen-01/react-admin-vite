@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Form, Input, Col, Row, Select, Table, message, Dropdown, Popconfirm, Space, Upload } from 'antd';
+import { Button, Form, Input, Col, Row, Select, Table, message, Dropdown, Popconfirm, Space } from 'antd';
 import { SearchOutlined, ReloadOutlined, PlusOutlined, DownOutlined, UploadOutlined } from '@ant-design/icons';
 import './index.less'
 import { useNavigate } from 'react-router-dom'
@@ -15,12 +15,35 @@ function Users() {
     let [realname, setRealname] = useState('')
     let [phone, setPhone] = useState('')
     let [status, setStatus] = useState(undefined)
-    let [pageIndex, setPageIndex] = useState(1)
     let [dataSource, setDataSource] = useState([])
     let [loading, setLoading] = useState(false)
     const childRef = useRef(null);
     const passwordRef = useRef(null);
 
+    let [total, setTotal] = useState(0)
+    let [pageIndex, setPageIndex] = useState(1)
+    let [pageSize, setPageSize] = useState(10)
+    // 分页
+    let pagination = {
+        current: pageIndex,
+        pageSize,
+        pageSizeOptions: ['10', '30', '30', "50", "100"],
+        showTotal: (total, range) => {
+            return range[0] + "-" + range[1] + " 共" + total + "条"
+        },
+        showQuickJumper: false,
+        showSizeChanger: true,
+        total,//数据的总条数
+        onChange: (pageIndex) => {
+            setPageIndex(pageIndex);
+            getUserlist()
+        },
+        onShowSizeChange: (current, pageSize) => {
+            setPageSize(pageSize);
+            setPageIndex(1);
+            getUserlist()
+        },
+    }
     const columns = [
         {
             title: '用户账号',
@@ -207,14 +230,14 @@ function Users() {
             realname,
             phone,
             status,
-            pageIndex,
-            pageSize: 10
+            pageNo: pageIndex,
+            pageSize
         }
         const res = await request.getUserList(params)
         if (res.data.code == 0) {
             setDataSource(res.data.result.records)
+            setTotal(res.data.result.total)
         }
-
         setLoading(false)
     }
     //上传文件
@@ -281,7 +304,10 @@ function Users() {
                     </Button>
                 </Col>
             </Row>
-            <Table rowKey={(row) => row.id} dataSource={dataSource} columns={columns} loading={loading} />;
+
+            <Table rowKey={(row) => row.id} dataSource={dataSource} columns={columns} loading={loading}
+                pagination={pagination} />;
+
             {/* 添加  编辑 用户 */}
             <Addusers ref={childRef} getlist={getUserlist} />
             {/* 修改密码 */}
