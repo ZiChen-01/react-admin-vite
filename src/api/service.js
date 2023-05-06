@@ -17,4 +17,7 @@ export const service = {
 	addPermission: "/sys/permission/add",//系统管理-新增菜单
 	editPermission: "/sys/permission/edit",//系统管理-编辑菜单
 	deleteAllPermission: "/sys/permission/deleteBatch",//批量删除菜单
+
+	// 机构管理
+	getDeptTree: "/sys/tmpDeptInfo/getDeptTree",//查询机构
 }

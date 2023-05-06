@@ -8,7 +8,7 @@ import { service } from '@/api/service';
 const request = {
     getLogin: (params) => { return axios('post', service.login, params) }, //登录
     getMenuBar: (params) => { return axios('get', service.getMenuBar, params) }, //菜单路由
-
+    // 用户
     getUserList: (params) => { return axios('get', service.UserList, params) }, //用户列表
     addUser: (params) => { return axios('post', service.userAdd, params) }, //添加用户
     userEdit: (params) => { return axios('post', service.userEdit, params) }, //编辑用户
@@ -18,12 +18,15 @@ const request = {
     getRoleId: (params) => { return axios('get', service.getRoleId, params) }, //角色id
     getDeptTree: (params) => { return axios('post', service.getDeptTree, params) },  //获取机构
     duplicateCheck: (params) => { return axios('get', service.duplicateCheck, params) },  //重复校验
-
-    getmenulist: (params) => { return axios('get', service.getmenulist, params) },  //系统管理-菜单列表
-    deletePermission: (params) => { return axios('post', service.deletePermission + "?id=" + params.id, params) },  //系统管理-删除菜单
+    // 菜单
+    getmenulist: (params) => { return axios('get', service.getmenulist, params) },  //菜单列表
+    deletePermission: (params) => { return axios('post', service.deletePermission + "?id=" + params.id, params) },  //删除菜单
     deleteAllPermission: (params) => { return axios('post', service.deleteAllPermission + "?ids=" + params.ids, params) },//批量删除菜单
-    addPermission: (params) => { return axios('post', service.addPermission, params) },  //系统管理-新增菜单
-    editPermission: (params) => { return axios('post', service.editPermission, params) },  //系统管理-编辑菜单
+    addPermission: (params) => { return axios('post', service.addPermission, params) },  //新增菜单
+    editPermission: (params) => { return axios('post', service.editPermission, params) },  //编辑菜单
+
+    // 机构
+    getDeptTree: (params) => { return axios('post', service.getDeptTree, params) },  //查询机构
 
     //上传文件
     upLoadFileNew: (url, params) => {

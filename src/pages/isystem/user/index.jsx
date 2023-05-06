@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button, Form, Input, Col, Row, Select, Table, message, Dropdown, Popconfirm, Space } from 'antd';
-import { SearchOutlined, ReloadOutlined, PlusOutlined, DownOutlined, UploadOutlined } from '@ant-design/icons';
+import { SearchOutlined, ReloadOutlined, PlusOutlined, } from '@ant-design/icons';
 import './index.less'
 import { useNavigate } from 'react-router-dom'
 import request from "@/api"
@@ -20,10 +20,10 @@ function Users() {
     const childRef = useRef(null);
     const passwordRef = useRef(null);
 
+    // 分页
     let [total, setTotal] = useState(0)
     let [pageIndex, setPageIndex] = useState(1)
     let [pageSize, setPageSize] = useState(10)
-    // 分页
     let pagination = {
         current: pageIndex,
         pageSize,
