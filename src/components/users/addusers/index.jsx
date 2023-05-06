@@ -7,7 +7,7 @@ const { Option } = Select;
 
 const Addusers = forwardRef((props, ref) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [isStatus, setIsStatus] = useState(1);//1 添加  2编辑
+    const [isStatus, setIsStatus] = useState(1);//1 添加  2编辑 3详情
     const [form] = Form.useForm();
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '0')
     const [queryalllist, setQueryalllist] = useState([]) //角色列表
@@ -28,14 +28,14 @@ const Addusers = forwardRef((props, ref) => {
         try {
             const values = await form.validateFields();
             if (isStatus == 1) {
-                const res = await request.addUser(values)
+                const res = await request.addUser({ ...values, orgCodeTxt })
                 if (res.data.code == 200) {
                     message.success(res.data.message)
                     setIsModalVisible(false)
                     props.getlist()
                 }
             } else {
-                const res = await request.userEdit({...values,id:userId})
+                const res = await request.userEdit({ ...values, id: userId })
                 if (res.data.code == 200) {
                     message.success(res.data.message)
                     setIsModalVisible(false)
@@ -134,24 +134,32 @@ const Addusers = forwardRef((props, ref) => {
 
     }
     //编辑
-    const entiForm = (data) => {
-        console.log(data);
+    const entiForm = async (data) => {
+        // 查询角色
+        const res = await request.getRoleId({ userid: data.id })
+        let selectedroles = null;
+        if (res.data.code == 0) {
+            selectedroles = res.data.result[0]
+        }
         form.setFieldsValue({
             username: data.username,
             realname: data.realname,
             workNo: data.workNo,
-            selectedroles: data.selectedroles,
-            orgCodeTxt: data.orgCodeTxt,
+            selectedroles,
+            orgCode: data.orgCode,
             birthday: data.birthday ? moment(data.birthday) : null,
             sex: data.sex ? String(data.sex) : null,
             email: data.email,
             phone: data.phone,
         })
         setUserId(data.id)
+
     }
+
     return (
         <>
-            <Modal title={isStatus == 1 ? "添加用户" : "编辑用户"} open={isModalVisible} okText='提交' cancelText='取消' onOk={handleOk} onCancel={() => { setIsModalVisible(false); form.resetFields() }} width='80%'>
+            <Modal title={isStatus == 1 ? "添加用户" : isStatus == 2 ? "编辑用户" : "详情"} open={isModalVisible} okText='提交' cancelText='取消' onOk={handleOk} onCancel={() => { setIsModalVisible(false); form.resetFields() }} width='80%'
+                okButtonProps={{ disabled: isStatus == 3 ? true : false }} >
                 <Form
                     name="basic"
                     form={form}
@@ -164,7 +172,7 @@ const Addusers = forwardRef((props, ref) => {
                         name="username"
                         rules={[{ required: true, message: '请输入用户账号!' }, { validator: validateUsername, }]}
                     >
-                        <Input placeholder="请输入用户账号" />
+                        <Input placeholder="请输入用户账号" disabled={isStatus == 3} />
                     </Form.Item>
 
                     {showEle ? (
@@ -202,20 +210,20 @@ const Addusers = forwardRef((props, ref) => {
                         name="realname"
                         rules={[{ required: true, message: '请输入用户姓名!' }]}
                     >
-                        <Input placeholder="请输入用户姓名" />
+                        <Input placeholder="请输入用户姓名" disabled={isStatus == 3} />
                     </Form.Item>
                     <Form.Item
                         label="工号"
                         name="workNo"
                         rules={[{ required: true, message: '请输入工号!' }, { validator: validateWorkNo, }]}
                     >
-                        <Input placeholder="请输入工号" />
+                        <Input placeholder="请输入工号" disabled={isStatus == 3} />
                     </Form.Item>
                     <Form.Item
                         label="角色分配"
                         name="selectedroles"
                     >
-                        <Select placeholder='请选择角色' getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}
+                        <Select placeholder='请选择角色' disabled={isStatus == 3} getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}
                         >
                             {
                                 queryalllist.map((item, index) => {
@@ -228,8 +236,8 @@ const Addusers = forwardRef((props, ref) => {
                     </Form.Item>
                     <Form.Item
                         label="机构分配"
-                        name="orgCodeTxt"
-                    ><Select placeholder='请选择机构' getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}
+                        name="orgCode"
+                    ><Select placeholder='请选择机构' disabled={isStatus == 3} getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}
                     >
                             {
                                 DeptTree.map((item, index) => {
@@ -244,13 +252,13 @@ const Addusers = forwardRef((props, ref) => {
                         label="生日"
                         name="birthday"
                     >
-                        <DatePicker getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)} placeholder="请选择生日" style={{ width: '100%' }} />
+                        <DatePicker disabled={isStatus == 3} getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)} placeholder="请选择生日" style={{ width: '100%' }} />
                     </Form.Item>
                     <Form.Item
                         label="性别"
                         name="sex"
                     >
-                        <Select placeholder='请选择性别！' getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}>
+                        <Select placeholder='请选择性别！' disabled={isStatus == 3} getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}>
                             <Option value="1">男</Option>
                             <Option value="2">女</Option>
                         </Select>
@@ -260,14 +268,14 @@ const Addusers = forwardRef((props, ref) => {
                         name="email"
                         rules={[{ required: true, message: '请输入邮箱!' }, { validator: validateEmail, }]}
                     >
-                        <Input placeholder="请输入邮箱" />
+                        <Input placeholder="请输入邮箱" disabled={isStatus == 3} />
                     </Form.Item>
                     <Form.Item
                         label="手机号码"
                         name="phone"
                         rules={[{ required: true, message: "" }, { validator: validatePhone, }]}
                     >
-                        <Input placeholder="请输入手机号码" />
+                        <Input placeholder="请输入手机号码" disabled={isStatus == 3} />
                     </Form.Item>
                 </Form>
             </Modal>

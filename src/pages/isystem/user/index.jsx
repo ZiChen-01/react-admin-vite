@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Form, Input, Col, Row, Select, Table, Modal, Dropdown, Menu, Space, Upload } from 'antd';
+import { Button, Form, Input, Col, Row, Select, Table, message, Dropdown, Popconfirm, Space, Upload } from 'antd';
 import { SearchOutlined, ReloadOutlined, PlusOutlined, DownOutlined, UploadOutlined } from '@ant-design/icons';
 import './index.less'
 import { useNavigate } from 'react-router-dom'
@@ -97,7 +97,16 @@ function Users() {
                                     key: '1',
                                 },
                                 {
-                                    label: (<a> 删除</a>),
+                                    label: (
+                                        <Popconfirm
+                                            title="确定要删除此用户?"
+                                            onConfirm={() => deleteUser(record)}
+                                            okText="确定"
+                                            cancelText="取消"
+                                        >
+                                            <a> 删除</a>
+                                        </Popconfirm>
+                                    ),
                                     key: '2',
                                 },
                                 {
@@ -119,9 +128,35 @@ function Users() {
         }
 
     ];
+    // 删除用户
+    const deleteUser = (record) => {
+        request.userDelete({ id: record.id }).then(res => {
+            if (res.data.code == 200) {
+                message.success(res.data.message)
+                getUserlist()
+            }
+        })
+    }
     // 更多
     const onMenu = ({ key }, record) => {
-        console.log(key, record);
+        switch (key) {
+            case '1'://详情
+                childRef.current.setIsModalVisible(true)
+                childRef.current.entiForm(record)
+                childRef.current.queryUserRole()
+                childRef.current.getDeptTree()
+                childRef.current.setShowEle(false)
+                childRef.current.setIsStatus(3)
+                break;
+            case '2'://删除
+
+                break;
+            case '3'://修改密码
+
+                break;
+            default:
+                break;
+        }
     }
     // 编辑
     const enti = (e) => {
