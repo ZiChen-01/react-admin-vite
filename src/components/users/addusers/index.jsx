@@ -1,4 +1,4 @@
-import { Modal, Form, Input, message, Select, DatePicker } from "antd"
+import { Drawer, Form, Input, message, Select, DatePicker, Button } from "antd"
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import request from "@/api";
 import moment from 'moment'
@@ -34,7 +34,7 @@ const Addusers = forwardRef((props, ref) => {
                     setIsModalVisible(false)
                     props.getlist()
                 }
-            } else if (isStatus == 2){
+            } else if (isStatus == 2) {
                 const res = await request.userEdit({ ...values, id: userId })
                 if (res.data.code == 200) {
                     message.success(res.data.message)
@@ -58,7 +58,7 @@ const Addusers = forwardRef((props, ref) => {
     }
     //获取机构
     const getDeptTree = async () => {
-        const res = await request.getDeptTree({})
+        const res = await request.getDeptTreeList({})
         if (res.data.errCode == 0) {
             let bizContent = JSON.parse(res.data.bizContent)
             setGetDeptTree(bizContent.tmpDeptInfos)
@@ -157,12 +157,21 @@ const Addusers = forwardRef((props, ref) => {
 
     return (
         <>
-            <Modal title={isStatus == 1 ? "添加用户" : isStatus == 2 ? "编辑用户" : "详情"} open={isModalVisible} okText='提交' cancelText='取消' onOk={handleOk} onCancel={() => { setIsModalVisible(false); form.resetFields() }} width='80%'
-                okButtonProps={{ disabled: isStatus == 3 ? true : false }} >
+            <Drawer title={isStatus == 1 ? "添加用户" : isStatus == 2 ? "编辑用户" : "详情"} open={isModalVisible} onOk={handleOk} closable={false} onClose={() => { setIsModalVisible(false); form.resetFields() }} width='40%'
+                footer={
+                    <>
+                        <Button onClick={() => { setIsModalVisible(false); form.resetFields() }} style={{ marginRight: "10px" }}>
+                            取消
+                        </Button>
+                        {isStatus != 3 ? <Button type="primary" onClick={handleOk}>
+                            提交
+                        </Button> : ""}
+                    </>
+                }>
                 <Form
                     name="basic"
                     form={form}
-                    labelCol={{ span: 3 }}
+                    labelCol={{ span: 5 }}
                     wrapperCol={{ span: 20 }}
                     initialValues={{ remember: true }}
                 >
@@ -265,7 +274,7 @@ const Addusers = forwardRef((props, ref) => {
                     <Form.Item
                         label="邮箱"
                         name="email"
-                        rules={[{ required: true, message: '请输入邮箱!' }, { validator: validateEmail, }]}
+                        rules={[{ required: true, message: '' }, { validator: validateEmail, }]}
                     >
                         <Input placeholder="请输入邮箱" disabled={isStatus == 3} />
                     </Form.Item>
@@ -277,7 +286,7 @@ const Addusers = forwardRef((props, ref) => {
                         <Input placeholder="请输入手机号码" disabled={isStatus == 3} />
                     </Form.Item>
                 </Form>
-            </Modal>
+            </Drawer>
         </>
     )
 })

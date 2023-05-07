@@ -9,7 +9,7 @@ export const service = {
 	changePassword: "/sys/user/changePassword",//修改密码
 	roleList: "sys/role/queryall", //角色列表
 	getRoleId: "sys/user/queryUserRole",//角色id
-	getDeptTree: "sys/tmpDeptInfo/list",//获取机构
+	getDeptTreeList: "sys/tmpDeptInfo/list",//获取机构
 	duplicateCheck: "sys/duplicate/check",///重复校验
 	// 菜单管理
 	getmenulist: "sys/permission/list",//系统管理-菜单列表

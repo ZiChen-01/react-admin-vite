@@ -16,7 +16,7 @@ const request = {
     userDelete: (params) => { return axios('post', service.userDelete + "?id=" + params.id, params) }, //删除用户
     getRoleList: (params) => { return axios('get', service.roleList, params) }, //角色列表
     getRoleId: (params) => { return axios('get', service.getRoleId, params) }, //角色id
-    getDeptTree: (params) => { return axios('post', service.getDeptTree, params) },  //获取机构
+    getDeptTreeList: (params) => { return axios('post', service.getDeptTreeList, params) },  //获取机构
     duplicateCheck: (params) => { return axios('get', service.duplicateCheck, params) },  //重复校验
     // 菜单
     getmenulist: (params) => { return axios('get', service.getmenulist, params) },  //菜单列表

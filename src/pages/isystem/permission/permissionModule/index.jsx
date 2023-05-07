@@ -94,7 +94,7 @@ const PermissionModule = forwardRef((props, ref) => {
         <>
             <Drawer title={title} placement="right" onClose={() => {
                 setOpen(false); form.resetFields(); setRoute(true); setHidden(false); setKeepAlive(false); setAlwaysShown(false); setInternalOrExternal(false); setChildenDisabled(false)
-            }} open={open} closable={false} width="35%" className='permissionModule' footer={
+            }} open={open} closable={false} width="40%" className='permissionModule' footer={
                 <>
                     <Button onClick={() => setOpen(false)} style={{ marginRight: "10px" }}>
                         取消
@@ -105,7 +105,7 @@ const PermissionModule = forwardRef((props, ref) => {
                 </>
             }>
                 <Alert banner
-                    closeText="取消"
+                    closeText="✖"
                     message={<Marquee pauseOnHover gradient={false}>
                         新增以后请在前端工程pages目录下添加该组件，例如：pages/dashboard/Analysis/index.jsx。
                     </Marquee>}
@@ -113,8 +113,8 @@ const PermissionModule = forwardRef((props, ref) => {
                 <Form
                     name="basic"
                     form={form}
-                    labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 18 }}
+                    labelCol={{ span: 5 }}
+                    wrapperCol={{ span: 20 }}
                     initialValues={{ remember: true }}
                     autoComplete="off"
                 >

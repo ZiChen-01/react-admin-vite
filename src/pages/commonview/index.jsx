@@ -27,7 +27,7 @@ const Commonview = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [title, setTitle] = useState(true);
     let [routeList, setRouteList] = useState([])
-
+    routeList.push(routes[0])
 
     // 点击菜单
     const onClick = (e) => {

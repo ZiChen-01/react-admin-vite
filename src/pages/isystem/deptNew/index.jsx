@@ -14,7 +14,7 @@ function DeptNew() {
     let pagination = {
         current: pageIndex,
         pageSize,
-        pageSizeOptions: ['10', '30', '30', "50", "100"],
+        pageSizeOptions: ['10', '20', '30', "50", "100"],
         showTotal: (total, range) => {
             return range[0] + "-" + range[1] + " 共" + total + "条"
         },
@@ -35,6 +35,7 @@ function DeptNew() {
         {
             title: "机构名称",
             width: 400,
+            align: "center",
             dataIndex: "title",
         },
         {
@@ -44,6 +45,7 @@ function DeptNew() {
         },
         {
             title: '操作',
+            align: "center",
             dataIndex: 'action',
             render: (text, record, index) => {
                 return (

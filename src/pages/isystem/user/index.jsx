@@ -27,7 +27,7 @@ function Users() {
     let pagination = {
         current: pageIndex,
         pageSize,
-        pageSizeOptions: ['10', '30', '30', "50", "100"],
+        pageSizeOptions: ['10', '20', '30', "50", "100"],
         showTotal: (total, range) => {
             return range[0] + "-" + range[1] + " 共" + total + "条"
         },
@@ -110,6 +110,7 @@ function Users() {
         {
             title: '操作',
             dataIndex: 'action',
+            align: "center",
             render: (text, record, index) => {
                 return (
                     <>

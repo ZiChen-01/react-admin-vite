@@ -20,7 +20,7 @@ function RoleUserList() {
     let pagination = {
         current: pageIndex,
         pageSize,
-        pageSizeOptions: ['10', '30', '30', "50", "100"],
+        pageSizeOptions: ['10', '20', '30', "50", "100"],
         showTotal: (total, range) => {
             return range[0] + "-" + range[1] + " 共" + total + "条"
         },
@@ -41,12 +41,14 @@ function RoleUserList() {
         {
             title: '菜单名称',
             dataIndex: 'name',
+            align: "center",
             key: 'name',
             width: 260,
         },
         {
             title: '菜单类型',
             dataIndex: 'menuType',
+            align: "center",
             key: 'menuType',
             render: function (text) {
                 if (text == 0) {
@@ -63,28 +65,33 @@ function RoleUserList() {
         /*{
           title: '权限编码',
           dataIndex: 'perms',
+            align: "center",
           key: 'permissionCode',
         },*/
         {
             title: 'icon',
             dataIndex: 'icon',
+            align: "center",
             key: 'icon'
         },
         {
             title: '组件',
             dataIndex: 'component',
+            align: "center",
             key: 'component',
             scopedSlots: { customRender: 'component' }
         },
         {
             title: '路径',
             dataIndex: 'url',
+            align: "center",
             key: 'url',
             scopedSlots: { customRender: 'url' }
         },
         {
             title: '排序',
             dataIndex: 'sortNo',
+            align: "center",
             key: 'sortNo'
         },
         {

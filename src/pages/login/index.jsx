@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy } from 'react';
 import './index.less'
-import { Form, Input, Button, message,Checkbox  } from 'antd';
+import { Form, Input, Button, message, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import request from '@/api'
 import { useNavigate } from 'react-router-dom'
 import { passwordEncryption } from "@/utils/passwordEncryption";
 import logo from "@/assets/images/logo.png"
 import Three from "@/components/Three"
+import loginBg from "@/assets/images/login-bg.jpg"
 const Login = () => {
   const navigate = useNavigate()
   // 登录按钮loading
-  const [loading, setLoading] = useState(false)  
+  const [loading, setLoading] = useState(false)
   const title = window._CONFIG.ROOT_APP_NAME
   const [submitLoginName, setSubmitLoginName] = useState('登录')
   // 确认登录
@@ -23,7 +24,7 @@ const Login = () => {
     const res = await request.getLogin(userInfo) //登录接口
     setLoading(false)
     if (res?.data?.code == 200) {
-    //  存储用户信息 角色信息
+      //  存储用户信息 角色信息
       localStorage.setItem('Autn-Token', res.data.result.token)
       localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
       localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
@@ -36,7 +37,7 @@ const Login = () => {
     const token = localStorage.getItem('Autn-Token')
     if (token) navigate('/dashboard/analysis')
   });
-  
+
   // 记住密码
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
@@ -44,7 +45,7 @@ const Login = () => {
 
 
   return (
-    <div className="login">
+    <div className="login" style={{ backgroundImage: `url(${loginBg})` }}>
       <Three />
 
       <section className="login-content">
@@ -88,9 +89,9 @@ const Login = () => {
 
               />
             </Form.Item>
-			 
-			 <Checkbox onChange={onChange}>记住密码</Checkbox>
-			  
+
+            <Checkbox onChange={onChange}>记住密码</Checkbox>
+
             <Form.Item>
               <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
                 {submitLoginName}
