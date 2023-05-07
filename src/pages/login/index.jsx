@@ -5,6 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import request from '@/api'
 import { useNavigate } from 'react-router-dom'
 import { passwordEncryption } from "@/utils/passwordEncryption";
+import { encrypt, decrypt } from "@/utils/aes";
 import logo from "@/assets/images/logo.png"
 import Three from "@/components/Three"
 import loginBg from "@/assets/images/login-bg.jpg"
@@ -14,6 +15,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const title = window._CONFIG.ROOT_APP_NAME
   const [submitLoginName, setSubmitLoginName] = useState('登录')
+  const [form] = Form.useForm();
+  const [checked, setChecked] = useState(false);
   // 确认登录
 
   const onFinish = async (userInfo) => {
@@ -21,26 +24,46 @@ const Login = () => {
     setSubmitLoginName('正在登录...')
     // 真实登录
     userInfo.password = passwordEncryption(userInfo.password) //密码加密
-    const res = await request.getLogin(userInfo) //登录接口
-    setLoading(false)
-    if (res?.data?.code == 200) {
-      //  存储用户信息 角色信息
-      localStorage.setItem('Autn-Token', res.data.result.token)
-      localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
-      localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
-      setTimeout(() => {
-        navigate('/dashboard/analysis')
-      }, 1000);
-    }
+    request.getLogin(userInfo).then(res => {
+      setLoading(false)
+      setSubmitLoginName('登录')
+      if (res?.data?.code == 200) {
+        //  存储用户信息 角色信息
+        localStorage.setItem('Autn-Token', res.data.result.token)
+        localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
+        localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
+        setTimeout(() => {
+          navigate('/dashboard/analysis')
+        }, 1000);
+      }
+    })
+
   };
   useEffect(() => {
     const token = localStorage.getItem('Autn-Token')
     if (token) navigate('/dashboard/analysis')
+    const loginChecked = localStorage.getItem('loginChecked')
+    if (loginChecked) {
+      let { checked, password, username } = JSON.parse(decrypt(loginChecked))
+      setChecked(checked)
+      form.setFieldsValue({
+        username, password
+      })
+    }
   });
 
   // 记住密码
-  const onChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
+  const onChange = async (e) => {
+    const loginChecked = localStorage.getItem('loginChecked')
+    if (loginChecked) {
+      setChecked(false)
+      localStorage.removeItem("loginChecked")
+    } else {
+      const values = await form.validateFields();
+      values.checked = e.target.checked
+      setChecked(e.target.checked)
+      localStorage.setItem('loginChecked', encrypt(JSON.stringify(values)))
+    }
   };
 
 
@@ -59,6 +82,7 @@ const Login = () => {
           <Form
             name="normal_login"
             className="login-form"
+            form={form}
             initialValues={{ remember: true }}
             onFinish={onFinish}
           >
@@ -90,10 +114,10 @@ const Login = () => {
               />
             </Form.Item>
 
-            <Checkbox onChange={onChange}>记住密码</Checkbox>
+            <Checkbox onChange={onChange} checked={checked} >记住密码</Checkbox>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
+              <Button type="primary" htmlType="submit" className="login-form-button" loading={loading} disabled={loading}>
                 {submitLoginName}
               </Button>
             </Form.Item>
