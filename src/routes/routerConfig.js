@@ -24,7 +24,7 @@ function setmenu(list) {
     return list
 }
 const dynamicImport = async (moduleName) => {
-    const module = await import(`../pages${moduleName}`);
+    const module = await import("../pages" + moduleName);
     return module;
 }
 export default getMenu

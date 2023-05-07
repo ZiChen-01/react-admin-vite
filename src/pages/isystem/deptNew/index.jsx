@@ -6,7 +6,7 @@ import './index.less'
 function DeptNew() {
     let [data, setData] = useState([])
     let [loading, setLoading] = useState(false)
-
+    let [defaultExpandedRowKeys, setDefaultExpandedRowKeys] = useState(['00'])
     // 分页
     let [total, setTotal] = useState(0)
     let [pageIndex, setPageIndex] = useState(1)
@@ -42,6 +42,17 @@ function DeptNew() {
             align: "center",
             dataIndex: "key",
         },
+        {
+            title: '操作',
+            dataIndex: 'action',
+            render: (text, record, index) => {
+                return (
+                    <>
+                        {record.isChilden ? <a onClick={() => rowExpand(record)}>查看下级</a> : ""}
+                    </>
+                )
+            }
+        }
     ];
     useEffect(() => {
         getDeptTree()
@@ -52,13 +63,18 @@ function DeptNew() {
         request.getDeptTree({ deptNo: record ? record.key : null }).then(res => {
             if (res.data.errCode == 0) {
                 let deptTree = JSON.parse(res.data.bizContent).deptTree
+                // children返回为布尔值，不是array，报错，删除
+                for (let i = 0; i < deptTree.length; i++) {
+                    const element = deptTree[i];
+                    element.isChilden = element.children  //是否有下级
+                    if (element.children == true || element.children == false) delete element.children
+                }
                 if (!record) {
-                    // children返回为布尔值，不是array，报错，删除
-                    if (deptTree[0].children) delete deptTree[0].children
                     setData(deptTree)
                 } else {
                     record.children = deptTree
                     setData([record])
+                    setDefaultExpandedRowKeys(["00"])
                 }
             }
 
@@ -66,19 +82,14 @@ function DeptNew() {
         })
     }
     // 展开查询
-    const rowExpand = (expanded, record) => {
-        expanded && !(record.children instanceof Array) && getDeptTree(record);
+    const rowExpand = (record) => {
+        if (record.isChilden) getDeptTree(record);
     }
     return (
         <div id='DeptNew'>
             <Table rowKey={(row) => row.key} dataSource={data} columns={columns} loading={loading}
-                pagination={pagination} rowExpandable={true} onExpand={rowExpand} expandable={{
-                    expandedRowRender: (record) => (
-                        <p style={{ margin: 0, }}>
-
-                        </p>
-                    ),
-                    rowExpandable: (record) => record.name !== 'Not Expandable',
+                pagination={pagination} expandable={{
+                    defaultExpandedRowKeys: defaultExpandedRowKeys,
                 }} />;
         </div>
     )
