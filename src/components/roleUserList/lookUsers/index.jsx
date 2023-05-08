@@ -14,7 +14,7 @@ const LookUsers = forwardRef((props, ref) => {
     const [activeKey, setActiveKey] = useState('1')
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
-        setLookVisible, setDetails, getUserlist
+        setLookVisible, setDetails, getUserlist, getAllUserlist
     }))
 
     // 分页
@@ -166,10 +166,12 @@ const LookUsers = forwardRef((props, ref) => {
             if (res.data.code == 0) {
                 setUserList(res.data.result.records)
                 setTotal2(res.data.result.total)
+
             }
             setLoading(false)
         })
     }
+
     // 重置
     const onReset = () => {
         setUsername('')
@@ -200,7 +202,7 @@ const LookUsers = forwardRef((props, ref) => {
         })
     }
     useEffect(() => {
-        getAllUserlist()
+
     }, [pageIndex])
     return (
         <>
@@ -210,7 +212,7 @@ const LookUsers = forwardRef((props, ref) => {
                     <span>当前角色：{details.roleName}</span>
                     <span>当前角色编码：{details.roleCode}</span>
                 </p>
-                <Tabs className='iconDIV' defaultActiveKey="1" onChange={(e) => setActiveKey(e)} activeKey={activeKey} items={[
+                <Tabs className='iconDIV' defaultActiveKey="1" onChange={(e) => { setActiveKey(e) }} activeKey={activeKey} items={[
                     {
                         label: '当前角色用户', key: '1', children: (
                             <Table rowKey={(row) => row.id} dataSource={dataUserList} columns={columns} loading={loading}
