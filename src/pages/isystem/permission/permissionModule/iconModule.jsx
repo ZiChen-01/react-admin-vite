@@ -33,11 +33,11 @@ const IconModule = forwardRef((props, ref) => {
     return (
         <>
             <div>
-                <Modal title="菜单图标" footer={null} open={isModalOpen} onCancel={() => setIsModalOpen(false)} cancelText="取消" width="50%">
-                    <Tabs className='iconDIV' defaultActiveKey="1" items={[
+                <Modal title="菜单图标" footer={null} open={isModalOpen} onCancel={() => setIsModalOpen(false)} cancelText="取消" width="50%" className='iconDIV' >
+                    <Tabs defaultActiveKey="1" items={[
                         {
                             label: '方向性图标', key: '1', children: (
-                                <ul>
+                                <ul className="iconDIV-ul">
                                     {directionIcons.map((item, index) => {
                                         return (
                                             <li key={index} onClick={() => chooseIcon(item)}>
@@ -50,7 +50,7 @@ const IconModule = forwardRef((props, ref) => {
                         },
                         {
                             label: '指示性图标', key: '2', children: (
-                                <ul>
+                                <ul className="iconDIV-ul">
                                     {suggestionIcons.map((item, index) => {
                                         return (
                                             <li key={index} onClick={() => chooseIcon(item)}>
@@ -63,7 +63,7 @@ const IconModule = forwardRef((props, ref) => {
                         },
                         {
                             label: '编辑类图标', key: '3', children: (
-                                <ul>
+                                <ul className="iconDIV-ul">
                                     {editIcons.map((item, index) => {
                                         return (
                                             <li key={index} onClick={() => chooseIcon(item)}>
@@ -76,7 +76,7 @@ const IconModule = forwardRef((props, ref) => {
                         },
                         {
                             label: '数据类图标', key: '4', children: (
-                                <ul>
+                                <ul className="iconDIV-ul">
                                     {dataIcons.map((item, index) => {
                                         return (
                                             <li key={index} onClick={() => chooseIcon(item)}>
@@ -89,7 +89,7 @@ const IconModule = forwardRef((props, ref) => {
                         },
                         {
                             label: '网站通用图标', key: '5', children: (
-                                <ul>
+                                <ul className="iconDIV-ul">
                                     {webIcons.map((item, index) => {
                                         return (
                                             <li key={index} onClick={() => chooseIcon(item)}>
@@ -102,7 +102,7 @@ const IconModule = forwardRef((props, ref) => {
                         },
                         {
                             label: '品牌和标识图标', key: '6', children: (
-                                <ul>
+                                <ul className="iconDIV-ul">
                                     {logoIcons.map((item, index) => {
                                         return (
                                             <li key={index} onClick={() => chooseIcon(item)}>

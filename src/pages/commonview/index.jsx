@@ -93,7 +93,7 @@ const Commonview = () => {
 
     return (
         <>
-            <Layout>
+            <Layout className="commonview">
                 <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={collapsed}>
                     <div className="logo">
                         <img src={logo} alt="" />

@@ -8,7 +8,7 @@ class Home extends Component {
         const title = window._CONFIG.ROOT_APP_NAME
 
         return (
-            <main>
+            <main className="analsis">
 
                 <div className='imgbox'> <img src={home} alt="" /></div>
 
