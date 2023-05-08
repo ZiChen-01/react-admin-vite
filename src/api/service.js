@@ -25,6 +25,9 @@ export const service = {
 	userRoleList: "sys/user/userRoleList",//查询当前角色用户
 	deleteUserRole: "sys/user/deleteUserRole",//当前角色移出用户
 	addSysUserRole: "sys/user/addSysUserRole",//添加用户到当前角色
+	queryMenuTreeList: "sys/role/queryTreeList",//菜单权限树
+	queryRolePermission:"sys/permission/queryRolePermission",//角色菜单权限key
+	saveRolePermission:"sys/permission/saveRolePermission",//保存菜单权限
 
 	// 机构管理
 	getDeptTree: "sys/tmpDeptInfo/getDeptTree",//查询机构

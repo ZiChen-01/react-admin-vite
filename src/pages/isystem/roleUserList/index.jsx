@@ -5,6 +5,7 @@ import moment from 'moment'
 import request from "@/api"
 import AddRole from '@/components/roleUserList/addrole';
 import LookUsers from '@/components/roleUserList/lookUsers';
+import MenuAuthorization from '@/components/roleUserList/menuAuthorization';
 import './index.less'
 function RoleUserList() {
     let [loading, setLoading] = useState(false)
@@ -13,6 +14,7 @@ function RoleUserList() {
 
     const AddRoleRef = useRef(null)
     const LookUsersRef = useRef(null)
+    const MenuAuthorizationRef = useRef(null)
     // 分页
     let [total, setTotal] = useState(0)
     let [pageIndex, setPageIndex] = useState(1)
@@ -138,7 +140,9 @@ function RoleUserList() {
     const onMenu = ({ key }, record) => {
         switch (key) {
             case '1'://授权
-
+                MenuAuthorizationRef.current.setMenuVisible(true)
+                MenuAuthorizationRef.current.queryMenuTreeList(record)
+                MenuAuthorizationRef.current.setDetails(record)
                 break;
             case '2'://编辑
                 AddRoleRef.current.setIsModalOpen(true)
@@ -203,7 +207,8 @@ function RoleUserList() {
                     }} />;
 
                 <AddRole ref={AddRoleRef} getList={getlist} />
-                <LookUsers ref={LookUsersRef}/>
+                <LookUsers ref={LookUsersRef} />
+                <MenuAuthorization ref={MenuAuthorizationRef} />
             </div>
         </>
     )

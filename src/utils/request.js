@@ -84,7 +84,7 @@ Server.interceptors.response.use(function (response) {
             description: '您的网络发生异常，无法连接服务器，可能为跨域、无效令牌、网络未连接等相关原因',
             message: '网络异常',
         });
-        clearStorage()
+        // clearStorage()
     }
 
     return Promise.reject(error);

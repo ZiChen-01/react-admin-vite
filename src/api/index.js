@@ -30,8 +30,11 @@ const request = {
     addRole: (params) => { return axios('post', service.addRole, params) },  //新增角色
     editRole: (params) => { return axios('post', service.editRole, params) },  //编辑角色
     userRoleList: (params) => { return axios('get', service.userRoleList, params) }, //查询当前角色用户
-    deleteUserRole: (params) => { return axios('delete', service.deleteUserRole, params) }, //当前角色移出用户
+    deleteUserRole: (params) => { return axios('post', service.deleteUserRole, params) }, //当前角色移出用户
     addSysUserRole: (params) => { return axios('post', service.addSysUserRole, params) },  //添加用户到当前角色
+    queryMenuTreeList: (params) => { return axios('get', service.queryMenuTreeList, params) },  //菜单权限树
+    queryRolePermission: (params) => { return axios('get', service.queryRolePermission, params) },  //角色菜单权限key
+    saveRolePermission: (params) => { return axios('post', service.saveRolePermission, params) },  //保存菜单权限
 
     // 机构
     getDeptTree: (params) => { return axios('post', service.getDeptTree, params) },  //查询机构
