@@ -66,6 +66,10 @@ const MenuAuthorization = forwardRef((props, ref) => {
     const onCheck = (checkedKeys, info) => {
         setCheckedKeys(checkedKeys)
     };
+    // 展开收起
+    const onExpand = (expandedKeys) => {
+        setExpandedKeys(expandedKeys)
+    }
     // 树操作
     const onMenu = ({ key }) => {
         switch (key) {
@@ -153,6 +157,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
                     checkedKeys={checkedKeys}
                     expandedKeys={expandedKeys}
                     checkStrictly={checkStrictly}
+                    onExpand={onExpand}
                 />
             </Drawer >
         </>
