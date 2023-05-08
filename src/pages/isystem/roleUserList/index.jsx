@@ -141,8 +141,8 @@ function RoleUserList() {
         switch (key) {
             case '1'://授权
                 MenuAuthorizationRef.current.setMenuVisible(true)
-                MenuAuthorizationRef.current.queryMenuTreeList(record)
                 MenuAuthorizationRef.current.setDetails(record)
+                MenuAuthorizationRef.current.queryMenuTreeList(record)
                 break;
             case '2'://编辑
                 AddRoleRef.current.setIsModalOpen(true)

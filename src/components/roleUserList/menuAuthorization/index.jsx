@@ -35,9 +35,14 @@ const MenuAuthorization = forwardRef((props, ref) => {
     }
     // 菜单树
     const queryMenuTreeList = (item = null) => {
-        request.queryMenuTreeList().then(res => {
+        request.queryMenuTreeList().then(async /*  */res => {
             if (res.data.code == 0) {
-                setTreeData(setTreeList(res.data.result.treeList))
+                let list = res.data.result.treeList
+                // if (details.roleCode == "admin") {
+                //     list[list.length - 1].disabled = true
+                // }
+
+                setTreeData(setTreeList(list))
                 setExpandedKeys(res.data.result.ids) //ids返回所有菜单key
                 setAllTreeKeys(res.data.result.ids)
                 queryRolePermission(item)
@@ -45,12 +50,12 @@ const MenuAuthorization = forwardRef((props, ref) => {
         })
     }
     // 权限树数据处理
-    function setTreeList(array) {
-        for (let i = 0; i < array.length; i++) {
-            const element = array[i];
+    const setTreeList = (array) => {
+        array.forEach(element => {
             element.title = element.slotTitle
             if (element.children) setTreeList(element.children)
-        }
+        })
+        console.log(array);
         return array
     }
     // 菜单角色key
