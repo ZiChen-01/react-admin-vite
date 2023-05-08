@@ -208,7 +208,7 @@ const LookUsers = forwardRef((props, ref) => {
         <>
             <Drawer title="查看用户" open={lookVisible} closable={false} onClose={() => { setLookVisible(false) }} width='40%'
                 footer={null} className="lookUsers">
-                <p className="title">
+                <p className="lookUsers-title">
                     <span>当前角色：{details.roleName}</span>
                     <span>当前角色编码：{details.roleCode}</span>
                 </p>
@@ -223,7 +223,7 @@ const LookUsers = forwardRef((props, ref) => {
                         label: '添加已有用户', key: '2', children: (
                             <>
                                 <Row gutter={15}>
-                                    <Col md={13} sm={15}>
+                                    <Col md={12} sm={15}>
                                         <Form.Item label="账号">
                                             <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号！" />
                                         </Form.Item>

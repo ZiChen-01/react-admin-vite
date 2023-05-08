@@ -38,9 +38,6 @@ const MenuAuthorization = forwardRef((props, ref) => {
         request.queryMenuTreeList().then(async /*  */res => {
             if (res.data.code == 0) {
                 let list = res.data.result.treeList
-                // if (details.roleCode == "admin") {
-                //     list[list.length - 1].disabled = true
-                // }
 
                 setTreeData(setTreeList(list))
                 setExpandedKeys(res.data.result.ids) //ids返回所有菜单key
@@ -55,7 +52,6 @@ const MenuAuthorization = forwardRef((props, ref) => {
             element.title = element.slotTitle
             if (element.children) setTreeList(element.children)
         })
-        console.log(array);
         return array
     }
     // 菜单角色key
