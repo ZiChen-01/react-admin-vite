@@ -24,6 +24,11 @@ const request = {
     deleteAllPermission: (params) => { return axios('post', service.deleteAllPermission + "?ids=" + params.ids, params) },//批量删除菜单
     addPermission: (params) => { return axios('post', service.addPermission, params) },  //新增菜单
     editPermission: (params) => { return axios('post', service.editPermission, params) },  //编辑菜单
+    // 角色
+    queryRoleList: (params) => { return axios('get', service.queryRoleList, params) },  //查询角色
+    roleDelete: (params) => { return axios('post', service.roleDelete + "?id=" + params.id, params) },  //删除角色
+    addRole: (params) => { return axios('post', service.addRole, params) },  //新增角色
+    editRole: (params) => { return axios('post', service.editRole, params) },  //编辑角色
 
     // 机构
     getDeptTree: (params) => { return axios('post', service.getDeptTree, params) },  //查询机构

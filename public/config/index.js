@@ -8,7 +8,7 @@ window._CONFIG = {
 
 switch (key) {
     case 0:
-        window._CONFIG['API_BASE_URL'] = 'https://zhihuitest.wzbank.cn/yinqihui/mutualfund-manager'
+        window._CONFIG['API_BASE_URL'] = 'https://zhihuitest.wzbank.cn/yinqihui/mutualfund-manager/'
         break;
     case 1:
         window._CONFIG['API_BASE_URL'] = ''
