@@ -1,4 +1,5 @@
-import { Drawer, Tree, message, Button, Dropdown, Popconfirm, Col, Row, Form } from "antd"
+import { Drawer, Tree, message, Button, Dropdown, Col, Row } from "antd"
+import { UpOutlined } from '@ant-design/icons';
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import request from "@/api";
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
@@ -9,8 +10,10 @@ const MenuAuthorization = forwardRef((props, ref) => {
     const [details, setDetails] = useState({})
     const [treeData, setTreeData] = useState([])
     const [checkedKeys, setCheckedKeys] = useState([]) //复选框选中菜单
-    const [expandedKeys, setExpandedKeys] = useState([]) //展开
+    const [allTreeKeys, setAllTreeKeys] = useState([])//展开所有
+    const [expandedKeys, setExpandedKeys] = useState([]) //控制展开
     const [lastpermissionIds, setLastpermissionIds] = useState([]) //上一次
+    const [checkStrictly, setCheckStrictly] = useState(false)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setMenuVisible, queryMenuTreeList, setDetails
@@ -22,7 +25,6 @@ const MenuAuthorization = forwardRef((props, ref) => {
             permissionIds: checkedKeys.join(","),
             roleId: details.id
         }
-
         request.saveRolePermission(params).then(res => {
             if (res.data.code == 200) {
                 message.success(res.data.message)
@@ -36,7 +38,8 @@ const MenuAuthorization = forwardRef((props, ref) => {
         request.queryMenuTreeList().then(res => {
             if (res.data.code == 0) {
                 setTreeData(setTreeList(res.data.result.treeList))
-                setExpandedKeys(res.data.result.ids)
+                setExpandedKeys(res.data.result.ids) //ids返回所有菜单key
+                setAllTreeKeys(res.data.result.ids)
                 queryRolePermission(item)
             }
         })
@@ -63,24 +66,71 @@ const MenuAuthorization = forwardRef((props, ref) => {
     const onCheck = (checkedKeys, info) => {
         setCheckedKeys(checkedKeys)
     };
+    // 树操作
+    const onMenu = ({ key }) => {
+        switch (key) {
+            case '1':
+                setCheckStrictly(false)
+
+                break;
+            case '2':
+                setCheckStrictly(true)
+                break;
+            case '3':
+                setCheckedKeys(allTreeKeys)
+                break;
+            case '4':
+                setCheckedKeys([])
+                break;
+            case '5':
+                setExpandedKeys(allTreeKeys)
+                break;
+            case '6':
+                setExpandedKeys([])
+                break;
+
+            default:
+                break;
+        }
+    }
     return (
         <>
             <Drawer title="菜单角色权限配置" open={menuVisible} closable={false} onClose={() => { setMenuVisible(false) }} width='40%' className="MenuAuthorization" footer={
                 <>
                     <Row justify="space-between" className="buttonbox">
                         <Col>
-                            <Dropdown menu={{
+                            <Dropdown trigger={['click']} menu={{
                                 items: [
                                     {
-                                        label: (<a> 详情</a>),
+                                        label: (<a> 父子关联</a>),
                                         key: '1',
                                     },
+                                    {
+                                        label: (<a> 取消关联</a>),
+                                        key: '2',
+                                    },
+                                    {
+                                        label: (<a> 全部勾选</a>),
+                                        key: '3',
+                                    },
+                                    {
+                                        label: (<a> 取消全选</a>),
+                                        key: '4',
+                                    },
+                                    {
+                                        label: (<a> 展开所有</a>),
+                                        key: '5',
+                                    },
+                                    {
+                                        label: (<a> 合并所有</a>),
+                                        key: '6',
+                                    },
                                 ],
-                                onClick: (e) => onMenu(e, record)
+                                onClick: (e) => onMenu(e)
                             }}>
                                 <a onClick={e => { e.preventDefault() }}>
                                     <Button>
-                                        树操作
+                                        树操作<UpOutlined />
                                     </Button>
                                 </a>
                             </Dropdown>
@@ -102,6 +152,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
                     treeData={treeData}
                     checkedKeys={checkedKeys}
                     expandedKeys={expandedKeys}
+                    checkStrictly={checkStrictly}
                 />
             </Drawer >
         </>
