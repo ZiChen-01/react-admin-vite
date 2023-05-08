@@ -150,7 +150,7 @@ const LookUsers = forwardRef((props, ref) => {
         request.deleteUserRole(params).then(res => {
             if (res.data.code == 200) {
                 message.success(res.data.message)
-                getUserlist()
+                getUserlist(details)
             }
         })
     }
