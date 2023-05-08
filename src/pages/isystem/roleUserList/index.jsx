@@ -130,6 +130,7 @@ function RoleUserList() {
     const lookUsers = (item) => {
         LookUsersRef.current.setLookVisible(true)
         LookUsersRef.current.setDetails(item)
+        LookUsersRef.current.getUserlist(item)
     }
     // 更多
     const onMenu = ({ key }, record) => {

@@ -254,43 +254,44 @@ function Users() {
     };
     return (
         <>
-            <div className="userList"><Row gutter={24}>
-                <Col md={6} sm={12}>
-                    <Form.Item label="账号">
-                        <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号！" />
-                    </Form.Item>
-                </Col>
-                <Col md={6} sm={12}>
-                    <Form.Item label="性别">
-                        <Select defaultValue={sex} value={sex} onChange={(e) => {
-                            setSex(e)
-                        }} placeholder='请选择性别！' >
-                            <Option value="1">男</Option>
-                            <Option value="2">女</Option>
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col md={6} sm={12}>
-                    <Form.Item label="真实名字">
-                        <Input value={realname} placeholder='请输入真实名字！' onChange={(e) => setRealname(e.target.value)} />
-                    </Form.Item>
-                </Col>
-                <Col md={6} sm={12}>
-                    <Form.Item label="手机号码">
-                        <Input value={phone} placeholder='请输入手机号码！' onChange={(e) => setPhone(e.target.value)} />
-                    </Form.Item>
-                </Col>
-                <Col md={6} sm={12}>
-                    <Form.Item label="用户状态">
-                        <Select defaultValue={status} value={status} onChange={(e) => {
-                            setStatus(e)
-                        }} placeholder='请选择用户状态！' >
-                            <Option value="1">正常</Option>
-                            <Option value="2">冻结</Option>
-                        </Select>
-                    </Form.Item>
-                </Col>
-            </Row>
+            <div className="userList">
+                <Row gutter={24}>
+                    <Col md={6} sm={12}>
+                        <Form.Item label="账号">
+                            <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号！" />
+                        </Form.Item>
+                    </Col>
+                    <Col md={6} sm={12}>
+                        <Form.Item label="性别">
+                            <Select defaultValue={sex} value={sex} onChange={(e) => {
+                                setSex(e)
+                            }} placeholder='请选择性别！' >
+                                <Option value="1">男</Option>
+                                <Option value="2">女</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                    <Col md={6} sm={12}>
+                        <Form.Item label="真实名字">
+                            <Input value={realname} placeholder='请输入真实名字！' onChange={(e) => setRealname(e.target.value)} />
+                        </Form.Item>
+                    </Col>
+                    <Col md={6} sm={12}>
+                        <Form.Item label="手机号码">
+                            <Input value={phone} placeholder='请输入手机号码！' onChange={(e) => setPhone(e.target.value)} />
+                        </Form.Item>
+                    </Col>
+                    <Col md={6} sm={12}>
+                        <Form.Item label="用户状态">
+                            <Select defaultValue={status} value={status} onChange={(e) => {
+                                setStatus(e)
+                            }} placeholder='请选择用户状态！' >
+                                <Option value="1">正常</Option>
+                                <Option value="2">冻结</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                </Row>
                 <Row justify="space-between" className="buttonbox">
                     <Col>
                         <Button type="primary" icon={<SearchOutlined />} onClick={getUserlist}>

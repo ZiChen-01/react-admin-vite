@@ -22,6 +22,9 @@ export const service = {
 	roleDelete: 'sys/role/delete',//删除角色
 	addRole: "sys/role/add",//新增角色
 	editRole: "sys/role/edit",//编辑角色
+	userRoleList: "sys/user/userRoleList",//查询当前角色用户
+	deleteUserRole: "sys/user/deleteUserRole",//当前角色移出用户
+	addSysUserRole: "sys/user/addSysUserRole",//添加用户到当前角色
 
 	// 机构管理
 	getDeptTree: "sys/tmpDeptInfo/getDeptTree",//查询机构
