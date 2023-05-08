@@ -132,6 +132,7 @@ function RoleUserList() {
         LookUsersRef.current.setDetails(item)
         LookUsersRef.current.getUserlist(item)
         LookUsersRef.current.getAllUserlist()
+        LookUsersRef.current.setActiveKey("1")
     }
     // 更多
     const onMenu = ({ key }, record) => {

@@ -14,7 +14,7 @@ const LookUsers = forwardRef((props, ref) => {
     const [activeKey, setActiveKey] = useState('1')
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
-        setLookVisible, setDetails, getUserlist, getAllUserlist
+        setLookVisible, setDetails, getUserlist, getAllUserlist, setActiveKey
     }))
 
     // 分页
