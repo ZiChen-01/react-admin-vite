@@ -9,6 +9,8 @@ import { encrypt, decrypt } from "@/utils/aes";
 import logo from "@/assets/images/logo.png"
 import Three from "@/components/Three"
 import loginBg from "@/assets/images/login-bg.jpg"
+import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
+
 const Login = () => {
   const navigate = useNavigate()
   // 登录按钮loading
@@ -25,8 +27,6 @@ const Login = () => {
     // 真实登录
     userInfo.password = passwordEncryption(userInfo.password) //密码加密
     request.getLogin(userInfo).then(res => {
-      setLoading(false)
-      setSubmitLoginName('登录')
       if (res?.data?.code == 200) {
         //  存储用户信息 角色信息
         localStorage.setItem('Autn-Token', res.data.result.token)
@@ -36,13 +36,15 @@ const Login = () => {
           navigate('/dashboard/analysis')
         }, 1000);
       }
+      setLoading(false)
+      setSubmitLoginName('登录')
     })
 
   };
   useEffect(() => {
     const token = localStorage.getItem('Autn-Token')
     if (token) navigate('/dashboard/analysis')
-    const loginChecked = localStorage.getItem('loginChecked')
+    const loginChecked = getCookies('loginChecked')
     if (loginChecked) {
       let { checked, password, username } = JSON.parse(decrypt(loginChecked))
       setChecked(checked)
@@ -50,19 +52,19 @@ const Login = () => {
         username, password
       })
     }
-  });
+  }, [checked]);
 
   // 记住密码
   const onChange = async (e) => {
-    const loginChecked = localStorage.getItem('loginChecked')
+    const loginChecked = getCookies('loginChecked')
     if (loginChecked) {
       setChecked(false)
-      localStorage.removeItem("loginChecked")
+      removeCookies("loginChecked", 7)
     } else {
       const values = await form.validateFields();
       values.checked = e.target.checked
       setChecked(e.target.checked)
-      localStorage.setItem('loginChecked', encrypt(JSON.stringify(values)))
+      setCookies('loginChecked', encrypt(JSON.stringify(values)), 7) //7天有效期
     }
   };
 
