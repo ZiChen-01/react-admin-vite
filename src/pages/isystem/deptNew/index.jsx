@@ -88,7 +88,7 @@ function DeptNew() {
         if (record.isChilden) getDeptTree(record);
     }
     return (
-        <div id='DeptNew'>
+        <div className='DeptNew'>
             <Table rowKey={(row) => row.key} dataSource={data} columns={columns} loading={loading}
                 pagination={pagination} expandable={{
                     defaultExpandedRowKeys: defaultExpandedRowKeys,

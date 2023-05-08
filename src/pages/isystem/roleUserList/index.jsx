@@ -4,6 +4,7 @@ import { SearchOutlined, ReloadOutlined, PlusOutlined, DownloadOutlined, ExportO
 import moment from 'moment'
 import request from "@/api"
 import AddRole from '@/components/roleUserList/addrole';
+import LookUsers from '@/components/roleUserList/lookUsers';
 import './index.less'
 function RoleUserList() {
     let [loading, setLoading] = useState(false)
@@ -11,6 +12,7 @@ function RoleUserList() {
     let [roleName, setRoleName] = useState("")
 
     const AddRoleRef = useRef(null)
+    const LookUsersRef = useRef(null)
     // 分页
     let [total, setTotal] = useState(0)
     let [pageIndex, setPageIndex] = useState(1)
@@ -126,7 +128,8 @@ function RoleUserList() {
     }
     // 查看用户
     const lookUsers = (item) => {
-
+        LookUsersRef.current.setLookVisible(true)
+        LookUsersRef.current.setDetails(item)
     }
     // 更多
     const onMenu = ({ key }, record) => {
@@ -158,7 +161,7 @@ function RoleUserList() {
     }, [pageIndex])
     return (
         <>
-            <div id="roleUserList">
+            <div className="roleUserList">
                 <Row gutter={24}>
                     <Col md={6} sm={12}>
                         <Form.Item label="角色名称">
@@ -197,6 +200,7 @@ function RoleUserList() {
                     }} />;
 
                 <AddRole ref={AddRoleRef} getList={getlist} />
+                <LookUsers ref={LookUsersRef}/>
             </div>
         </>
     )
