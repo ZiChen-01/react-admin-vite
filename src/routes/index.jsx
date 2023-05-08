@@ -2,6 +2,8 @@ import Icon, { UserOutlined, HomeOutlined } from '@ant-design/icons';
 // 使用路由懒加载
 import React, { lazy } from "react";
 import getMenu from "@/routes/routerConfig";
+//用于获取状态
+import store from "@/stores/store";
 let routes = [
     {
         label: "首页",
@@ -20,8 +22,12 @@ let routes = [
     },
 ]
 
+store.subscribe(() => {
+    const { reload } = store.getState()
+    if (reload) location.reload()
+})
+
 if (localStorage.getItem('Autn-Token')) {
-    // location.reload()
     routes = await getMenu()
     function setIcon(res) {
         for (let i = 0; i < res.length; i++) {

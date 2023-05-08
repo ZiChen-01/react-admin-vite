@@ -10,6 +10,8 @@ import logo from "@/assets/images/logo.png"
 import Three from "@/components/Three"
 import loginBg from "@/assets/images/login-bg.jpg"
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
+//用于获取状态
+import store from "@/stores/store";
 
 const Login = () => {
   const navigate = useNavigate()
@@ -20,7 +22,6 @@ const Login = () => {
   const [form] = Form.useForm();
   const [checked, setChecked] = useState(false);
   // 确认登录
-
   const onFinish = async (userInfo) => {
     setLoading(true)
     setSubmitLoginName('正在登录...')
@@ -28,10 +29,16 @@ const Login = () => {
     userInfo.password = passwordEncryption(userInfo.password) //密码加密
     request.getLogin(userInfo).then(res => {
       if (res?.data?.code == 200) {
+
         //  存储用户信息 角色信息
         localStorage.setItem('Autn-Token', res.data.result.token)
         localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
         localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
+        //通知reducer页面数据变化了
+        store.dispatch({
+          type: 'reload',
+          data: true
+        })
         setTimeout(() => {
           navigate('/dashboard/analysis')
         }, 1000);
@@ -41,6 +48,7 @@ const Login = () => {
     })
 
   };
+
   useEffect(() => {
     const token = localStorage.getItem('Autn-Token')
     if (token) navigate('/dashboard/analysis')
