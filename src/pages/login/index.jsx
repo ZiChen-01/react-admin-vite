@@ -107,7 +107,7 @@ const Login = () => {
               <Form.Item
                 name="username"
                 rules={[
-                  { required: true, message: '请输入用户名!' },
+                  { required: true, message: '请输入用户名!' }, 
                   { min: 3, message: '最少长度为3位' },
                   { max: 12, message: '最大长度为12位' },
                   { pattern: /^[0-9a-zA-Z_]{1,}$/, message: '必须为数字，字母，下划线组成' },
@@ -121,7 +121,7 @@ const Login = () => {
                   { required: true, whitespace: false, message: '请输入登录密码!' },
                   { min: 6, message: '最少长度为6位' },
                   { max: 12, message: '最大长度为12位' },
-                  { pattern: /^[0-9a-zA-Z@~!#$%^&*_]{1,}$/, message: '必须为数字，字母，特殊符号组成' },
+                  { pattern: /^[0-9a-zA-Z@~!#$%^&*`_]{1,}$/, message: '必须为数字，字母，特殊符号组成' },
                 ]}
               >
                 <Input.Password

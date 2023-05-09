@@ -1,5 +1,5 @@
-import React, { useState, ReactNode } from 'react';
-import { Layout, Menu, Popconfirm } from 'antd';
+import React, { useState, useRef } from 'react';
+import { Layout, Menu, Popconfirm, Dropdown, Space } from 'antd';
 import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
@@ -9,6 +9,7 @@ import nprogress from "nprogress";
 import "@/components/progress/index.less";
 import Loading from "@/components/loading";
 import routes from "@/routes"
+import ChangePassword from "@/components/users/changePassword/changePassword.jsx"
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -151,6 +152,8 @@ const Commonview = () => {
                         </Routes>
                     </Content>
                 </Layout>
+
+
             </Layout>
         </>
     );
@@ -160,8 +163,38 @@ const Commonview = () => {
 
 function UserInfo() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '0')
+    const passwordRef = useRef(null);
+    const onMenu = ({ key }) => {
+        switch (key) {
+            case '1':
+                passwordRef.current.setIsModalVisible(true)
+                passwordRef.current.form.setFieldsValue({
+                    username: userInfo.username,
+                })
+                break;
+
+            default:
+                break;
+        }
+    }
     return (
-        <div className='userName'>欢迎您，{userInfo?.realname}</div>
+        <>
+            <Dropdown menu={{
+                items: [
+                    {
+                        label: (<a> 修改密码</a>),
+                        key: '1',
+                    }
+                ],
+                onClick: (e) => onMenu(e),
+            }} arrow={{
+                pointAtCenter: true,
+            }}>
+                <span className='userName'>欢迎您，{userInfo?.realname}</span>
+            </Dropdown>
+            {/* 修改密码 */}
+            <ChangePassword ref={passwordRef} />
+        </>
     )
 }
 // 遍历路由组件

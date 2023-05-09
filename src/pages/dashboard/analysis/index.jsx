@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.less'
-import home from "@/assets/images/home.png"
+import home from "@/assets/images/welcome.png"
 
 class Home extends Component {
 
@@ -12,7 +12,7 @@ class Home extends Component {
 
                 <div className='imgbox'> <img src={home} alt="" /></div>
 
-                <p>欢迎登录{title}</p>
+                {/* <p>欢迎登录{title}</p> */}
             </main>
         );
     }
