@@ -3,7 +3,7 @@ import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 import React, { lazy } from "react";
 import getMenu from "@/routes/routerConfig";
 //用于获取状态
-import store from "@/stores/store";
+import store from "@/redux/store";
 
 //引入antd-icon
 import * as Icon from '@ant-design/icons';

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Layout, Menu, Popconfirm, Dropdown, Space } from 'antd';
-import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined } from '@ant-design/icons';
+import { Layout, Menu, Popconfirm, Dropdown, Tooltip } from 'antd';
+import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined, SettingOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
@@ -10,10 +10,11 @@ import "@/components/progress/index.less";
 import Loading from "@/components/loading";
 import routes from "@/routes"
 import ChangePassword from "@/components/users/changePassword/changePassword.jsx"
-
+import Setting from '@/components/Setting';
 const { Header, Content, Footer, Sider } = Layout;
 
 const Commonview = () => {
+    const SettingRef = useRef(null)
     //路由加载进度条
     nprogress.start();
     setTimeout(() => {
@@ -96,7 +97,10 @@ const Commonview = () => {
         setCurrent(item.key)
     })
 
-
+    // 后台布局设置
+    const setting = () => {
+        SettingRef.current.setSettingVisible(true)
+    }
     return (
         <>
             <Layout className="commonview">
@@ -124,6 +128,11 @@ const Commonview = () => {
                         <div className='headBox'>
                             <span>欢迎登录{titleH2}</span>
                             <div className='userinfo'>
+                                <span className='user-Setting'>
+                                    <Tooltip title="后台布局设置">
+                                        <SettingOutlined spin onClick={setting}/>
+                                    </Tooltip>
+                                </span>
                                 <UserInfo />
                                 <Popconfirm title="真的要注销登录吗 ?" okText="确认" cancelText="取消" onConfirm={logOut}>
                                     <span className='tuichu'><LogoutOutlined />退出登录</span>
@@ -151,6 +160,8 @@ const Commonview = () => {
                             <Route path="*" element={<Navigate to="/error404" />}></Route>
                         </Routes>
                     </Content>
+
+                    <Setting ref={SettingRef} />
                 </Layout>
 
 

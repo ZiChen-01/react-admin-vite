@@ -1,7 +1,8 @@
 
 const defaultState = {
     reload: false,
-    count: 0
+    count: 0,
+    darkTheme: false
 }
 
 const reducer = (preState = defaultState, action) => {
@@ -10,6 +11,10 @@ const reducer = (preState = defaultState, action) => {
         case 'reload':
             return {
                 reload: data
+            }
+        case "darkTheme":
+            return {
+                darkTheme: data
             }
         case 'reduce':
             return {

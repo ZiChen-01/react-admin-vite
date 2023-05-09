@@ -12,7 +12,7 @@ import loginBg from "@/assets/images/login-bg.jpg"
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 import GraphicCode from '@/components/GraphicCode';
 //用于获取状态
-import store from "@/stores/store";
+import store from "@/redux/store";
 
 const Login = () => {
   const navigate = useNavigate()
