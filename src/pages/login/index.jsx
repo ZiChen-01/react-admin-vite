@@ -1,7 +1,7 @@
-import React, { useEffect, useState, lazy } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './index.less'
-import { Form, Input, Button, message, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Row, Col, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import request from '@/api'
 import { useNavigate } from 'react-router-dom'
 import { passwordEncryption } from "@/utils/passwordEncryption";
@@ -10,6 +10,7 @@ import logo from "@/assets/images/logo.png"
 import Three from "@/components/Three"
 import loginBg from "@/assets/images/login-bg.jpg"
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
+import GraphicCode from '@/components/GraphicCode';
 //用于获取状态
 import store from "@/stores/store";
 
@@ -21,6 +22,7 @@ const Login = () => {
   const [submitLoginName, setSubmitLoginName] = useState('登录')
   const [form] = Form.useForm();
   const [checked, setChecked] = useState(false);
+  const GraphicCodeRef = useRef(null)
   // 确认登录
   const onFinish = async (userInfo) => {
     setLoading(true)
@@ -76,7 +78,13 @@ const Login = () => {
     }
   };
 
-
+  // 验证码校验
+  const validateInputCode = async (rule, value) => {
+    if (value) {
+      let verify = await GraphicCodeRef.current.verify(value)
+      if (!verify) throw new Error("验证码错误！")
+    }
+  }
   return (
     <div className="login" style={{ backgroundImage: `url(${loginBg})` }}>
       <Three />
@@ -123,7 +131,20 @@ const Login = () => {
 
               />
             </Form.Item>
-
+            <Form.Item name="inputCode"
+              rules={[
+                { required: true, message: '请输入验证码!' },
+                { validator: validateInputCode, }
+              ]}>
+              <Row justify="space-between">
+                <Col style={{ width: "270px" }}>
+                  <Input size="large" placeholder="验证码" prefix={<SafetyCertificateOutlined className="site-form-item-icon" />} />
+                </Col>
+                <Col>
+                  <GraphicCode ref={GraphicCodeRef} />
+                </Col>
+              </Row>
+            </Form.Item>
             <Checkbox onChange={onChange} checked={checked} >记住密码</Checkbox>
 
             <Form.Item>
@@ -135,7 +156,7 @@ const Login = () => {
         </div>
       </section>
 
-      <Author />
+      {/* <Author /> */}
     </div>
   );
 
