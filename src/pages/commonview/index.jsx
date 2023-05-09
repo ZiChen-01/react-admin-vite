@@ -4,7 +4,7 @@ import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlin
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
-import logo from "@/assets/images/wzblogo.png"
+import logo from "@/assets/images/logo-react.png"
 import nprogress from "nprogress";
 import "@/components/progress/index.less";
 import Loading from "@/components/loading";
@@ -102,7 +102,7 @@ const Commonview = () => {
                 <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={collapsed}>
                     <div className="logo">
                         <img src={logo} alt="" />
-                        {/* {title ? <span className='logoTitle'>{titleH2}</span> : ''} */}
+                        {title ? <span className='logoTitle'>{titleH2}</span> : ''}
                     </div>
                     <Menu
                         theme='dark'
