@@ -12,9 +12,9 @@ function RoleUserList() {
     let [dataSource, setDataSource] = useState([])
     let [roleName, setRoleName] = useState("")
 
-    const AddRoleRef = useRef(null)
-    const LookUsersRef = useRef(null)
-    const MenuAuthorizationRef = useRef(null)
+    let AddRoleRef = useRef(null)
+    let LookUsersRef = useRef(null)
+    let MenuAuthorizationRef = useRef(null)
     // 分页
     let [total, setTotal] = useState(0)
     let [pageIndex, setPageIndex] = useState(1)

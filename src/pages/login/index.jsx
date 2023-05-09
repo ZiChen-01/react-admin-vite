@@ -11,18 +11,20 @@ import Three from "@/components/Three"
 import loginBg from "@/assets/images/login-bg.jpg"
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 import GraphicCode from '@/components/GraphicCode';
+
+import getMenu from "@/routes/routerConfig";
 //用于获取状态
 import store from "@/redux/store";
 
 const Login = () => {
   const navigate = useNavigate()
   // 登录按钮loading
-  const [loading, setLoading] = useState(false)
-  const title = window._CONFIG.ROOT_APP_NAME
-  const [submitLoginName, setSubmitLoginName] = useState('登录')
-  const [form] = Form.useForm();
-  const [checked, setChecked] = useState(false);
-  const GraphicCodeRef = useRef(null)
+  let [loading, setLoading] = useState(false)
+  let title = window._CONFIG.ROOT_APP_NAME
+  let [submitLoginName, setSubmitLoginName] = useState('登录')
+  let [form] = Form.useForm();
+  let [checked, setChecked] = useState(false);
+  let GraphicCodeRef = useRef(null)
   // 确认登录
   const onFinish = async (userInfo) => {
     setLoading(true)
@@ -36,14 +38,18 @@ const Login = () => {
         localStorage.setItem('Autn-Token', res.data.result.token)
         localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
         localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
-        //通知reducer页面数据变化了
-        store.dispatch({
-          type: 'reload',
-          data: true
+        getMenu().then(res => {
+          localStorage.setItem('persist:redux-state', JSON.stringify(res))
+          //通知reducer页面数据变化了
+          store.dispatch({
+            type: 'reload',
+            data: true
+          })
+          setTimeout(() => {
+            navigate('/dashboard/analysis')
+          }, 1000);
         })
-        setTimeout(() => {
-          navigate('/dashboard/analysis')
-        }, 1000);
+
       }
       setLoading(false)
       setSubmitLoginName('登录')
@@ -71,7 +77,7 @@ const Login = () => {
       setChecked(false)
       removeCookies("loginChecked", 7)
     } else {
-      const values = await form.validateFields();
+      let values = await form.validateFields();
       values.checked = e.target.checked
       setChecked(e.target.checked)
       setCookies('loginChecked', encrypt(JSON.stringify(values)), 7) //7天有效期
@@ -107,7 +113,7 @@ const Login = () => {
               <Form.Item
                 name="username"
                 rules={[
-                  { required: true, message: '请输入用户名!' }, 
+                  { required: true, message: '请输入用户名!' },
                   { min: 3, message: '最少长度为3位' },
                   { max: 12, message: '最大长度为12位' },
                   { pattern: /^[0-9a-zA-Z_]{1,}$/, message: '必须为数字，字母，下划线组成' },

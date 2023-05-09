@@ -6,8 +6,8 @@ import './index.less'
 //用于获取状态
 import store from "@/redux/store";
 const Setting = forwardRef((props, ref) => {
-    const [SettingVisible, setSettingVisible] = useState(false);
-    const [darkChecked, setDarkChecked] = useState(false)
+    let [SettingVisible, setSettingVisible] = useState(false);
+    let [darkChecked, setDarkChecked] = useState(false)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setSettingVisible

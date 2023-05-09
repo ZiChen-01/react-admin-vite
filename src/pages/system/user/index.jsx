@@ -123,14 +123,16 @@ function Users() {
                                 },
                                 {
                                     label: (
-                                        <Popconfirm
-                                            title="确定要删除此用户?"
-                                            onConfirm={() => deleteUser(record)}
-                                            okText="确定"
-                                            cancelText="取消"
-                                        >
-                                            <a> 删除</a>
-                                        </Popconfirm>
+                                        // <>
+                                            <Popconfirm
+                                                title="确定要删除此用户?"
+                                                onConfirm={() => deleteUser(record)}
+                                                okText="确定"
+                                                cancelText="取消"
+                                            >
+                                                <a> 删除</a>
+                                            </Popconfirm>
+                                        // </>
                                     ),
                                     key: '2',
                                     disabled: record.username.includes('admin'),//超管禁止删除
@@ -142,11 +144,13 @@ function Users() {
                             ],
                             onClick: (e) => onMenu(e, record)
                         }}>
+
                             <a onClick={e => { e.preventDefault() }}>
                                 <Space>
                                     更多
                                 </Space>
                             </a>
+
                         </Dropdown>
                     </>
                 )

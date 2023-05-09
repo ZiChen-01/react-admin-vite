@@ -4,9 +4,9 @@ import request from "@/api";
 import "./changePassword.less"
 import { passwordEncryption } from "@/utils/passwordEncryption";
 const ChangePassword = forwardRef((props, ref) => {
-    const [isModalVisible, setIsModalVisible] = useState(false)
-    const [form] = Form.useForm();
-    const [userId, setUserId] = useState(null)
+    let [isModalVisible, setIsModalVisible] = useState(false)
+    let [form] = Form.useForm();
+    let [userId, setUserId] = useState(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setIsModalVisible, form, setUserId

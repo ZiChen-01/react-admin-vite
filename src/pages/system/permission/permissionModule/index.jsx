@@ -7,20 +7,20 @@ import Marquee from 'react-fast-marquee';
 import IconModule from "./iconModule"
 
 const PermissionModule = forwardRef((props, ref) => {
-    const [form] = Form.useForm();
-    const [title, setTitle] = useState("")
-    const [open, setOpen] = useState(false);
-    const [radioValue, setRadioValue] = useState("0");
-    const [value, setValue] = useState(undefined);
-    const [treeData, setTreeData] = useState([]);
-    const [route, setRoute] = useState(true);
-    const [hidden, setHidden] = useState(false);
-    const [keepAlive, setKeepAlive] = useState(false);
-    const [alwaysShow, setAlwaysShown] = useState(false);
-    const [internalOrExternal, setInternalOrExternal] = useState(false);
-    const [id, setId] = useState(null)
-    const [childenDisabled, setChildenDisabled] = useState(false)
-    const IconModuleRef = useRef(null)
+    let [form] = Form.useForm();
+    let [title, setTitle] = useState("")
+    let [open, setOpen] = useState(false);
+    let [radioValue, setRadioValue] = useState("0");
+    let [value, setValue] = useState(undefined);
+    let [treeData, setTreeData] = useState([]);
+    let [route, setRoute] = useState(true);
+    let [hidden, setHidden] = useState(false);
+    let [keepAlive, setKeepAlive] = useState(false);
+    let [alwaysShow, setAlwaysShown] = useState(false);
+    let [internalOrExternal, setInternalOrExternal] = useState(false);
+    let [id, setId] = useState(null)
+    let [childenDisabled, setChildenDisabled] = useState(false)
+    let IconModuleRef = useRef(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setOpen, setTitle, setTreeData, entiForm, setRadioValue, childenForm

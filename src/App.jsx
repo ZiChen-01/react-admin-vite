@@ -11,7 +11,7 @@ import useTheme from './hooks/useTheme';
 function App() {
   // useTheme()
   return (
-    <BrowserRouter>
+    <HashRouter>
       {/* 只匹配一个，匹配成功就不往下匹配，效率高, react-router-dom v6写法 ：父/根路径需要指定 * 通配符*/}
       <Routes>
 
@@ -26,7 +26,7 @@ function App() {
         {/*配置404页面*/}
         <Route path="/error404" element={<Error />}></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

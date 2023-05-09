@@ -7,15 +7,15 @@ import "./index.less"
 import PermissionModule from "./permissionModule"
 
 function RoleUserList() {
-    const [loading, setLoading] = useState(false)
-    const [data, setData] = useState([])
-    const [checkStrictly, setCheckStrictly] = useState(false);
-    const [selectedRowKeys, setSelectedRowKeys] = useState([])
-    const PermissionModuleRef = useRef(null);
+    let [loading, setLoading] = useState(false)
+    let [data, setData] = useState([])
+    let [checkStrictly, setCheckStrictly] = useState(false);
+    let [selectedRowKeys, setSelectedRowKeys] = useState([])
+    let PermissionModuleRef = useRef(null);
 
     // 分页
     let [total, setTotal] = useState(0)
-    const [pageIndex, setPageIndex] = useState(1)
+    let [pageIndex, setPageIndex] = useState(1)
     let [pageSize, setPageSize] = useState(10)
     let pagination = {
         current: pageIndex,

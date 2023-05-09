@@ -3,11 +3,11 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import request from "@/api";
 import './index.less'
 const AddRole = forwardRef((props, ref) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [title, setTitle] = useState("0");// 0 新增 1编辑
-    const [userId, setUserId] = useState(null)
-    const [form] = Form.useForm();
-    const { TextArea } = Input;
+    let [isModalOpen, setIsModalOpen] = useState(false);
+    let [title, setTitle] = useState("0");// 0 新增 1编辑
+    let [userId, setUserId] = useState(null)
+    let [form] = Form.useForm();
+    let { TextArea } = Input;
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setIsModalOpen, setEditForm, setTitle, setUserId

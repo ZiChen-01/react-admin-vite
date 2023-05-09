@@ -6,15 +6,15 @@ import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons'
 import './index.less'
 
 const MenuAuthorization = forwardRef((props, ref) => {
-    const [loading, setLoading] = useState(false);
-    const [menuVisible, setMenuVisible] = useState(false)
-    const [details, setDetails] = useState({})
-    const [treeData, setTreeData] = useState([])
-    const [checkedKeys, setCheckedKeys] = useState([]) //复选框选中菜单
-    const [allTreeKeys, setAllTreeKeys] = useState([])//展开所有
-    const [expandedKeys, setExpandedKeys] = useState([]) //控制展开
-    const [lastpermissionIds, setLastpermissionIds] = useState([]) //上一次
-    const [checkStrictly, setCheckStrictly] = useState(false)
+    let [loading, setLoading] = useState(false);
+    let [menuVisible, setMenuVisible] = useState(false)
+    let [details, setDetails] = useState({})
+    let [treeData, setTreeData] = useState([])
+    let [checkedKeys, setCheckedKeys] = useState([]) //复选框选中菜单
+    let [allTreeKeys, setAllTreeKeys] = useState([])//展开所有
+    let [expandedKeys, setExpandedKeys] = useState([]) //控制展开
+    let [lastpermissionIds, setLastpermissionIds] = useState([]) //上一次
+    let [checkStrictly, setCheckStrictly] = useState(false)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setMenuVisible, queryMenuTreeList, setDetails

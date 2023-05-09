@@ -3,7 +3,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 import './index.less'
 const GraphicCode = forwardRef((props, ref) => {
-    const timeSecond = 30 //秒
+    let timeSecond = 30 //秒
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         verify

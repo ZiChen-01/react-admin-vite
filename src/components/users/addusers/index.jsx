@@ -6,14 +6,14 @@ import './index.less'
 const { Option } = Select;
 
 const Addusers = forwardRef((props, ref) => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [isStatus, setIsStatus] = useState(1);//1 添加  2编辑 3详情
-    const [form] = Form.useForm();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '0')
-    const [queryalllist, setQueryalllist] = useState([]) //角色列表
-    const [DeptTree, setGetDeptTree] = useState([]) //机构
-    const [showEle, setShowEle] = useState(true);
-    const [userId, setUserId] = useState(null)
+    let [isModalVisible, setIsModalVisible] = useState(false);
+    let [isStatus, setIsStatus] = useState(1);//1 添加  2编辑 3详情
+    let [form] = Form.useForm();
+    let userInfo = JSON.parse(localStorage.getItem('userInfo') || '0')
+    let [queryalllist, setQueryalllist] = useState([]) //角色列表
+    let [DeptTree, setGetDeptTree] = useState([]) //机构
+    let [showEle, setShowEle] = useState(true);
+    let [userId, setUserId] = useState(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setIsModalVisible,

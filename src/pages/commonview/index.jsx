@@ -14,20 +14,20 @@ import Setting from '@/components/Setting';
 const { Header, Content, Footer, Sider } = Layout;
 
 const Commonview = () => {
-    const SettingRef = useRef(null)
+    let SettingRef = useRef(null)
     //路由加载进度条
     nprogress.start();
     setTimeout(() => {
         nprogress.done();
     }, 200);
 
-    const titleH2 = window._CONFIG.ROOT_APP_NAME
-    const navigate = useNavigate()
-    const location = useLocation()
-    const [current, setCurrent] = useState(location.pathname);
-    const [defaultOpenKeys, setDefaultOpenKeys] = useState(location.pathname)
-    const [collapsed, setCollapsed] = useState(false);
-    const [title, setTitle] = useState(true);
+    let titleH2 = window._CONFIG.ROOT_APP_NAME
+    let navigate = useNavigate()
+    let location = useLocation()
+    let [current, setCurrent] = useState(location.pathname);
+    let [defaultOpenKeys, setDefaultOpenKeys] = useState(location.pathname)
+    let [collapsed, setCollapsed] = useState(false);
+    let [title, setTitle] = useState(true);
     let [routeList, setRouteList] = useState([])
     routes.map(item => {
         if (item.label == "首页") {
@@ -130,7 +130,7 @@ const Commonview = () => {
                             <div className='userinfo'>
                                 <span className='user-Setting'>
                                     <Tooltip title="后台布局设置">
-                                        <SettingOutlined spin onClick={setting}/>
+                                        <SettingOutlined spin onClick={setting} />
                                     </Tooltip>
                                 </span>
                                 <UserInfo />
@@ -213,7 +213,6 @@ function getRoutes(routes) {
     const routesElement = routes.map((item, index) => {
         return (
             <React.Fragment key={index}>
-
                 <Route path={item.key} element={
                     //  react懒加载，必须要loading 
                     <React.Suspense fallback={<Loading />}>

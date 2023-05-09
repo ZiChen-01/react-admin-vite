@@ -4,14 +4,14 @@ import request from "@/api";
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
 import './index.less'
 const LookUsers = forwardRef((props, ref) => {
-    const [lookVisible, setLookVisible] = useState(false);
-    const [details, setDetails] = useState({});
-    const [loading, setLoading] = useState(false)
-    const [dataUserList, setDataUserList] = useState([])
-    const [userList, setUserList] = useState([])
-    const [selectedRowKeys, setSelectedRowKeys] = useState([])
+    let [lookVisible, setLookVisible] = useState(false);
+    let [details, setDetails] = useState({});
+    let [loading, setLoading] = useState(false)
+    let [dataUserList, setDataUserList] = useState([])
+    let [userList, setUserList] = useState([])
+    let [selectedRowKeys, setSelectedRowKeys] = useState([])
     let [username, setUsername] = useState('')
-    const [activeKey, setActiveKey] = useState('1')
+    let [activeKey, setActiveKey] = useState('1')
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setLookVisible, setDetails, getUserlist, getAllUserlist, setActiveKey
