@@ -133,6 +133,7 @@ function Users() {
                                         </Popconfirm>
                                     ),
                                     key: '2',
+                                    disabled: record.username.includes('admin'),//超管禁止删除
                                 },
                                 {
                                     label: (<a> 修改密码</a>),

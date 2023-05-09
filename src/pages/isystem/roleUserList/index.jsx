@@ -75,16 +75,17 @@ function RoleUserList() {
                                 },
                                 {
                                     label: (
-                                        <Popconfirm
+                                        <Popconfirm Popconfirm
                                             title="确定要删除此角色?"
                                             onConfirm={() => deleteRole(record)}
                                             okText="确定"
                                             cancelText="取消"
                                         >
-                                            <a> 删除角色</a>
+                                            <a > 删除角色</a>
                                         </Popconfirm>
                                     ),
                                     key: '3',
+                                    disabled: record.roleCode.includes('admin'),//超管禁止删除
                                 },
                             ],
                             onClick: (e) => onMenu(e, record)
@@ -94,7 +95,7 @@ function RoleUserList() {
                                     更多
                                 </Space>
                             </a>
-                        </Dropdown>
+                        </Dropdown >
                     </>
                 )
             }

@@ -1,6 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 import { Layout, Menu, Popconfirm } from 'antd';
-import Icon,{ MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined } from '@ant-design/icons';
+import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
@@ -27,7 +27,12 @@ const Commonview = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [title, setTitle] = useState(true);
     let [routeList, setRouteList] = useState([])
-    routeList.push(routes[0])
+    routes.map(item => {
+        if (item.label == "首页") {
+            routeList.push(item)
+        }
+    })
+
 
     // 点击菜单
     const onClick = (e) => {
