@@ -1,1 +1,0 @@
-import{af as e,hS as n,j as t}from"./index-218c74fb.js";class r extends e.Component{constructor(e){super(e),n.start()}componentWillUnmount(){n.done()}render(){return t.jsx(e.Fragment,{})}}export{r as default};

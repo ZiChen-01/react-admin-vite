@@ -80,10 +80,8 @@ function setmenu(list) {
 }
 const dynamicImport = (moduleName) => {
     let viteModule = import.meta.glob("../pages/**");
-    console.log(viteModule);
     let url = `../pages/${moduleName}`
-    const module = viteModule[url]
-    console.log(module);
+    const module = import(`../pages/dashboard/analysis`)
     return module;
 }
 //创建节点的方法
