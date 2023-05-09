@@ -1,7 +1,5 @@
 import request from '@/api'
 import { lazy } from "react";
-import { UserOutlined, HomeOutlined } from '@ant-design/icons';
-
 const getMenu = () => {
     return request.getMenuBar({ _t: "1682558421" }).then((res) => {
         if (res.data.code = 200) {
