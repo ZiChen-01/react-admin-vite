@@ -1,0 +1,1 @@
+import{r as s,j as e}from"./index-218c74fb.js";import a from"./welcome-d143d022.js";class r extends s.Component{render(){return window._CONFIG.ROOT_APP_NAME,e.jsx("main",{className:"analsis",children:e.jsxs("div",{className:"imgbox",children:[" ",e.jsx("img",{src:a,alt:""})]})})}}export{r as default};

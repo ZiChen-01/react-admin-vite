@@ -1,4 +1,4 @@
-import defaultTheme from "@/styles/theme/theme-default.less";
+// import defaultTheme from "@/styles/theme/theme-default.less";
 // import darkTheme from "@/styles/theme/theme-dark.less";
 //用于获取状态
 import store from "@/redux/store";
