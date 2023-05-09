@@ -1,4 +1,4 @@
-import { Drawer, Tree, message, Button, Dropdown, Col, Row } from "antd"
+import { Drawer, Tree, message, Button, Dropdown, Col, Row, Spin } from "antd"
 import { UpOutlined } from '@ant-design/icons';
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import request from "@/api";
@@ -6,6 +6,7 @@ import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons'
 import './index.less'
 
 const MenuAuthorization = forwardRef((props, ref) => {
+    const [loading, setLoading] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false)
     const [details, setDetails] = useState({})
     const [treeData, setTreeData] = useState([])
@@ -35,11 +36,23 @@ const MenuAuthorization = forwardRef((props, ref) => {
     }
     // 菜单树
     const queryMenuTreeList = (item = null) => {
-        request.queryMenuTreeList().then(async /*  */res => {
+        setLoading(true)
+        request.queryMenuTreeList().then(res => {
             if (res.data.code == 0) {
-                let list = res.data.result.treeList
-
-                setTreeData(setTreeList(list))
+                let list = setTreeList(res.data.result.treeList)
+                // 超管禁止选择系统管理下属菜单（默认选中，禁止删掉admin系统权限）
+                let menu = ["系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
+                if (item && item.roleCode == "admin") setdisabled(list)
+                function setdisabled(list) {
+                    for (let i = 0; i < list.length; i++) {
+                        const element = list[i];
+                        if (menu.includes(element.title)) {
+                            element.disabled = true
+                        }
+                        if (element.children) setdisabled(element.children)
+                    }
+                }
+                setTreeData(list)
                 setExpandedKeys(res.data.result.ids) //ids返回所有菜单key
                 setAllTreeKeys(res.data.result.ids)
                 queryRolePermission(item)
@@ -57,9 +70,11 @@ const MenuAuthorization = forwardRef((props, ref) => {
     // 菜单角色key
     const queryRolePermission = (item) => {
         request.queryRolePermission({ roleId: item.id }).then(res => {
+            setLoading(false)
             if (res.data.code == 0) {
                 setCheckedKeys(res.data.result)
                 setLastpermissionIds(res.data.result)
+
             }
         })
     }
@@ -151,15 +166,17 @@ const MenuAuthorization = forwardRef((props, ref) => {
                     </Row>
                 </>
             }>
-                <Tree
-                    checkable
-                    onCheck={onCheck}
-                    treeData={treeData}
-                    checkedKeys={checkedKeys}
-                    expandedKeys={expandedKeys}
-                    checkStrictly={checkStrictly}
-                    onExpand={onExpand}
-                />
+                <Spin spinning={loading}>
+                    <Tree
+                        checkable
+                        onCheck={onCheck}
+                        treeData={treeData}
+                        checkedKeys={checkedKeys}
+                        expandedKeys={expandedKeys}
+                        checkStrictly={checkStrictly}
+                        onExpand={onExpand}
+                    />
+                </Spin>
             </Drawer >
         </>
     )
