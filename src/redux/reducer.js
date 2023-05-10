@@ -1,7 +1,7 @@
 
 const defaultState = {
     reload: false,
-    darkTheme: false,//暗黑模式
+    darkTheme: false,//深夜模式
     weakOrGray: false,//色弱/灰色
 }
 

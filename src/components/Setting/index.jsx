@@ -5,6 +5,8 @@ import './index.less'
 
 //用于获取状态
 import store from "@/redux/store";
+
+import { setDayNight } from "@/utils/moment"
 const Setting = forwardRef((props, ref) => {
     let [SettingVisible, setSettingVisible] = useState(false);
     let [darkChecked, setDarkChecked] = useState(false)
@@ -37,6 +39,7 @@ const Setting = forwardRef((props, ref) => {
             type: 'darkTheme',
             data: e
         })
+
     }
     // 灰色模式
     const grayChange = (e) => {

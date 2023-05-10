@@ -1,6 +1,7 @@
 //用于获取状态
 import store from "@/redux/store";
 import { message } from "antd"
+import { setDayNight } from "@/utils/moment"
 // import defaultTheme from "@/styles/theme/theme-default.less";
 // import darkTheme from "@/styles/theme/theme-dark.less";
 /**
@@ -10,7 +11,7 @@ import { message } from "antd"
 const useTheme = () => {
 	// 通知切换模式
 	store.subscribe(() => {
-		const { weakOrGray } = store.getState()
+		const { weakOrGray, darkTheme, autoTheme } = store.getState()
 		// 灰色 色弱
 		switch (weakOrGray) {
 			case "gray":
@@ -28,22 +29,7 @@ const useTheme = () => {
 			default:
 				break;
 		}
-	})
-	// 灰色 色弱
-	switch (localStorage.getItem("weakOrGray")) {
-		case "gray":
-			document.body.style.filter = "grayscale(1)";
-			break;
-		case "weak":
-			document.body.style.filter = "invert(80%)";
-			break;
-		default:
-			document.body.style.removeProperty("filter");
-			break;
-	}
-
-	store.subscribe(() => {
-		const { darkTheme } = store.getState()
+		// 深夜模式
 		if (darkTheme) {
 			localStorage.setItem("darkTheme", darkTheme)
 			import("@/styles/theme/theme-dark.less")
@@ -60,6 +46,19 @@ const useTheme = () => {
 			}, 2000);
 		}
 	})
+	// 灰色 色弱
+	switch (localStorage.getItem("weakOrGray")) {
+		case "gray":
+			document.body.style.filter = "grayscale(1)";
+			break;
+		case "weak":
+			document.body.style.filter = "invert(80%)";
+			break;
+		default:
+			document.body.style.removeProperty("filter");
+			break;
+	}
+	// 深夜
 	if (localStorage.getItem("darkTheme")) {
 		import("@/styles/theme/theme-dark.less")
 	}
