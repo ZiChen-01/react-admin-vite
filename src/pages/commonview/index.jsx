@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Layout, Menu, Popconfirm, Dropdown, Tooltip } from 'antd';
 import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined, SettingOutlined } from '@ant-design/icons';
 import './index.less'
@@ -29,14 +29,12 @@ const Commonview = () => {
     let [collapsed, setCollapsed] = useState(false);
     let [title, setTitle] = useState(true);
     let [routeList, setRouteList] = useState([])
-
+    routes.map(item => {
+        if (item.label == "首页") {
+            routeList.push(item)
+        }
+    })
     useEffect(() => {
-        console.log(routes);
-        routes.map(item => {
-            if (item.label == "首页") {
-                routeList.push(item)
-            }
-        })
     }, []);
 
     // 点击菜单
