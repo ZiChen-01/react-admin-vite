@@ -11,7 +11,7 @@ switch (key) {
         window._CONFIG['API_BASE_URL'] = 'https://zhihuitest.wzbank.cn/yinqihui/mutualfund-manager/'
         break;
     case 1:
-        window._CONFIG['API_BASE_URL'] = ''
+        window._CONFIG['API_BASE_URL'] = 'http://20.100.31.159:8080/mutualfund-manager/'
         break;
     case 2:
         window._CONFIG['API_BASE_URL'] = ''

@@ -33,7 +33,7 @@ export default defineConfig({
     // }
   },
   build: {
-    outDir: "web-view", // 打包文件 默认dist
+    outDir: "mutualfund-manager", // 打包文件 默认dist
     minify: "terser",
     // 打包清除console和debugger
     terserOptions: {
