@@ -177,28 +177,30 @@ function RoleUserList() {
                         </Form.Item>
                     </Col>
                     <Col md={6} sm={12}>
+
+                    </Col>
+                </Row>
+
+                <Row justify="space-between" className="buttonbox">
+                    <Col>
                         <Button type="primary" icon={<SearchOutlined />} onClick={getlist}>
                             查询
                         </Button>
                         <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} style={{ marginLeft: '10px' }}>
                             重置
                         </Button>
-                    </Col>
-                </Row>
 
-                <Row justify="space-between" className="buttonbox">
+                    </Col>
                     <Col>
                         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
                             添加角色
                         </Button>
-                    </Col>
-                    <Col>
-                        <Button type="primary" icon={<ExportOutlined />} onClick={handleAdd}>
+                        {/* <Button type="primary" icon={<ExportOutlined />} onClick={handleAdd}>
                             导入
                         </Button>
                         <Button type="primary" icon={<DownloadOutlined />} onClick={handleAdd} style={{ marginLeft: '10px' }}>
                             导出
-                        </Button>
+                        </Button> */}
                     </Col>
                 </Row>
                 <Table rowKey={(row) => row.id} dataSource={dataSource} columns={columns} loading={loading}

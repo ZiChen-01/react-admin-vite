@@ -277,8 +277,8 @@ function Users() {
                         </Form.Item>
                     </Col>
                     <Col md={6} sm={12}>
-                        <Form.Item label="真实名字">
-                            <Input value={realname} placeholder='请输入真实名字' onChange={(e) => setRealname(e.target.value)} />
+                        <Form.Item label="用户姓名">
+                            <Input value={realname} placeholder='请输入用户姓名' onChange={(e) => setRealname(e.target.value)} />
                         </Form.Item>
                     </Col>
                     <Col md={6} sm={12}>
@@ -287,7 +287,7 @@ function Users() {
                         </Form.Item>
                     </Col>
                     <Col md={6} sm={12}>
-                        <Form.Item label="用户状态">
+                        <Form.Item label="状态">
                             <Select defaultValue={status} value={status} onChange={(e) => {
                                 setStatus(e)
                             }} placeholder='请选择用户状态' >
