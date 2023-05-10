@@ -15,6 +15,7 @@ export default defineConfig({
     //   promiseImportName: i => `__tla_${i}`
     // })
   ],
+  base:"./",
   server: {
     host: '0.0.0.0',// 监听所有地址
     port: 8081,// 默认端口
