@@ -1,5 +1,6 @@
 //用于获取状态
 import store from "@/redux/store";
+import { message } from "antd"
 // import defaultTheme from "@/styles/theme/theme-default.less";
 // import darkTheme from "@/styles/theme/theme-dark.less";
 /**
@@ -7,26 +8,10 @@ import store from "@/redux/store";
  * */
 
 const useTheme = () => {
-	// 登录后刷新页面
+	// 通知切换模式
 	store.subscribe(() => {
 		const { weakOrGray } = store.getState()
-		// const { themeConfig }
-		// switch (key) {
-		// 	case value:
-
-		// 		break;
-
-		// 	default:
-		// 		break;
-		// }
-		// if (darkTheme) {
-		// 	import("@/styles/theme/theme-dark.less")
-		// } else {
-		// 	import("@/styles/theme/theme-default.less")
-		// }
-
 		// 灰色 色弱
-		console.log(weakOrGray);
 		switch (weakOrGray) {
 			case "gray":
 				document.body.style.filter = "grayscale(1)";
@@ -56,34 +41,29 @@ const useTheme = () => {
 			document.body.style.removeProperty("filter");
 			break;
 	}
-	return
 
-	const initTheme = () => {
-		console.log(weakOrGray);
-		// 灰色和弱色切换
-		const body = document.documentElement;
-		if (!weakOrGray) body.setAttribute("style", "");
-		if (weakOrGray === "weak") document.body.style.filter = "invert(80%)";
-		if (weakOrGray === "gray") body.setAttribute("style", "filter: grayscale(1)");
-
-		// 切换暗黑模式
-		let head = document.getElementsByTagName("head")[0];
-		const getStyle = head.getElementsByTagName("style");
-		if (getStyle.length > 0) {
-			for (let i = 0, l = getStyle.length; i < l; i++) {
-				if (getStyle[i]?.getAttribute("data-type") === "dark") getStyle[i].remove();
-			}
+	store.subscribe(() => {
+		const { darkTheme } = store.getState()
+		if (darkTheme) {
+			localStorage.setItem("darkTheme", darkTheme)
+			import("@/styles/theme/theme-dark.less")
+			message.loading("正在切换深夜模式，请稍后")
+			setTimeout(() => {
+				window.location.reload()
+			}, 2000);
+		} else if (darkTheme == false) {
+			import("@/styles/theme/theme-default.less")
+			localStorage.removeItem("darkTheme")
+			message.loading("正在切换白天模式，请稍后")
+			setTimeout(() => {
+				window.location.reload()
+			}, 2000);
 		}
-		let styleDom = document.createElement("style");
-		styleDom.dataset.type = "dark";
-		styleDom.innerHTML = isDark ? darkTheme : defaultTheme;
-		head.appendChild(styleDom);
-	};
-	initTheme();
+	})
+	if (localStorage.getItem("darkTheme")) {
+		import("@/styles/theme/theme-dark.less")
+	}
 
-	return {
-		initTheme
-	};
 };
 
 export default useTheme;

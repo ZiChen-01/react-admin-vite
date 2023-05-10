@@ -1,4 +1,4 @@
-@import "antd/dist/antd.dark.css";
+@import "antd/dist/antd.dark.less";
 
 /* 自定义 antd 暗黑模式样式 */
 @dark-main-bg-color: #141414;
@@ -10,12 +10,18 @@
 
 /* 需要自定义覆盖的样式 */
 body {
-	background-color: @dark-main-bg-color !important;
+	background-color: @dark-main-bg-color  !important;
+
 	// guide
 	#driver-highlighted-element-stage {
 		background-color: #525457 !important;
 	}
 }
 
-
-
+.site-layout .site-layout-background,
+.commonview .breadcrumb,
+.commonview .ant-layout-content,
+#permission .alert,
+.commonview .ant-layout-sider {
+	background: #1f1f1f !important;
+}

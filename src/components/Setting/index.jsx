@@ -25,7 +25,11 @@ const Setting = forwardRef((props, ref) => {
             default:
                 break;
         }
+        if (localStorage.getItem("darkTheme")) {
+            setDarkChecked(true)
+        }
     }, []);
+    // 深夜模式
     const darkChange = (e) => {
         setDarkChecked(e)
         //通知reducer页面数据变化了
@@ -61,7 +65,7 @@ const Setting = forwardRef((props, ref) => {
                 data: "weak"
             })
             setGrayChecked(false)
-        }else {
+        } else {
             store.dispatch({
                 type: 'weakOrGray',
                 data: false
@@ -74,7 +78,7 @@ const Setting = forwardRef((props, ref) => {
 
                 <Divider>全局主题</Divider>
                 <div className="theme-item">
-                    <span>暗黑模式</span>
+                    <span>深夜模式</span>
                     <Switch checked={darkChecked} checkedChildren="开启" unCheckedChildren="关闭" onChange={e => darkChange(e)} />
                 </div>
                 <div className="theme-item">
