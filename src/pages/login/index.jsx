@@ -39,7 +39,7 @@ const Login = () => {
         localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
         localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
         getMenu().then(res => {
-          localStorage.setItem('persist:redux-state', JSON.stringify(res))
+          localStorage.setItem('menuList', JSON.stringify(res))
           //通知reducer页面数据变化了
           store.dispatch({
             type: 'reload',

@@ -113,8 +113,7 @@ function importLocale(locale) {
     
     // 找不到本地组件直接403
     if (url == undefined) url = () => import(`../components/error403`)
-
-    console.log(url);
+    
     // const url = import(`../pages/${locale}`)  // vite不支持
 
     return url
@@ -123,7 +122,7 @@ function importLocale(locale) {
 function iconBC(name) { return React.createElement(Icon[name]); }
 // 从接口请求菜单
 const token = localStorage.getItem('Autn-Token')
-const menu = localStorage.getItem('persist:redux-state')
+const menu = localStorage.getItem('menuList')
 if (token) getMenu()
 if (token && menu) {
     let i = setmenu(JSON.parse(menu))

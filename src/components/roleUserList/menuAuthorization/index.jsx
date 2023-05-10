@@ -4,7 +4,9 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import request from "@/api";
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
 import './index.less'
-
+import getMenu from "../../../routes/routerConfig";
+//用于获取状态
+import store from "../../../redux/store";
 const MenuAuthorization = forwardRef((props, ref) => {
     let [loading, setLoading] = useState(false);
     let [menuVisible, setMenuVisible] = useState(false)
@@ -15,6 +17,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
     let [expandedKeys, setExpandedKeys] = useState([]) //控制展开
     let [lastpermissionIds, setLastpermissionIds] = useState([]) //上一次
     let [checkStrictly, setCheckStrictly] = useState(false)
+    const roleInfo = JSON.parse(localStorage.getItem('roleInfo'))
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setMenuVisible, queryMenuTreeList, setDetails
@@ -28,10 +31,28 @@ const MenuAuthorization = forwardRef((props, ref) => {
         }
         request.saveRolePermission(params).then(res => {
             if (res.data.code == 200) {
-                message.success(res.data.message)
+                if (roleInfo.roleCode == details.roleCode) {
+                    //通知reducer页面数据变化了
+                    if (roleInfo.roleCode == details.roleCode) {
+                        message.loading("正在初始化菜单，请稍后")
+                        getMenu().then(res => {
+                            localStorage.setItem('menuList', JSON.stringify(res))
+
+                            setTimeout(() => {
+                                store.dispatch({
+                                    type: 'reload',
+                                    data: true
+                                })
+                            }, 2000);
+                        })
+                    }
+                } else {
+                    message.success(res.data.message)
+                }
             }
             queryRolePermission(details)
             setMenuVisible(false)
+
         })
     }
     // 菜单树

@@ -174,7 +174,7 @@ const Commonview = () => {
 
 
 function UserInfo() {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '0')
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     const passwordRef = useRef(null);
     const onMenu = ({ key }) => {
         switch (key) {
