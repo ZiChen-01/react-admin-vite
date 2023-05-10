@@ -266,7 +266,7 @@ const Addusers = forwardRef((props, ref) => {
                         label="性别"
                         name="sex"
                     >
-                        <Select placeholder='请选择性别！' disabled={isStatus == 3} getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}>
+                        <Select placeholder='请选择性别' disabled={isStatus == 3} getPopupContainer={(triggerNode) => (triggerNode.parentElement || document.body)}>
                             <Option value="1">男</Option>
                             <Option value="2">女</Option>
                         </Select>

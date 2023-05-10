@@ -225,7 +225,7 @@ const LookUsers = forwardRef((props, ref) => {
                                 <Row gutter={15}>
                                     <Col md={12} sm={15}>
                                         <Form.Item label="账号">
-                                            <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号！" />
+                                            <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号" />
                                         </Form.Item>
                                     </Col>
                                     <Col>

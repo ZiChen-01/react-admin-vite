@@ -173,7 +173,7 @@ function RoleUserList() {
                 <Row gutter={24}>
                     <Col md={6} sm={12}>
                         <Form.Item label="角色名称">
-                            <Input value={roleName} onChange={(e) => setRoleName(e.target.value)} placeholder="请输入角色名称！" />
+                            <Input value={roleName} onChange={(e) => setRoleName(e.target.value)} placeholder="请输入角色名称" />
                         </Form.Item>
                     </Col>
                     <Col md={6} sm={12}>
