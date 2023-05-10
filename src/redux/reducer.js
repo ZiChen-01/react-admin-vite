@@ -1,12 +1,13 @@
 
 const defaultState = {
     reload: false,
-    count: 0,
-    darkTheme: false
+    darkTheme: false,//暗黑模式
+    weakOrGray: false,//色弱/灰色
 }
 
 const reducer = (preState = defaultState, action) => {
     const { type, data } = action
+
     switch (type) {
         case 'reload':
             return {
@@ -16,9 +17,9 @@ const reducer = (preState = defaultState, action) => {
             return {
                 darkTheme: data
             }
-        case 'reduce':
+        case 'weakOrGray':
             return {
-                count: preState.count - data
+                weakOrGray: data
             }
         default:
             return defaultState
