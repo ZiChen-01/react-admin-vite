@@ -107,7 +107,7 @@ const PermissionModule = forwardRef((props, ref) => {
                 <Alert banner
                     closeText="✖"
                     message={<Marquee pauseOnHover gradient={false}>
-                        新增以后请在前端工程pages目录下添加该组件，例如：pages/dashboard/Analysis/index.jsx。
+                        新增以后请在前端工程pages目录下添加该组件，例如：pages/dashboard/analysis/index.jsx。
                     </Marquee>}
                 />
                 <Form
@@ -164,7 +164,7 @@ const PermissionModule = forwardRef((props, ref) => {
                         name="component"
                         rules={[{ required: true, message: '请输入前端组件!' }]}
                     >
-                        <Input placeholder="请输入前端组件，示例：dashboard/Analysis" allowClear />
+                        <Input placeholder="请输入前端组件，示例：dashboard/analysis" allowClear />
                     </Form.Item>
                     {
                         radioValue == 0 ? <Form.Item
