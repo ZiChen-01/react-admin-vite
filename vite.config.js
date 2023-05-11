@@ -34,7 +34,7 @@ export default defineConfig({
     // }
   },
   build: {
-    outDir: "mutualfund-manager", // 打包文件 默认dist
+    outDir: "manager-mutualfund", // 打包文件 默认dist
     minify: "terser",
     // 打包清除console和debugger
     terserOptions: {

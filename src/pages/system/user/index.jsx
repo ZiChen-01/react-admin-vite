@@ -262,8 +262,13 @@ function Users() {
             <div className="userList">
                 <Row gutter={24}>
                     <Col md={6} sm={12}>
-                        <Form.Item label="账号">
+                        <Form.Item label="用户账号">
                             <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号" />
+                        </Form.Item>
+                    </Col>
+                    <Col md={6} sm={12}>
+                        <Form.Item label="用户姓名">
+                            <Input value={realname} placeholder='请输入用户姓名' onChange={(e) => setRealname(e.target.value)} />
                         </Form.Item>
                     </Col>
                     <Col md={6} sm={12}>
@@ -274,11 +279,6 @@ function Users() {
                                 <Option value="1">男</Option>
                                 <Option value="2">女</Option>
                             </Select>
-                        </Form.Item>
-                    </Col>
-                    <Col md={6} sm={12}>
-                        <Form.Item label="用户姓名">
-                            <Input value={realname} placeholder='请输入用户姓名' onChange={(e) => setRealname(e.target.value)} />
                         </Form.Item>
                     </Col>
                     <Col md={6} sm={12}>
