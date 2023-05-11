@@ -207,7 +207,7 @@ function RoleUserList() {
                     pagination={pagination}
                     expandable={{
                         expandedRowRender: record => <p style={{ margin: 0 }}>描述：{record.description}</p>,
-                    }} />;
+                    }} />
 
                 <AddRole ref={AddRoleRef} getList={getlist} />
                 <LookUsers ref={LookUsersRef} />

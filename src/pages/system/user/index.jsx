@@ -314,7 +314,7 @@ function Users() {
                 </Row>
 
                 <Table rowKey={(row) => row.id} dataSource={dataSource} columns={columns} loading={loading}
-                    pagination={pagination} />;
+                    pagination={pagination} />
 
                 {/* 添加  编辑 用户 */}
                 <Addusers ref={childRef} getlist={getUserlist} />

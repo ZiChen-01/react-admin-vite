@@ -11,10 +11,12 @@ import Loading from "@/components/loading";
 import routes from "@/routes"
 import ChangePassword from "@/components/users/changePassword/changePassword.jsx"
 import Setting from '@/components/Setting';
+import Contextmenu from '@/components/Contextmenu';
 const { Header, Content, Footer, Sider } = Layout;
 
 const Commonview = () => {
     let SettingRef = useRef(null)
+    let ContextmenuRef = useRef(null)
     //路由加载进度条
     nprogress.start();
     setTimeout(() => {
@@ -35,6 +37,13 @@ const Commonview = () => {
         }
     })
     useEffect(() => {
+        // 右键事件监听
+        const tabDom = document.getElementsByClassName("ant-tabs")[0]
+        tabDom.addEventListener("contextmenu", onContextmenu)
+        return () => {
+            // 组件卸载移除事件监听
+            tabDom.removeEventListener("contextmenu", onContextmenu)
+        }
     }, []);
 
     // 点击菜单
@@ -104,8 +113,8 @@ const Commonview = () => {
 
     // 标签栏设置
     const tabBar = ({ key }) => {
-        let e = {}
-        let i = 0
+        let e = {} //当前组件
+        let i = 0 // 当前
         routeList.map((item, index) => {
             if (item.key == current) {
                 e = item
@@ -114,25 +123,76 @@ const Commonview = () => {
         })
 
         switch (key) {
-            case "1":
+            case "1"://关闭当前 
                 if (e.label != "首页") delRouter(e, i)
                 break;
-            case "2":
+            case "2": // 关闭其他
+                //保存首页
                 let home = routeList[0]
                 routeList = [home]
+                // 追加当前
                 routeList.push(e)
                 setRouteList(routeList)//更新视图
                 break;
-            case "3":
+            case "3": //关闭所有
                 let h = routeList[0]
                 routeList = [h]
                 setCurrent(h.key)
-                navigate(h.key)
+                navigate(h.key)//跳转首页
                 setRouteList(routeList)//更新视图
                 break;
             default:
                 break;
         }
+    }
+    
+    // 右键标签
+    const onContextmenu = (e) => {
+        e.preventDefault()
+        ContextmenuRef.current.showContext(e)
+    }
+    // 关闭左侧
+    const closeLeftMenu = (e) => {
+        let i = 0
+        // 找到当前元素的位置
+        routeList.map((item, index) => {
+            if (item.label == e) {
+                i = index
+            }
+        })
+        routeList.splice(1, i - 1)
+        setRouteList(routeList)
+    }
+    // 关闭右侧
+    const closeRightMenu = (e) => {
+        let w = {}
+        let i = 0
+        // 找到当前元素的位置
+        routeList.map((item, index) => {
+            if (item.label == e) {
+                w = item
+                i = index
+            }
+        })
+        routeList.splice(i, routeList.length - 1)
+        navigate(w.key)
+        setRouteList(routeList)
+    }
+    // 关闭其他
+    const closeElseMenu = (e) => {
+        let w = {}
+        let i = 0
+        // 找到当前元素的位置
+        routeList.map((item, index) => {
+            if (item.label == e) {
+                w = item
+                i = index
+            }
+        })
+        let h = routeList[0]
+        routeList = [h, w]
+        navigate(w.key)
+        setRouteList(routeList)
     }
     return (
         <>
@@ -228,14 +288,16 @@ const Commonview = () => {
                             <Route path="*" element={<Navigate to="/error404" />}></Route>
                         </Routes>
                     </Content>
-
+                    {/* 设置 */}
                     <Setting ref={SettingRef} />
+                    {/* 标签栏右键 */}
+                    <Contextmenu ref={ContextmenuRef} closeLeftMenu={closeLeftMenu} closeRightMenu={closeRightMenu} closeElseMenu={closeElseMenu} />
                 </Layout>
 
 
             </Layout>
         </>
-    );
+    )
 
 }
 
