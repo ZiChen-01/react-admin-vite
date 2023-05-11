@@ -14,12 +14,9 @@ function App() {
   let ThemeBgColor = localStorage.getItem("ThemeBgColor")
   // 如果本地没有主题色字段，默认加载
   if (!ThemeBgColor) {
-    import("@/styles/root.less")
+    // import("@/styles/root.css")
   } else {
     switch (ThemeBgColor) {
-      case '#1890ff'://默认
-        import("@/styles/root.less")
-        break;
       case '#2f54eb'://深海蓝
         import("@/styles/theme/2f54eb.less")
         break;

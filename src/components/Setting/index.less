@@ -8,11 +8,20 @@
     }
 
     .theme-bgd {
+        display: flex;
+        justify-content: center;
+
         .ant-tag {
-            width: 20px;
-            height: 20px;
+            --w: 30px;
+            width: var(--w);
+            height: var(--w);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
         }
-        .ant-tag:hover{
+
+        .ant-tag:hover {
             cursor: pointer;
         }
     }

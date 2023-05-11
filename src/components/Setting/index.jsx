@@ -1,6 +1,6 @@
 import { Drawer, Divider, message, Select, DatePicker, Tooltip, Switch, Tag } from "antd"
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-
+import { CheckOutlined } from '@ant-design/icons';
 import './index.less'
 
 //用于获取状态
@@ -12,6 +12,7 @@ const Setting = forwardRef((props, ref) => {
     let [darkChecked, setDarkChecked] = useState(false)
     let [grayChecked, setGrayChecked] = useState(false)
     let [weakChecked, setWeakChecked] = useState(false)
+    let [bgCheck, setBgCheck] = useState("#1890ff")
     // 主题颜色
     const colorList = [
         {
@@ -39,6 +40,8 @@ const Setting = forwardRef((props, ref) => {
             key: '熏紫', color: '#a876ed',
         },
     ]
+
+    const ThemeBgColor = localStorage.getItem("ThemeBgColor")
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setSettingVisible
@@ -57,6 +60,7 @@ const Setting = forwardRef((props, ref) => {
         if (localStorage.getItem("darkTheme")) {
             setDarkChecked(true)
         }
+        if (ThemeBgColor) setBgCheck(ThemeBgColor)
     }, []);
     // 深夜模式
     const darkChange = (e) => {
@@ -107,6 +111,7 @@ const Setting = forwardRef((props, ref) => {
     const changeColor = (item) => {
         localStorage.setItem('ThemeBgColor', item.color)
         message.loading("主题编译中，请稍后")
+        setBgCheck(item.color)
         setTimeout(() => {
             window.location.reload()
         }, 2000);
@@ -133,7 +138,9 @@ const Setting = forwardRef((props, ref) => {
                         colorList.map((item, index) => {
                             return (
                                 <Tooltip title={item.key} key={index}>
-                                    <Tag color={item.color} onClick={() => changeColor(item)}> </Tag>
+                                    <Tag color={item.color} onClick={() => changeColor(item)}>
+                                        {bgCheck == item.color ? < CheckOutlined /> : ""}
+                                    </Tag>
                                 </Tooltip>
                             )
                         })
