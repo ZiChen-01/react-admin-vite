@@ -105,7 +105,7 @@ const PermissionModule = forwardRef((props, ref) => {
                 </>
             }>
                 <Alert banner
-                    closeText="✖"
+                    closeText="取消"
                     message={<Marquee pauseOnHover gradient={false}>
                         新增以后请在前端工程pages目录下添加该组件，例如：pages/dashboard/analysis/index.jsx。
                     </Marquee>}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Layout, Menu, Popconfirm, Dropdown, Tooltip } from 'antd';
-import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, CloseOutlined, SettingOutlined } from '@ant-design/icons';
+import { Layout, Menu, Popconfirm, Dropdown, Tooltip, Tabs } from 'antd';
+import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, BarsOutlined, SettingOutlined, CloseOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
@@ -51,7 +51,7 @@ const Commonview = () => {
         }, 500)
     }
 
-    // 面包屑
+    // 标签栏
     routerFun(routes)
     function routerFun(array) {//递归
         for (let index = 0; index < array.length; index++) {
@@ -73,7 +73,7 @@ const Commonview = () => {
         }
         return preVal
     }, [])
-    // 删除面包屑
+    // 删除标签栏
     const delRouter = ((item, index) => {
         if (routeList.length == 1) { //仅剩一个停止继续执行
             return
@@ -85,14 +85,13 @@ const Commonview = () => {
             } else {
                 navigate(routeList[index + 1].key) //删除前跳转下一个路由
                 setCurrent(routeList[index + 1].key)//更新菜单选中标识
-
             }
 
         }
         routeList.splice(index, 1)//删除当前路由
         setRouteList(routeList)//更新视图
     })
-    // 面包屑跳转
+    // 标签栏跳转
     const toRouter = ((item) => {
         navigate(item.key)
         setCurrent(item.key)
@@ -101,6 +100,39 @@ const Commonview = () => {
     // 后台布局设置
     const setting = () => {
         SettingRef.current.setSettingVisible(true)
+    }
+
+    // 标签栏设置
+    const tabBar = ({ key }) => {
+        let e = {}
+        let i = 0
+        routeList.map((item, index) => {
+            if (item.key == current) {
+                e = item
+                i = index
+            }
+        })
+
+        switch (key) {
+            case "1":
+                if (e.label != "首页") delRouter(e, i)
+                break;
+            case "2":
+                let home = routeList[0]
+                routeList = [home]
+                routeList.push(e)
+                setRouteList(routeList)//更新视图
+                break;
+            case "3":
+                let h = routeList[0]
+                routeList = [h]
+                setCurrent(h.key)
+                navigate(h.key)
+                setRouteList(routeList)//更新视图
+                break;
+            default:
+                break;
+        }
     }
     return (
         <>
@@ -141,17 +173,52 @@ const Commonview = () => {
                             </div>
                         </div>
                     </Header>
-                    {/* 面包屑 */}
-                    <div className='breadcrumb'>
-                        {routeList.map((item, index) => {
-                            return (
-                                <div key={index} style={{ color: item.colordisabled == 'true' ? 'var(--main-bg)' : '' }}>
-                                    <span>{item.icon}</span>
-                                    <span onClick={() => { toRouter(item) }} className="breadcrumbTitle"> {item.label}</span>
-                                    {index != 0 ? <CloseOutlined onClick={() => { delRouter(item, index) }} /> : <span style={{ width: '14px' }}></span>}
-                                </div>
-                            )
-                        })}
+                    {/* 标签栏 */}
+                    <div className="tabsList-box">
+                        <div className="tabsList-box-view">
+                            <div className='breadcrumb'>
+                                <Tabs
+                                    defaultActiveKey="1"
+                                    items={routeList.map((item, index) => {
+                                        const id = String(index);
+                                        return {
+                                            label: (
+                                                <div className='breadcrumb-box' style={{ color: item.colordisabled == 'true' ? 'var(--main-bg)' : '' }}>
+                                                    <span>{item.icon}</span>
+                                                    <span onClick={() => { toRouter(item) }} className="breadcrumbTitle"> {item.label}</span>
+                                                    {index != 0 ? <CloseOutlined onClick={() => { delRouter(item, index) }} /> : ""}
+                                                </div>
+                                            ),
+                                            key: id,
+                                        };
+                                    })}
+                                />
+                            </div>
+                            <div className="tabBarDetails">
+                                <Dropdown menu={{
+                                    items: [
+                                        {
+                                            label: (<a> 关闭当前</a>),
+                                            key: '1',
+                                        },
+                                        {
+                                            label: (<a> 关闭其他</a>),
+                                            key: '2',
+                                        },
+                                        {
+                                            label: (<a> 关闭所有</a>),
+                                            key: '3',
+                                        }
+                                    ],
+                                    onClick: (e) => tabBar(e),
+                                }} arrow={{
+                                    pointAtCenter: true,
+                                }}>
+                                    <BarsOutlined />
+                                </Dropdown>
+                            </div>
+
+                        </div>
                     </div>
                     <Content>
                         {/* 配置路由子组件 */}
