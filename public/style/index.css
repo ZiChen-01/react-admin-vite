@@ -216,3 +216,22 @@
     color: #fff;
     opacity: 0.5;
 }
+
+
+html,body {
+    overflow-y: scroll;
+}
+
+html,body::-webkit-scrollbar {
+    width: 5px;
+}
+
+html,body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+html,body::-webkit-scrollbar-track {
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
