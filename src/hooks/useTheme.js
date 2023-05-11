@@ -7,7 +7,7 @@ import { setDayNight } from "@/utils/moment"
 /**
  * @description 全局主题设置
  * */
-
+import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 const useTheme = () => {
 	// 通知切换模式
 	store.subscribe(() => {
@@ -16,22 +16,22 @@ const useTheme = () => {
 		switch (weakOrGray) {
 			case "gray":
 				document.body.style.filter = "grayscale(1)";
-				localStorage.setItem("weakOrGray", weakOrGray)
+				setCookies('weakOrGray', weakOrGray, 365)
 				break;
 			case "weak":
 				document.body.style.filter = "invert(80%)";
-				localStorage.setItem("weakOrGray", weakOrGray)
+				setCookies('weakOrGray', weakOrGray, 365)
 				break;
 			case false:
 				document.body.style.removeProperty("filter");
-				localStorage.removeItem("weakOrGray")
+				removeCookies("weakOrGray", 365)
 				break;
 			default:
 				break;
 		}
 		// 深夜模式
 		if (darkTheme) {
-			localStorage.setItem("darkTheme", darkTheme)
+			setCookies('darkTheme', darkTheme, 365)
 			import("@/styles/theme/theme-dark.less")
 			message.loading("正在切换深夜模式，请稍后")
 			setTimeout(() => {
@@ -39,7 +39,7 @@ const useTheme = () => {
 			}, 2000);
 		} else if (darkTheme == false) {
 			import("@/styles/theme/theme-default.less")
-			localStorage.removeItem("darkTheme")
+			removeCookies("darkTheme", 365)
 			message.loading("正在切换白天模式，请稍后")
 			setTimeout(() => {
 				window.location.reload()
@@ -47,7 +47,7 @@ const useTheme = () => {
 		}
 	})
 	// 灰色 色弱
-	switch (localStorage.getItem("weakOrGray")) {
+	switch (getCookies("weakOrGray")) {
 		case "gray":
 			document.body.style.filter = "grayscale(1)";
 			break;
@@ -59,7 +59,7 @@ const useTheme = () => {
 			break;
 	}
 	// 深夜
-	if (localStorage.getItem("darkTheme")) {
+	if (getCookies("darkTheme")) {
 		import("@/styles/theme/theme-dark.less")
 	}
 

@@ -7,6 +7,7 @@ import './index.less'
 import store from "@/redux/store";
 
 import { setDayNight } from "@/utils/moment"
+import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 const Setting = forwardRef((props, ref) => {
     let [SettingVisible, setSettingVisible] = useState(false);
     let [darkChecked, setDarkChecked] = useState(false)
@@ -41,13 +42,13 @@ const Setting = forwardRef((props, ref) => {
         },
     ]
 
-    const ThemeBgColor = localStorage.getItem("ThemeBgColor")
+    const ThemeBgColor = getCookies("ThemeBgColor")
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setSettingVisible
     }))
     useEffect(() => {
-        switch (localStorage.getItem("weakOrGray")) {
+        switch (getCookies("weakOrGray")) {
             case "gray":
                 setGrayChecked(true)
                 break;
@@ -57,7 +58,7 @@ const Setting = forwardRef((props, ref) => {
             default:
                 break;
         }
-        if (localStorage.getItem("darkTheme")) {
+        if (getCookies("darkTheme")) {
             setDarkChecked(true)
         }
         if (ThemeBgColor) setBgCheck(ThemeBgColor)
@@ -109,7 +110,7 @@ const Setting = forwardRef((props, ref) => {
 
     // 主题颜色
     const changeColor = (item) => {
-        localStorage.setItem('ThemeBgColor', item.color)
+        setCookies('ThemeBgColor', item.color, 365)
         message.loading("主题编译中，请稍后")
         setBgCheck(item.color)
         setTimeout(() => {

@@ -8,10 +8,11 @@ import Error from "@/components/error404";
 import '@/App.css'
 
 import useTheme from './hooks/useTheme';
+import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 function App() {
   useTheme()
   // 主题配色
-  let ThemeBgColor = localStorage.getItem("ThemeBgColor")
+  let ThemeBgColor = getCookies("ThemeBgColor")
   // 如果本地没有主题色字段，默认加载
   if (!ThemeBgColor) {
     // import("@/styles/root.css")
