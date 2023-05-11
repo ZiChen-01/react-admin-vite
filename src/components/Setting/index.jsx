@@ -147,7 +147,8 @@ const Setting = forwardRef((props, ref) => {
                         })
                     }
                 </div>
-                <Divider>界面设置</Divider>
+                <Divider>导航模式</Divider>
+                <Divider>导航风格</Divider>
             </Drawer >
         </>
     )

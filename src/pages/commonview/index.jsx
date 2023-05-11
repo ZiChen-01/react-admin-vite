@@ -145,7 +145,7 @@ const Commonview = () => {
                 break;
         }
     }
-    
+
     // 右键标签
     const onContextmenu = (e) => {
         e.preventDefault()
@@ -221,11 +221,11 @@ const Commonview = () => {
                         <div className='headBox'>
                             <span>欢迎登录{titleH2}</span>
                             <div className='userinfo'>
-                                <span className='user-Setting'>
-                                    <Tooltip title="后台布局设置">
-                                        <SettingOutlined spin onClick={setting} />
-                                    </Tooltip>
-                                </span>
+                                <Tooltip title="后台布局设置">
+                                    <span className='user-Setting' onClick={setting}>
+                                        <SettingOutlined spin />
+                                    </span>
+                                </Tooltip>
                                 <UserInfo />
                                 <Popconfirm title="真的要注销登录吗 ?" okText="确认" cancelText="取消" onConfirm={logOut}>
                                     <span className='tuichu'><LogoutOutlined />退出登录</span>
