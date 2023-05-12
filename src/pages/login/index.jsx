@@ -8,7 +8,7 @@ import { passwordEncryption } from "@/utils/passwordEncryption";
 import { encrypt, decrypt } from "@/utils/aes";
 import logo from "@/assets/images/logo-react.png"
 import Three from "@/components/Three"
-import loginBg from "@/assets/images/login-bg.jpg"
+import loginBg from "@/assets/images/login-bg.jfif"
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 import GraphicCode from '@/components/GraphicCode';
 
@@ -93,7 +93,7 @@ const Login = () => {
   }
   return (
     <div className="login" style={{ backgroundImage: `url(${loginBg})` }}>
-      <Three />
+      {/* <Three /> */}
       <div className="login-content-box">
         <section className="login-content">
           <div className="haed">
