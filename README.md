@@ -1,9 +1,18 @@
 # React-admin-vite
- 
 
-> 本项目使用前端新型构建工具vite ， 更换了以往的webpack。开箱即用，使其开发效率提高，编译速度更快，减少复杂配置。在正式启动项目前，请检查本地环境版本。如若启动失败，请升级node。
+本项目使用前端新型构建工具vite ， 更换了以往的webpack。
 
-## 前端技术栈
+开箱即用，使其开发效率提高，编译速度更快，减少复杂配置。
+
+在正式启动项目前，请检查本地环境版本。如若启动失败，请升级node。
+
+react-admin-vite 适用于后台管理 web 项目的二次开发。让开发人员快速搭建后台管理项目。
+
+请仔细阅读本文档以后再进行使用！
+
+完整文档：<a target="_blank" href="https://jiangsihan.gitee.io/react-admin-vite-press">https://jiangsihan.gitee.io/react-admin-vite-press</a>
+
+## 技术分解
 
 - react@18
 - antd@4.24
@@ -19,7 +28,7 @@
 - eslint
 - antv
 
-## 文档
+## 技术文档
 
 - react：https://react.docschina.org/
 - vite：https://cn.vitejs.dev/guide/
@@ -27,6 +36,7 @@
 - antv：http://antv.antfin.com/zh-cn/g2/3.x/demo/index.htm
 
 ## 环境版本
+
 - node：v16.16.0   
 - npm：v8.11.0
 - react-scripts：v5.0.1
@@ -43,57 +53,69 @@ react-admin-vite
 │   ├── api  ： 请求与接口配置文件
 │   ├── assets ： 静态资源文件
 │   ├── components  ： 公共组件存放文件
+│   ├── hooks  ： hooks
 │   └───pages  ： view视图组件文件
-│       ├── Commonview  
+│       ├── Commonview  公共视图组件 包含菜单导航页面
+│       ├── dashboard  首页
+│       ├── login  登录
+│       └───system  系统管理
+│           ├── deptNew  机构管理
+│           ├── permission  菜单管理
+│           ├── roleUserList  角色管理
+│           └───user  用户管理
 │   	   
+│   ├── redux  ： redux
 │   ├── router  ： 路由菜单
 │   ├── styles  ： 公共样式
 │   ├── utils   ： 工具库
-│   
-└── web-dataview  ：打包文件夹
+│   └───App.jsx  ： 入口文件
 │
 └── vite.config.ts  ： vite配置
 ```
 
-## 运行打包
+## 开始使用
 
-- git仓库
+git仓库
 
-  ```
-  https://gitee.com/jiangsihan/react-admin-vite.git
-  ```
+```
+https://gitee.com/jiangsihan/react-admin-vite.git
+```
 
-- 安装依赖包
+安装依赖包
 
-  ```
-  npm i  |  cnpm i 
-  ```
+```
+npm i  |  cnpm i 
+```
 
-- 项目启动
+项目启动
 
-  ```
-  npm run dev
-  ```
+```
+npm run dev
+```
 
-- 项目打包
+项目打包
 
-  ```
-  npm run build
-  ```
+```
+npm run build
+```
 
-## 全局环境配置
-
-- 根目录
-
-    ` .env`   全局默认配置文件，无论什么环境都会加载合并。 
-
-    `.env.development`   开发环境的配置文件 
-
-    `.env.test`  测试环境的配置文件 
-
-    `.env.production`  生产环境的配置文件
+## 项目图片
 
 
+
+![https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/login.png](https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/login.png)
+
+
+
+![https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/home.png](https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/home.png)
+
+
+
+![https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/menu.png](https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/menu.png)
+
+
+
+![https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/setting.png](https://gitee.com/jiangsihan/react-admin-vite-press/raw/master/docs/pbulic/setting.png)
 
 
 
@@ -103,4 +125,4 @@ react-admin-vite
 
 18307106535@163.com
 
-ZiChen-Jiang 江子辰
+ZiChen-Jiang 
