@@ -35,6 +35,7 @@ const Commonview = () => {
     let [title, setTitle] = useState(true);
     let [routeList, setRouteList] = useState([])
     let [Stylebg, setStylebg] = useState("dark")
+    let ThemeStyle = getCookies("ThemeStyle", 365)
 
     routes.map(item => {
         if (item.label == "首页") {
@@ -42,16 +43,12 @@ const Commonview = () => {
         }
     })
     useEffect(() => {
-        let ThemeStyle = getCookies("ThemeStyle", 365)
         if (ThemeStyle) {
             setStylebg(ThemeStyle)
             if (ThemeStyle == "light") {
                 const sider = document.getElementsByClassName("ant-layout-sider")[0]
-                const logoTitle = document.getElementsByClassName("logoTitle")[0]
                 sider.style.background = "#fff"
-                logoTitle.style.color = "var(--main-bg)"
             }
-
         }
         // 右键事件监听
         const tabDom = document.getElementsByClassName("ant-tabs")[0]
@@ -217,7 +214,7 @@ const Commonview = () => {
                 <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={collapsed}>
                     <div className="logo">
                         <img src={logo} alt="" />
-                        {title ? <span className='logoTitle'>{titleH2}</span> : ''}
+                        {title ? <span className='logoTitle' style={{ color: ThemeStyle && ThemeStyle == "light" ? "#000000D9" : "" }}>{titleH2}</span> : ''}
                     </div>
                     <Menu
                         theme={Stylebg}

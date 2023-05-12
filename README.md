@@ -8,15 +8,16 @@
 - react@18
 - antd@4.24
 - react-dom@18
-- react-redux@8.0
 - react-router-dom@6.3
 - react-scripts@5.0
 - react-Hooks
+- redux
 - vite
 - axios
 - less
 - echarts
 - eslint
+- antv
 
 ## 文档
 
