@@ -5,7 +5,7 @@
 /* 全局主题颜色配置 */
 :root {
     --main-bg: #1890ff;
-    --main-bg-hover: #1890ff;
+    --main-bg-menu: #e6f7ff;
     /* 全局背景颜色 */
     --main-color: rgb(255, 255, 255);
     --logo-border-color: rebeccapurple;
@@ -70,7 +70,17 @@ input:hover,
 .ant-input-number:focus,
 .ant-input-number-focused,
 .ant-input-number:hover,
-.ant-input-affix-wrapper-focused {
+.ant-input-affix-wrapper-focused,
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after,
+.ant-checkbox-checked:focus,
+.ant-checkbox-checked-focused,
+.ant-checkbox-checked:hover,
+.ant-checkbox-checked-inner,
+.ant-switch-checked:focus,
+.ant-switch:focus {
     border-color: var(--main-bg);
     box-shadow: 0 0 0 2px rgba(var(--main-bg), 0.2);
 }
@@ -117,12 +127,30 @@ a:hover,
 .ant-tabs-tab:hover,
 .ant-pagination-item-active a,
 .ant-pagination-item-active:hover a,
-.ant-btn-default:hover {
+.ant-btn-default:hover,
+.ant-menu-item-selected,
+.ant-menu-light .ant-menu-item:hover,
+.ant-menu-light .ant-menu-item-active,
+.ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-light .ant-menu-submenu-active,
+.ant-menu-light .ant-menu-submenu-title:hover,
+.ant-menu-submenu-selected,
+.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-expand-icon,
+.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow,
+.ant-table-row-expand-icon:focus-visible,
+.ant-table-row-expand-icon:hover,
+.ant-checkbox-checked::after {
     color: var(--main-bg);
 }
 
 .ant-tabs-ink-bar,
 .ant-btn-primary:hover,
-.ant-btn-primary:focus {
+.ant-btn-primary:focus,
+.ant-checkbox-indeterminate .ant-checkbox-inner::after,
+.ant-switch-checked {
     background: var(--main-bg);
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: var(--main-bg-menu);
 }

@@ -119,7 +119,7 @@ const GraphicCode = forwardRef((props, ref) => {
             // 开启路径
             ctx.beginPath()
             // 描边文字颜色
-            ctx.fillStyle = "#f00"
+            ctx.fillStyle = "#fff"
             // 随机字符
             let word = strContainer[getRandom(strContainer.length)]
             // 设置每个文字所处的区域大小

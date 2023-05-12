@@ -12,6 +12,9 @@ import routes from "@/routes"
 import ChangePassword from "@/components/users/changePassword/changePassword.jsx"
 import Setting from '@/components/Setting';
 import Contextmenu from '@/components/Contextmenu';
+
+import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const Commonview = () => {
@@ -31,12 +34,25 @@ const Commonview = () => {
     let [collapsed, setCollapsed] = useState(false);
     let [title, setTitle] = useState(true);
     let [routeList, setRouteList] = useState([])
+    let [Stylebg, setStylebg] = useState("dark")
+
     routes.map(item => {
         if (item.label == "首页") {
             routeList.push(item)
         }
     })
     useEffect(() => {
+        let ThemeStyle = getCookies("ThemeStyle", 365)
+        if (ThemeStyle) {
+            setStylebg(ThemeStyle)
+            if (ThemeStyle == "light") {
+                const sider = document.getElementsByClassName("ant-layout-sider")[0]
+                const logoTitle = document.getElementsByClassName("logoTitle")[0]
+                sider.style.background = "#fff"
+                logoTitle.style.color = "var(--main-bg)"
+            }
+
+        }
         // 右键事件监听
         const tabDom = document.getElementsByClassName("ant-tabs")[0]
         tabDom.addEventListener("contextmenu", onContextmenu)
@@ -44,6 +60,7 @@ const Commonview = () => {
             // 组件卸载移除事件监听
             tabDom.removeEventListener("contextmenu", onContextmenu)
         }
+
     }, []);
 
     // 点击菜单
@@ -203,7 +220,7 @@ const Commonview = () => {
                         {title ? <span className='logoTitle'>{titleH2}</span> : ''}
                     </div>
                     <Menu
-                        theme='dark'
+                        theme={Stylebg}
                         onClick={onClick}
                         style={{ width: '100%' }}
                         defaultOpenKeys={[defaultOpenKeys]}

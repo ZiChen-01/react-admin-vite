@@ -14,6 +14,7 @@ const Setting = forwardRef((props, ref) => {
     let [grayChecked, setGrayChecked] = useState(false)
     let [weakChecked, setWeakChecked] = useState(false)
     let [bgCheck, setBgCheck] = useState("#1890ff")
+    let [StyleCheck, setStyleCheck] = useState("dark")
     // 主题颜色
     const colorList = [
         {
@@ -41,8 +42,8 @@ const Setting = forwardRef((props, ref) => {
             key: '熏紫', color: '#a876ed',
         },
     ]
-
     const ThemeBgColor = getCookies("ThemeBgColor")
+    const ThemeStyle = getCookies("ThemeStyle")
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setSettingVisible
@@ -62,6 +63,7 @@ const Setting = forwardRef((props, ref) => {
             setDarkChecked(true)
         }
         if (ThemeBgColor) setBgCheck(ThemeBgColor)
+        if (ThemeStyle) setStyleCheck(ThemeStyle)
     }, []);
     // 深夜模式
     const darkChange = (e) => {
@@ -117,6 +119,23 @@ const Setting = forwardRef((props, ref) => {
             window.location.reload()
         }, 2000);
     }
+    // 风格
+    const darkOn = () => {
+        setStyleCheck("dark")
+        setCookies('ThemeStyle', "dark", 365)
+        message.loading("风格转换中，请稍后")
+        setTimeout(() => {
+            window.location.reload()
+        }, 2000)
+    }
+    const lightOn = () => {
+        setStyleCheck("light")
+        setCookies('ThemeStyle', "light", 365)
+        message.loading("风格转换中，请稍后")
+        setTimeout(() => {
+            window.location.reload()
+        }, 2000)
+    }
     return (
         <>
             <Drawer headerStyle={{ display: "none" }} open={SettingVisible} closable={true} onClose={() => { setSettingVisible(false) }} width='20%' className="Setting">
@@ -147,8 +166,32 @@ const Setting = forwardRef((props, ref) => {
                         })
                     }
                 </div>
-                <Divider>导航模式</Divider>
                 <Divider>导航风格</Divider>
+                <div className="theme-style">
+                    <Tooltip title="暗色菜单风格">
+                        <div className="theme-style-dark" onClick={darkOn}>
+                            <div className="theme-style-dark-left"></div>
+                            <div className="theme-style-dark-right">
+                                <div className="theme-style-dark-right-top"></div>
+                                <div className="theme-style-dark-right-bot">
+                                    {StyleCheck == "dark" ? < CheckOutlined /> : ""}
+                                </div>
+                            </div>
+                        </div>
+                    </Tooltip>
+                    <Tooltip title="高亮菜单风格">
+                        <div className="theme-style-light" onClick={lightOn}>
+                            <div className="theme-style-light-left"></div>
+                            <div className="theme-style-light-right">
+                                <div className="theme-style-light-right-top"></div>
+                                <div className="theme-style-light-right-bot">
+                                    {StyleCheck == "light" ? < CheckOutlined /> : ""}
+                                </div>
+                            </div>
+                        </div>
+                    </Tooltip>
+                </div>
+                {/* <Divider>导航模式</Divider> */}
             </Drawer >
         </>
     )
