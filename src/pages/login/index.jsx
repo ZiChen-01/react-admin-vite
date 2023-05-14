@@ -116,7 +116,7 @@ const Login = () => {
                   { required: true, message: '请输入用户名!' },
                   { min: 3, message: '最少长度为3位' },
                   { max: 12, message: '最大长度为12位' },
-                  { pattern: /^[0-9a-zA-Z_]{1,}$/, message: '必须为数字，字母，下划线组成' },
+                  { pattern: /^[0-9a-zA-Z@~!#$%^&*`_]{1,}$/, message: '必须为数字，字母，下划线组成' },
                 ]}
               >
                 <Input size="large" placeholder="用户名" prefix={<UserOutlined className="site-form-item-icon" />} allowClear />

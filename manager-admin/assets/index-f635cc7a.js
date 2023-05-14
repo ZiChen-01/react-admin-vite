@@ -1,0 +1,1 @@
+import{r as s,j as a}from"./index-2a650f02.js";class n extends s.Component{render(){return window._CONFIG.ROOT_APP_NAME,a.jsx("main",{className:"analsis",children:a.jsxs("div",{className:"imgbox",children:[" ",a.jsx("img",{src:"https://jiangsihan-1303111066.cos.ap-nanjing.myqcloud.com/react-admin/assets/welcome-49086098.png",alt:""})]})})}}export{n as default};

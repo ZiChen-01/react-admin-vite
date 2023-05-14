@@ -10,7 +10,7 @@ react-admin-vite 适用于后台管理 web 项目的二次开发。让开发人�
 
 请仔细阅读本文档以后再进行使用！
 
-访问地址：<a target="_blank" href="https://jiangsihan.gitee.io/react-admin-vite">https://jiangsihan.gitee.io/react-admin-vite</a>
+访问地址：<a target="_blank" href="https://jiangsihan.cn/frontend/reactadmin">https://jiangsihan.cn/frontend/reactadmin</a>
 
 完整文档：<a target="_blank" href="https://jiangsihan.gitee.io/react-admin-vite-press">https://jiangsihan.gitee.io/react-admin-vite-press</a>
 
