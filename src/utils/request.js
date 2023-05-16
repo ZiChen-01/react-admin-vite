@@ -72,9 +72,9 @@ Server.interceptors.response.use(function (response) {
     const response = error.response
     if (response && response.status) {
         const errorText = codeMessage[response.status] || response.statusText;
-        const { status, data: { data } } = response;
+        const { status, config } = response;
         notification.error({
-            message: `请求错误 ${status} :  ${data.path}`,
+            message: `请求错误 ${status} :  ${config?.url}`,
             description: errorText,
         });
         // 500及401重新登录
