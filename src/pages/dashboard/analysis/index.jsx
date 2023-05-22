@@ -5,7 +5,7 @@ import home from "@/assets/images/welcome.png"
 class Home extends Component {
 
     render() {
-        const title = window._CONFIG.ROOT_APP_NAME
+        const title = window.envConfig.ROOT_APP_NAME
 
         return (
             <main className="analsis">

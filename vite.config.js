@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react'
 import path from 'path';
 import { fileURLToPath } from 'url'
 import topLevelAwait from 'vite-plugin-top-level-await'
-
 const __filenameNew = fileURLToPath(import.meta.url)
 const __dirnameNew = path.dirname(__filenameNew)
 // https://vitejs.dev/config/
@@ -15,7 +14,7 @@ export default defineConfig({
     //   promiseImportName: i => `__tla_${i}`
     // })
   ],
-  base:"https://jiangsihan-1303111066.cos.ap-nanjing.myqcloud.com/react-admin/",
+  base: "https://jiangsihan-1303111066.cos.ap-nanjing.myqcloud.com/react-admin/",
   // base:"./",
   server: {
     host: '0.0.0.0',// 监听所有地址
@@ -26,13 +25,14 @@ export default defineConfig({
     base: '/',//用于代理 Vite 作为子文件夹时使用。
     headers: {},//指定服务端响应的headers信息
     strictPort: true,//设为 true 时若端口已被占用则会直接退出，而不是尝试下一个可用端口。
-    // proxy: { //使用代理
-    //   '/adpi': { //当有 /api开头的地址是，代理到target地址
-    //     target: 'https://zhihuitest.wzbank.cn/yinqihui/mutualfund-manager', // 需要跨域代理的本地路径
-    //     changeOrigin: true, //是否改变请求源头
-    //     rewrite: (path) => path.replace(/^\/api/, ''), // 路径重写
-    //   }
-    // }
+    proxy: {
+      //当有 /api开头的地址是，代理到target地址
+      '/api': {
+        target: 'https://zhihuitest.wzbank.cn/yinqihui/xxx/', // 开发环境代理的目标地址
+        changeOrigin: true,//是否改变请求源头
+        rewrite: (path) => path.replace(/^\/api/, ''), // 路径重写,
+      },
+    },
   },
   build: {
     outDir: "manager-admin", // 打包文件 默认dist

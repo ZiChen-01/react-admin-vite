@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { notification } from 'antd'
 const Server = axios.create({
-    baseURL: window._CONFIG['API_BASE_URL'],//域名请求地址
+    baseURL: window.envConfig['API_BASE_URL'],//域名请求地址
     headers: {
         'Content-Type': "application/json; charset=utf-8",
     },

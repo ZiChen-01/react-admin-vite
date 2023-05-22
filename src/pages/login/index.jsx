@@ -20,7 +20,7 @@ const Login = () => {
   const navigate = useNavigate()
   // 登录按钮loading
   let [loading, setLoading] = useState(false)
-  let title = window._CONFIG.ROOT_APP_NAME
+  let title = window.envConfig.ROOT_APP_NAME
   let [submitLoginName, setSubmitLoginName] = useState('登录')
   let [form] = Form.useForm();
   let [checked, setChecked] = useState(false);

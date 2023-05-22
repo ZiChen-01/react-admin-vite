@@ -26,7 +26,7 @@ const Commonview = () => {
         nprogress.done();
     }, 200);
 
-    let titleH2 = window._CONFIG.ROOT_APP_NAME
+    let titleH2 = window.envConfig.ROOT_APP_NAME
     let navigate = useNavigate()
     let location = useLocation()
     let [current, setCurrent] = useState(location.pathname);
