@@ -14,8 +14,8 @@ export default defineConfig({
     //   promiseImportName: i => `__tla_${i}`
     // })
   ],
-  base: "https://jiangsihan-1303111066.cos.ap-nanjing.myqcloud.com/react-admin/",
-  // base:"./",
+  // base: "https://jiangsihan-1303111066.cos.ap-nanjing.myqcloud.com/react-admin/",
+  base:"./",
   server: {
     host: '0.0.0.0',// 监听所有地址
     port: 8081,// 默认端口

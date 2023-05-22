@@ -17,7 +17,7 @@ switch (env.key) {
         window.envConfig['API_BASE_URL'] = env.proxy ? '/api/' : noProxyUrl
         break;
     case 1:
-        window.envConfig['API_BASE_URL'] = 'http://20.100.31.159:8080/xxx/'
+        window.envConfig['API_BASE_URL'] = ''
         break;
     case 2:
         window.envConfig['API_BASE_URL'] = ''
