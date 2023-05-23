@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 function AutnToken({ children }) {
-    const token = localStorage.getItem('Autn-Token')
+    const token = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])
     if (token) {
         return <>{children}</>
         // 如果token存在，则返回传入的组件

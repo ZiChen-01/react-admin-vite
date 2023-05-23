@@ -34,7 +34,7 @@ const Login = () => {
     request.getLogin(userInfo).then(res => {
       if (res?.data?.code == 200) {
         //  存储用户信息 角色信息
-        localStorage.setItem('Autn-Token', res.data.result.token)
+        localStorage.setItem(window.envConfig['ROOT_APP_TOKEN'], res.data.result.token)
         localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
         localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
         getMenu().then(res => {
@@ -58,7 +58,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('Autn-Token')
+    const token = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])
     if (token) navigate('/dashboard/analysis')
     const loginChecked = getCookies('loginChecked')
     if (loginChecked) {

@@ -5,7 +5,7 @@ const Server = axios.create({
     headers: {
         'Content-Type': "application/json; charset=utf-8",
     },
-    timeout: 10000,//超时时间 10s
+    timeout: window.envConfig['API_BASE_TIMEOUT'] * 1000,//超时时间
 });
 
 
@@ -30,8 +30,8 @@ const codeMessage = {
 // 添加请求拦截器
 Server.interceptors.request.use(function (config) {
     // 在请求头上缀入token
-    if (localStorage.getItem('Autn-Token')) {
-        config.headers["X-Access-Token"] = localStorage.getItem('Autn-Token');
+    if (localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])) {
+        config.headers["X-Access-Token"] = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN']);
     }
     return config;
 }, function (error) {
