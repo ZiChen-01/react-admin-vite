@@ -33,7 +33,6 @@ const Login = () => {
     userInfo.password = passwordEncryption(userInfo.password) //密码加密
     request.getLogin(userInfo).then(res => {
       if (res?.data?.code == 200) {
-
         //  存储用户信息 角色信息
         localStorage.setItem('Autn-Token', res.data.result.token)
         localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
@@ -49,12 +48,13 @@ const Login = () => {
             navigate('/dashboard/analysis')
           }, 1000);
         })
-
       }
       setLoading(false)
       setSubmitLoginName('登录')
+    }).catch(error=>{
+      setLoading(false)
+      setSubmitLoginName('登录')
     })
-
   };
 
   useEffect(() => {
