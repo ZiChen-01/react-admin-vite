@@ -14,6 +14,7 @@ react-admin-vite 适用于后台管理 web 项目的二次开发。让开发人�
 
 完整文档：<a target="_blank" href="https://jiangsihan.gitee.io/react-admin-vite-press">https://jiangsihan.gitee.io/react-admin-vite-press</a>
 
+代码仓库：<a target="_blank" href="https://gitee.com/jiangsihan/react-admin-vite">https://gitee.com/jiangsihan/react-admin-vite</a>
 ## 技术分解
 
 - react@18
