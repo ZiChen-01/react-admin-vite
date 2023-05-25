@@ -1,5 +1,5 @@
 const service = {
-	login: 'admin/login', //登录
+	login: 'admin/login/precheck', //登录
 	getMenuBar: "sys/permission/getUserPermissionByToken",//菜单路由表
 	// 用户管理
 	UserList: "sys/user/list",//用户列表
