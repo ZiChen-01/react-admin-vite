@@ -1,6 +1,6 @@
 import { axios } from '@/api/methods';
 import { service } from '@/api/service';
-
+import { notification } from 'antd'
 
 
 // 统一导出供调用  请勿重复命名
@@ -45,6 +45,32 @@ const request = {
         const formData = new FormData()
         formData.append('file', file)
         return axios('upLoad', url, formData)
+    },
+    // 下载文件
+    downloadFile: (url, fileName, params) => {
+        return axios('download', url, params).then(data => {
+            data = data.data
+            if (!data || data.size === 0) {
+                notification.error({
+                    message: `请求错误`,
+                    description: "文件下载失败，请稍后重试",
+                });
+                return
+            }
+            if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                window.navigator.msSaveBlob(new Blob([data]), fileName)
+            } else {
+                let url = window.URL.createObjectURL(new Blob([data]))
+                let link = document.createElement('a')
+                link.style.display = 'none'
+                link.href = url
+                link.setAttribute('download', fileName)
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link) //下载完成移除元素
+                window.URL.revokeObjectURL(url) //释放掉blob对象
+            }
+        })
     }
 };
 

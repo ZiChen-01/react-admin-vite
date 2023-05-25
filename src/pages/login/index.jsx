@@ -163,7 +163,7 @@ const Login = () => {
 
         </section>
       </div>
-      {/* <Author /> */}
+      <Author />
     </div>
   );
 
@@ -172,7 +172,7 @@ const Login = () => {
 function Author() {
   return (
     <div className="author">
-      <p> Ant Big Data monitoring system © 2022 <a href="https://gitee.com/jiangsihan/React-admin" target="_blank">React-Ant-Admin@v1.0.5</a></p>
+      <p> Ant Big Data monitoring system © 2023 <a href="https://gitee.com/jiangsihan/react-admin-vite" target="_blank">React-Admin-Vite@v1.0.5</a> | <a href="https://jiangsihan.gitee.io/react-admin-vite-press" target="_blank">开发文档</a></p>
 
       <p>技术支持：<a href="https://jiangsihan.cn/" target="_blank">前端江太公</a> @  江子辰 <a href="mailto:18307106535@163.com"> Send email to ZiChen_Jiang</a> 初始账号及密码：admin 123456</p>
     </div>

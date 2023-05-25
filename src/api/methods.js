@@ -1,5 +1,5 @@
 import Server from '@/utils/request'
-
+import { notification } from 'antd'
 // 封装请求方式
 // ----------------methods:请求方式   url:请求地址   params：请求参数----------------
 export function axios(methods, url, params) {
@@ -43,7 +43,17 @@ export function axios(methods, url, params) {
 					'Content-Type': 'multipart/form-data',
 				},
 			});
+		case "download"://下载文件
+			return Server({
+				url: url,
+				method: 'get',
+				params,
+				responseType: 'blob'
+			});
 		default:
-			return '找不到此方法'
+			return notification.error({
+				message: "请求方式错误",
+				description: "找不到此方法，请认真检查是否拼写错误",
+			});
 	}
 }

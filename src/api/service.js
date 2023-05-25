@@ -32,3 +32,7 @@ export const service = {
 	// 机构管理
 	getDeptTree: "sys/tmpDeptInfo/getDeptTree",//查询机构
 }
+// 配置二级地址
+for (let key in service) {
+	service[key] = window.envConfig['API_BASE_PORT'] + "/" + service[key]
+}

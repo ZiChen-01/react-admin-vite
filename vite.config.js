@@ -28,7 +28,7 @@ export default defineConfig({
     proxy: {
       //当有 /api开头的地址是，代理到target地址
       '/api': {
-        target: 'https://zhihuitest.wzbank.cn/yinqihui/xxx/', // 开发环境代理的目标地址
+        target: 'https://jiangsihan.cn/', // 开发环境代理的目标地址
         changeOrigin: true,//是否改变请求源头
         rewrite: (path) => path.replace(/^\/api/, ''), // 路径重写,
       },
