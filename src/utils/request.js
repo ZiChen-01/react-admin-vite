@@ -72,7 +72,7 @@ Server.interceptors.response.use(function (response) {
     // 异常处理
     const response = error.response
     if (response && response.status) {
-        const errorText = codeMessage[response.status] || response.statusText;
+        const errorText = response.statusText || codeMessage[response.status];
         const { status, config } = response;
         notification.error({
             message: `请求错误 ${status} :  ${config?.url}`,
