@@ -1,4 +1,4 @@
-export const service = {
+const service = {
 	login: 'sys/login', //登录
 	getMenuBar: "sys/permission/getUserPermissionByToken",//菜单路由表
 	// 用户管理
@@ -26,8 +26,8 @@ export const service = {
 	deleteUserRole: "sys/user/deleteUserRole",//当前角色移出用户
 	addSysUserRole: "sys/user/addSysUserRole",//添加用户到当前角色
 	queryMenuTreeList: "sys/role/queryTreeList",//菜单权限树
-	queryRolePermission:"sys/permission/queryRolePermission",//角色菜单权限key
-	saveRolePermission:"sys/permission/saveRolePermission",//保存菜单权限
+	queryRolePermission: "sys/permission/queryRolePermission",//角色菜单权限key
+	saveRolePermission: "sys/permission/saveRolePermission",//保存菜单权限
 
 	// 机构管理
 	getDeptTree: "sys/tmpDeptInfo/getDeptTree",//查询机构
@@ -35,4 +35,8 @@ export const service = {
 // 配置二级地址
 for (let key in service) {
 	service[key] = window.envConfig['API_BASE_PORT'] + "/" + service[key]
+}
+
+export {
+	service
 }
