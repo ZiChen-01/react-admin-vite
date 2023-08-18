@@ -64,6 +64,7 @@ store.subscribe(() => {
     const { reload } = store.getState()
     if (reload) location.reload()
 })
+// 把接口获取的菜单重写
 function setmenu(list) {
     for (let i = 0; i < list.length; i++) {
         let item = list[i];
@@ -78,7 +79,7 @@ function setmenu(list) {
     }
     return list
 }
-
+// 设置组件
 function importLocale(locale) {
     // 判断 / 出现次数  用于匹配菜单组件 （pages目录下）
     let n = (locale.split('/')).length - 1;
@@ -110,24 +111,25 @@ function importLocale(locale) {
     }
 
     let url = modules[`/src/pages/${locale}/index.jsx`]
-    
+
     // 找不到本地组件直接403
     if (url == undefined) url = () => import(`../components/error403`)
-    
+
     // const url = import(`../pages/${locale}`)  // vite不支持
 
     return url
 }
 //创建节点的方法
 function iconBC(name) { return React.createElement(Icon[name]); }
-// 从接口请求菜单
+
 const token = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])
-const menu = localStorage.getItem('menuList')
-if (token) getMenu()
-if (token && menu) {
-    let i = setmenu(JSON.parse(menu))
-    routes = i
-    // routes = await getMenu()
+// 从接口请求菜单
+if (token) {
+    // let i = setmenu(JSON.parse(menu))
+    // routes = i
+    // routes = setmenu()
+    const menu = await getMenu();
+    routes = setmenu(menu)
     function setIcon(res) {
         for (let i = 0; i < res.length; i++) {
             const element = res[i];

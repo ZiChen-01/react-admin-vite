@@ -189,9 +189,21 @@ function RoleUserList() {
         const res = await request.deletePermission({ id: record.id })
         if (res.data.code == 200) {
             message.success(res.data.message)
+            setReload(record)
             getmenulist()
         }
     };
+    // 删除对比菜单，操作后刷新页面
+    const setReload = (record) => {
+        let menu = JSON.parse(localStorage.getItem('menuList'))
+        function menuFun(i) {
+            i.forEach((item) => {
+                if (item.id == record.id) window.location.reload()
+                if (item.children) menuFun(item.children)
+            })
+        }
+        menuFun(menu)
+    }
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             setSelectedRowKeys(selectedRowKeys)
@@ -210,12 +222,35 @@ function RoleUserList() {
                 const res = await request.deleteAllPermission({ ids })
                 if (res.data.code == 200) {
                     message.success(res.data.message)
+                    deleteAllReload(selectedRowKeys)
                     getmenulist()
                     setSelectedRowKeys([])
                 }
             }
         });
     };
+    // 批量删除对比菜单，操作后刷新页面
+    const deleteAllReload = (arrId) => {
+        let menu = JSON.parse(localStorage.getItem('menuList'))
+        // 对比选中菜单与本地菜单，只要有一个相同就刷新页面
+        const checkId = (arr, targetId) => {
+            for (const item of arr) {
+                if (item.id === targetId) {
+                    window.location.reload();
+                    return true;
+                }
+                if (item.children) {
+                    const found = checkId(item.children, targetId);
+                    if (found) return true;
+                }
+            }
+            return false;
+        };
+
+        for (const id of arrId) {
+            if (checkId(menu, id)) break;
+        }
+    }
     return (
         <>
             <div id="permission">
