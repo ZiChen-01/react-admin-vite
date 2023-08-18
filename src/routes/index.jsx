@@ -113,7 +113,7 @@ function importLocale(locale) {
     let url = modules[`/src/pages/${locale}/index.jsx`]
 
     // 找不到本地组件直接403
-    if (url == undefined) url = () => import(`../components/error403`)
+    if (url == undefined) url = () => import(`../components/error302`)
 
     // const url = import(`../pages/${locale}`)  // vite不支持
 
