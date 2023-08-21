@@ -123,12 +123,11 @@ function importLocale(locale) {
 function iconBC(name) { return React.createElement(Icon[name]); }
 
 const token = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])
+const menu = JSON.parse(localStorage.getItem('menuList'))
+if (token) getMenu();
 // 从接口请求菜单
-if (token) {
-    // let i = setmenu(JSON.parse(menu))
-    // routes = i
-    // routes = setmenu()
-    const menu = await getMenu();
+if (token && menu) {
+    // routes = setmenu(await getMenu())
     routes = setmenu(menu)
     function setIcon(res) {
         for (let i = 0; i < res.length; i++) {

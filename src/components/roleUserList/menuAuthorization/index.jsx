@@ -36,14 +36,12 @@ const MenuAuthorization = forwardRef((props, ref) => {
                     if (roleInfo.roleCode == details.roleCode) {
                         message.loading("正在初始化菜单，请稍后")
                         getMenu().then(res => {
-                            localStorage.setItem('menuList', JSON.stringify(res))
-
                             setTimeout(() => {
                                 store.dispatch({
                                     type: 'reload',
                                     data: true
                                 })
-                            }, 2000);
+                            }, 1000);
                         })
                     }
                 } else {
@@ -62,7 +60,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
             if (res.data.code == 0) {
                 let list = setTreeList(res.data.result.treeList)
                 // 超管禁止选择系统管理下属菜单（默认选中，禁止删掉admin系统权限）
-                let menu = ["系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
+                let menu = ["首页","系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
                 if (item && item.roleCode == "admin") setdisabled(list)
                 function setdisabled(list) {
                     for (let i = 0; i < list.length; i++) {

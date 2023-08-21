@@ -5,7 +5,9 @@ import request from "@/api"
 import { service } from '@/api/service';
 import "./index.less"
 import PermissionModule from "./permissionModule"
-
+//用于获取状态
+import store from "@/redux/store";
+import getMenu from "@/routes/routerConfig";
 function RoleUserList() {
     let [loading, setLoading] = useState(false)
     let [data, setData] = useState([])
@@ -102,18 +104,23 @@ function RoleUserList() {
             align: 'center',
             width: 250,
             render: (text, record, index) => {
+                // 禁止删除的菜单
+                let menu = ["首页","系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
                 return (
                     <>
-                        <a onClick={() => edit(record)}>编辑</a>
+                        <Button type="link" disabled={record.name == "首页"} onClick={() => edit(record)}>编辑</Button>
+
                         <Popconfirm
                             title="确定要删除此菜单?"
                             onConfirm={() => confirm(record)}
                             okText="确定"
                             cancelText="取消"
+                            disabled={menu.includes(record.name)}
                         >
-                            <a className="delete">删除</a>
+                            <Button type="link"  disabled={menu.includes(record.name)}>删除</Button>
                         </Popconfirm>
-                        <a onClick={() => addMenu(record)}>添加下级</a>
+
+                        <Button type="link" onClick={() => addMenu(record)}>添加下级</Button>
                     </>
                 )
             }
@@ -188,8 +195,8 @@ function RoleUserList() {
     const confirm = async (record) => {
         const res = await request.deletePermission({ id: record.id })
         if (res.data.code == 200) {
-            message.success(res.data.message)
             setReload(record)
+            message.success(res.data.message)
             getmenulist()
         }
     };
@@ -198,7 +205,17 @@ function RoleUserList() {
         let menu = JSON.parse(localStorage.getItem('menuList'))
         function menuFun(i) {
             i.forEach((item) => {
-                if (item.id == record.id) window.location.reload()
+                if (item.id == record.id) {
+                    message.loading("正在更新菜单，请稍后")
+                    getMenu().then(res => {
+                        setTimeout(() => {
+                            store.dispatch({
+                                type: 'reload',
+                                data: true
+                            })
+                        }, 1000);
+                    })
+                }
                 if (item.children) menuFun(item.children)
             })
         }
@@ -221,8 +238,8 @@ function RoleUserList() {
                 let ids = selectedRowKeys.join(",")
                 const res = await request.deleteAllPermission({ ids })
                 if (res.data.code == 200) {
-                    message.success(res.data.message)
                     deleteAllReload(selectedRowKeys)
+                    message.success(res.data.message)
                     getmenulist()
                     setSelectedRowKeys([])
                 }
@@ -236,7 +253,15 @@ function RoleUserList() {
         const checkId = (arr, targetId) => {
             for (const item of arr) {
                 if (item.id === targetId) {
-                    window.location.reload();
+                    message.loading("正在更新菜单，请稍后")
+                    getMenu().then(res => {
+                        setTimeout(() => {
+                            store.dispatch({
+                                type: 'reload',
+                                data: true
+                            })
+                        }, 1000);
+                    })
                     return true;
                 }
                 if (item.children) {

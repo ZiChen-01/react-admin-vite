@@ -139,7 +139,9 @@ a:hover,
 .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow,
 .ant-table-row-expand-icon:focus-visible,
 .ant-table-row-expand-icon:hover,
-.ant-checkbox-checked::after {
+.ant-checkbox-checked::after,
+.ant-btn-link,
+.ant-btn-link:hover {
     color: var(--main-bg);
 }
 

@@ -5,7 +5,9 @@ import request from "@/api"
 import "./index.less"
 import Marquee from 'react-fast-marquee';
 import IconModule from "./iconModule"
-
+//用于获取状态
+import store from "@/redux/store";
+import getMenu from "@/routes/routerConfig";
 const PermissionModule = forwardRef((props, ref) => {
     let [form] = Form.useForm();
     let [title, setTitle] = useState("")
@@ -45,6 +47,7 @@ const PermissionModule = forwardRef((props, ref) => {
                 params.id = id
                 const res = await request.editPermission(params)
                 resSet(res)
+                setReload(params)
             }
             function resSet(res) {
                 if (res.data.code == 200) {
@@ -63,6 +66,27 @@ const PermissionModule = forwardRef((props, ref) => {
         } catch (errorInfo) {
             //    错误
         }
+    }
+    // 确认编辑后对比本地菜单，做刷新操作
+    const setReload = (record) => {
+        let menu = JSON.parse(localStorage.getItem('menuList'))
+        function menuFun(i) {
+            i.forEach((item) => {
+                if (item.id == record.id) {
+                    message.loading("正在更新菜单，请稍后")
+                    getMenu().then(res => {
+                        setTimeout(() => {
+                            store.dispatch({
+                                type: 'reload',
+                                data: true
+                            })
+                        }, 1000);
+                    })
+                }
+                if (item.children) menuFun(item.children)
+            })
+        }
+        menuFun(menu)
     }
     //编辑
     const entiForm = (data) => {
