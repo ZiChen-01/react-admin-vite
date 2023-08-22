@@ -79,6 +79,8 @@ const Commonview = () => {
         for (let index = 0; index < array.length; index++) {
             array[index].colordisabled = 'false' //colordisabled  规定选中颜色字段
             if (location.pathname == array[index]?.key) {
+                // 网页标签名
+                document.title = array[index].label == "首页" ? window.envConfig.ROOT_APP_NAME : array[index].label + " - " + window.envConfig.ROOT_APP_NAME
                 routeList.push(array[index])
                 array[index].colordisabled = 'true'
             }
