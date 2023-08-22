@@ -1,5 +1,5 @@
 import { Drawer, Tree, message, Button, Dropdown, Col, Row, Spin } from "antd"
-import { UpOutlined } from '@ant-design/icons';
+import { UpOutlined, CheckOutlined } from '@ant-design/icons';
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import request from "@/api";
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
@@ -16,7 +16,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
     let [allTreeKeys, setAllTreeKeys] = useState([])//展开所有
     let [expandedKeys, setExpandedKeys] = useState([]) //控制展开
     let [lastpermissionIds, setLastpermissionIds] = useState([]) //上一次
-    let [checkStrictly, setCheckStrictly] = useState(false)
+    let [checkStrictly, setCheckStrictly] = useState(true)//true取消关联 false关联
     const roleInfo = JSON.parse(localStorage.getItem('roleInfo'))
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
@@ -60,7 +60,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
             if (res.data.code == 0) {
                 let list = setTreeList(res.data.result.treeList)
                 // 超管禁止选择系统管理下属菜单（默认选中，禁止删掉admin系统权限）
-                let menu = ["首页","系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
+                let menu = ["首页", "系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
                 if (item && item.roleCode == "admin") setdisabled(list)
                 function setdisabled(list) {
                     for (let i = 0; i < list.length; i++) {
@@ -98,8 +98,9 @@ const MenuAuthorization = forwardRef((props, ref) => {
         })
     }
 
-    const onCheck = (checkedKeys, info) => {
-        setCheckedKeys(checkedKeys)
+    const onCheck = (keys, info) => {
+        keys = Array.isArray(keys) ? keys : keys.checked
+        setCheckedKeys(keys)
     };
     // 展开收起
     const onExpand = (expandedKeys) => {
@@ -141,27 +142,27 @@ const MenuAuthorization = forwardRef((props, ref) => {
                             <Dropdown trigger={['click']} menu={{
                                 items: [
                                     {
-                                        label: (<a> 父子关联</a>),
+                                        label: (<a> 父子关联 {!checkStrictly ? <CheckOutlined /> : ""}</a>),
                                         key: '1',
                                     },
                                     {
-                                        label: (<a> 取消关联</a>),
+                                        label: (<a> 取消关联 {checkStrictly ? <CheckOutlined /> : ""}</a>),
                                         key: '2',
                                     },
                                     {
-                                        label: (<a> 全部勾选</a>),
+                                        label: (<a> 全部勾选 {checkedKeys.length == allTreeKeys.length ? <CheckOutlined /> : ""}</a>),
                                         key: '3',
                                     },
                                     {
-                                        label: (<a> 取消全选</a>),
+                                        label: (<a> 取消全选 {checkedKeys.length != allTreeKeys.length ? <CheckOutlined /> : ""}</a>),
                                         key: '4',
                                     },
                                     {
-                                        label: (<a> 展开所有</a>),
+                                        label: (<a> 展开所有 {expandedKeys.length == allTreeKeys.length ? <CheckOutlined /> : ""}</a>),
                                         key: '5',
                                     },
                                     {
-                                        label: (<a> 合并所有</a>),
+                                        label: (<a> 合并所有 {expandedKeys.length != allTreeKeys.length ? <CheckOutlined /> : ""}</a>),
                                         key: '6',
                                     },
                                 ],
