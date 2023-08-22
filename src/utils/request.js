@@ -5,7 +5,7 @@ const Server = axios.create({
     headers: {
         'Content-Type': "application/json; charset=utf-8",
     },
-    timeout: window.envConfig['API_BASE_TIMEOUT'] * 1000,//超时时间
+    timeout: window.envConfig['API_BASE_TIMEOUT']*1000,//超时时间
 });
 
 
@@ -30,8 +30,9 @@ const codeMessage = {
 // 添加请求拦截器
 Server.interceptors.request.use(function (config) {
     // 在请求头上缀入token
-    if (localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])) {
-        config.headers["X-Access-Token"] = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN']);
+    if (localStorage.getItem(window.envConfig['ROOT_APP_INFO'])) {
+        const token = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO'])).token
+        config.headers["X-Access-Token"] = token;
     }
     return config;
 }, function (error) {
@@ -72,7 +73,7 @@ Server.interceptors.response.use(function (response) {
     // 异常处理
     const response = error.response
     if (response && response.status) {
-        const errorText = response.statusText || codeMessage[response.status];
+        const errorText = codeMessage[response.status] || response.statusText;
         const { status, config } = response;
         notification.error({
             message: `请求错误 ${status} :  ${config?.url}`,
@@ -93,8 +94,7 @@ Server.interceptors.response.use(function (response) {
 
 // 清除本地所有缓存，重新登录
 const clearStorage = () => {
-    localStorage.clear();
-    sessionStorage.clear()
+    localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
     setTimeout(() => {
         window.location.reload()
     }, 1000)

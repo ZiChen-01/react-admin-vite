@@ -67,11 +67,10 @@ const Commonview = () => {
     };
     // 退出登录
     const logOut = () => {
-        localStorage.clear();
-        sessionStorage.clear()
+        localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
         setTimeout(() => {
             window.location.reload()
-        }, 500)
+        }, 1000)
     }
 
     // 标签栏
@@ -317,7 +316,7 @@ const Commonview = () => {
 
 
 function UserInfo() {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    const userInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.userInfo
     const passwordRef = useRef(null);
     const onMenu = ({ key }) => {
         switch (key) {

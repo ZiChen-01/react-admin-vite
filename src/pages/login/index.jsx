@@ -33,12 +33,14 @@ const Login = () => {
     userInfo.password = passwordEncryption(userInfo.password) //密码加密
     request.getLogin(userInfo).then(res => {
       if (res?.data?.code == 200) {
+
         //  存储用户信息 角色信息
-        localStorage.setItem(window.envConfig['ROOT_APP_TOKEN'], res.data.result.token)
-        localStorage.setItem('userInfo', JSON.stringify(res.data.result.userInfo))
-        localStorage.setItem('roleInfo', JSON.stringify(res.data.result.roleInfo))
+        localStorage.setItem(window.envConfig['ROOT_APP_INFO'], JSON.stringify({
+          roleInfo: res.data.result.roleInfo,
+          userInfo: res.data.result.userInfo,
+          token: res.data.result.token
+        }))
         getMenu().then(res => {
-          localStorage.setItem('menuList', JSON.stringify(res))
           //通知reducer页面数据变化了
           store.dispatch({
             type: 'reload',
@@ -46,20 +48,22 @@ const Login = () => {
           })
           setTimeout(() => {
             navigate('/dashboard/analysis')
-          }, 1000);
+          }, 300);
         })
+
       }
       setLoading(false)
       setSubmitLoginName('登录')
-    }).catch(error=>{
+    }).catch(error => {
       setLoading(false)
       setSubmitLoginName('登录')
     })
+
   };
 
   useEffect(() => {
-    const token = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])
-    if (token) navigate('/dashboard/analysis')
+    const appInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))
+    if (appInfo) navigate('/dashboard/analysis')
     const loginChecked = getCookies('loginChecked')
     if (loginChecked) {
       let { checked, password, username } = JSON.parse(decrypt(loginChecked))
@@ -163,7 +167,7 @@ const Login = () => {
 
         </section>
       </div>
-      <Author />
+      {/* <Author /> */}
     </div>
   );
 
@@ -172,9 +176,9 @@ const Login = () => {
 function Author() {
   return (
     <div className="author">
-      <p> Ant Big Data monitoring system © 2023 <a href="https://gitee.com/jiangsihan/react-admin-vite" target="_blank">React-Admin-Vite@v1.0.5</a> | <a href="https://jiangsihan.gitee.io/react-admin-vite-press" target="_blank">开发文档</a></p>
+      <p> Ant Big Data monitoring system © 2022 <a href="https://gitee.com/jiangsihan/React-admin" target="_blank">React-Ant-Admin@v1.0.5</a></p>
 
-      <p>技术支持：<a href="https://jiangsihan.cn/" target="_blank">前端江太公</a> @  江子辰 <a href="mailto:18307106535@163.com"> Send email to ZiChen_Jiang</a> 初始账号及密码：admin 123456</p>
+      <p>技术支持：<a href="https://jiangsihan.cn/" target="_blank">前端江太公</a> @  江子辰 <a href="mailto:18307106535@163.com"> Send email to ZiChen_Jiang</a></p>
     </div>
   )
 }

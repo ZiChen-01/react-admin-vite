@@ -1,5 +1,5 @@
-const service = {
-	login: 'admin/login/precheck', //登录
+export const service = {
+	login: 'sys/login', //登录
 	getMenuBar: "sys/permission/getUserPermissionByToken",//菜单路由表
 	// 用户管理
 	UserList: "sys/user/list",//用户列表
@@ -35,8 +35,4 @@ const service = {
 // 配置二级地址
 for (let key in service) {
 	service[key] = window.envConfig['API_BASE_PORT'] + "/" + service[key]
-}
-
-export {
-	service
 }

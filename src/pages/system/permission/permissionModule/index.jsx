@@ -69,7 +69,7 @@ const PermissionModule = forwardRef((props, ref) => {
     }
     // 确认编辑后对比本地菜单，做刷新操作
     const setReload = (record) => {
-        let menu = JSON.parse(localStorage.getItem('menuList'))
+        let menu = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.menuList
         function menuFun(i) {
             i.forEach((item) => {
                 if (item.id == record.id) {

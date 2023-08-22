@@ -6,7 +6,7 @@ window.envConfig = {
     API_BASE_URL:"",    //地址域名IP等(此处为空禁写，请在switch语句配置地址)
     API_BASE_PORT:"/xxx-manager",    //二级地址（可为空），用于拼接API_BASE_URL后面
     API_BASE_TIMEOUT:10,  //请求超时时间（单位/s）
-    ROOT_APP_TOKEN:"Autn-Token",  //token名称
+    ROOT_APP_INFO:"xxx-Info",  //本地存储名称（用户信息、角色信息、菜单信息、token等）为避免项目冲突请给每个项目单独命名
 }
 
 // 详细配置信息请查看文档：https://jiangsihan.gitee.io/react-admin-vite-press

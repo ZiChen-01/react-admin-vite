@@ -9,7 +9,7 @@ const Addusers = forwardRef((props, ref) => {
     let [isModalVisible, setIsModalVisible] = useState(false);
     let [isStatus, setIsStatus] = useState(1);//1 添加  2编辑 3详情
     let [form] = Form.useForm();
-    let userInfo = JSON.parse(localStorage.getItem('userInfo') || '0')
+    let userInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO'])).userInfo
     let [queryalllist, setQueryalllist] = useState([]) //角色列表
     let [DeptTree, setGetDeptTree] = useState([]) //机构
     let [showEle, setShowEle] = useState(true);

@@ -122,8 +122,8 @@ function importLocale(locale) {
 //创建节点的方法
 function iconBC(name) { return React.createElement(Icon[name]); }
 
-const token = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])
-const menu = JSON.parse(localStorage.getItem('menuList'))
+const token = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.token
+const menu = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.menuList
 if (token) getMenu();
 // 从接口请求菜单
 if (token && menu) {

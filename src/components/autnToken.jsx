@@ -3,14 +3,12 @@ import { notification } from 'antd'
 function AutnToken({ children }) {
     const location = useLocation();//当前页面路由
     const navigate = useNavigate()
-    const token = localStorage.getItem(window.envConfig['ROOT_APP_TOKEN'])
+    const appInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))
 
     // 监听本地值，一旦手动删除去登录
     window.addEventListener('storage', (event) => {
         console.log(event);
-        if (event.storageArea === localStorage) {
-            localStorage.clear();
-            sessionStorage.clear()
+        if (event.storageArea === localStorage && event.key == window.envConfig['ROOT_APP_INFO']) {
             navigate("/login")
             notification.warning({
                 message: "系统提示",
@@ -18,7 +16,7 @@ function AutnToken({ children }) {
             });
         }
     })
-    if (token) {
+    if (appInfo) {
         return <>{children}</>
         // 如果token存在，则返回传入的组件
     } else {

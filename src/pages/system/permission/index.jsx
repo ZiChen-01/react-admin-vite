@@ -202,7 +202,7 @@ function RoleUserList() {
     };
     // 删除对比菜单，操作后刷新页面
     const setReload = (record) => {
-        let menu = JSON.parse(localStorage.getItem('menuList'))
+        let menu = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.menuList
         function menuFun(i) {
             i.forEach((item) => {
                 if (item.id == record.id) {
@@ -248,7 +248,7 @@ function RoleUserList() {
     };
     // 批量删除对比菜单，操作后刷新页面
     const deleteAllReload = (arrId) => {
-        let menu = JSON.parse(localStorage.getItem('menuList'))
+        let menu =JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.menuList
         // 对比选中菜单与本地菜单，只要有一个相同就刷新页面
         const checkId = (arr, targetId) => {
             for (const item of arr) {

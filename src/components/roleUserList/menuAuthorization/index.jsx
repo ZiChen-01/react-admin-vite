@@ -17,7 +17,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
     let [expandedKeys, setExpandedKeys] = useState([]) //控制展开
     let [lastpermissionIds, setLastpermissionIds] = useState([]) //上一次
     let [checkStrictly, setCheckStrictly] = useState(true)//true取消关联 false关联
-    const roleInfo = JSON.parse(localStorage.getItem('roleInfo'))
+    const roleInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.roleInfo
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setMenuVisible, queryMenuTreeList, setDetails
