@@ -3,6 +3,8 @@ const defaultState = {
     reload: false,
     darkTheme: false,//深夜模式
     weakOrGray: false,//色弱/灰色
+    ThemeStyle: "dark",//导航风格
+    pattern: "broadside",//导航模式
 }
 
 const reducer = (preState = defaultState, action) => {
@@ -20,6 +22,14 @@ const reducer = (preState = defaultState, action) => {
         case 'weakOrGray':
             return {
                 weakOrGray: data
+            }
+        case 'ThemeStyle':
+            return {
+                pattern: data
+            }
+        case 'pattern':
+            return {
+                pattern: data
             }
         default:
             return defaultState

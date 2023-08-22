@@ -34,8 +34,12 @@
 }
 
 /* 菜单选中色 */
-.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    background-color: var(--main-bg);
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected,
+.ant-menu-dark.ant-menu-horizontal>.ant-menu-item:hover,
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background-color: var(--main-bg) !important;
+    color: #fff !important;
 }
 
 
@@ -142,7 +146,7 @@ a:hover,
 .ant-checkbox-checked::after,
 .ant-btn-link,
 .ant-btn-link:hover {
-    color: var(--main-bg);
+    color: var(--main-bg) !important;
 }
 
 .ant-tabs-ink-bar,
@@ -155,4 +159,15 @@ a:hover,
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: var(--main-bg-menu);
+}
+
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover::after,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover::after,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-active::after,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-active::after,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-open::after,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open::after,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected::after,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected::after {
+    border-bottom: 2px solid var(--main-bg) !important;
 }

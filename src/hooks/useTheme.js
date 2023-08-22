@@ -34,16 +34,12 @@ const useTheme = () => {
 			setCookies('darkTheme', darkTheme, 365)
 			import("@/styles/theme/theme-dark.less")
 			message.loading("正在切换深夜模式，请稍后")
-			setTimeout(() => {
-				window.location.reload()
-			}, 2000);
+			window.location.reload()
 		} else if (darkTheme == false) {
 			import("@/styles/theme/theme-default.less")
 			removeCookies("darkTheme", 365)
 			message.loading("正在切换白天模式，请稍后")
-			setTimeout(() => {
-				window.location.reload()
-			}, 2000);
+			window.location.reload()
 		}
 	})
 	// 灰色 色弱
