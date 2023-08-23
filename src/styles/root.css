@@ -104,7 +104,9 @@ input:hover,
 .ant-radio-checked::after,
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner,
-.ant-radio-input:focus+.ant-radio-inner {
+.ant-radio-input:focus+.ant-radio-inner,
+.ant-steps-item-finish .ant-steps-item-icon,
+.ant-steps-item-process .ant-steps-item-icon {
     border-color: var(--main-bg);
 
 }
@@ -158,7 +160,8 @@ a:hover,
 .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-open,
 .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open,
 .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected {
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected,
+.ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon {
     color: var(--main-bg);
 }
 
@@ -178,7 +181,9 @@ a:hover,
 .ant-btn-primary:hover,
 .ant-btn-primary:focus,
 .ant-checkbox-indeterminate .ant-checkbox-inner::after,
-.ant-switch-checked {
+.ant-switch-checked,
+.ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after,
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon,.ant-spin .ant-spin-dot-item {
     background: var(--main-bg);
 }
 
