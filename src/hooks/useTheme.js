@@ -17,14 +17,17 @@ const useTheme = () => {
 			case "gray":
 				document.body.style.filter = "grayscale(1)";
 				setCookies('weakOrGray', weakOrGray, 365)
+				window.location.reload()
 				break;
 			case "weak":
 				document.body.style.filter = "invert(80%)";
 				setCookies('weakOrGray', weakOrGray, 365)
+				window.location.reload()
 				break;
 			case false:
 				document.body.style.removeProperty("filter");
 				removeCookies("weakOrGray", 365)
+				window.location.reload()
 				break;
 			default:
 				break;
