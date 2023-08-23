@@ -37,6 +37,7 @@ export default defineConfig({
   build: {
     outDir: "manager-admin", // 打包文件 默认dist
     minify: "terser",
+    chunkSizeWarningLimit: 2000,//文件大小，默认500kb，生成的一个或多个文件的大小超过该值时，Vite 会发出警告提示
     // 打包清除console和debugger
     terserOptions: {
       compress: {
