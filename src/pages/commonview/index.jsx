@@ -266,10 +266,10 @@ const Commonview = () => {
                         }) : ""}
 
                         <div className='headBox' style={{
-                            padding: pattern == "broadside" ? 0 : "0 10px",
+                            // padding: pattern == "broadside" ? 0 : "0 10px",
                             background: Stylebg == "dark" && pattern == "top" ? "#001529" : "#fff",
                             color: Stylebg == "dark" && pattern == "top" ? "#fff" : "#000",
-                            padding: pattern == "top" && styWidth == "true" ? "0px 15%" : "0 10px",
+                            padding: pattern == "top" && styWidth == "true" ? "0px 15%" :"0 10px",
                             minWidth: pattern == "top" && styNav == "true" ? "1400px" : "100%",
                         }}>
                             <span>{pattern == "broadside" ? "欢迎登录" : ""}{titleH2}</span>
