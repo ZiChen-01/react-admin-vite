@@ -128,7 +128,8 @@ input:hover,
     display: flex;
 }
 
-.ant-popover-message-title {
+.ant-popover-message-title,
+.ant-btn-link {
     padding: 0;
 }
 
