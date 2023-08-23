@@ -110,14 +110,17 @@ function importLocale(locale) {
             break;
     }
 
-    let url = modules[`/src/pages/${locale}/index.jsx`]
+    let component = modules[`/src/pages/${locale}/index.jsx`]
 
-    // 找不到本地组件直接403
-    if (url == undefined) url = () => import(`../components/error302`)
+    // 一般页面找不到本地组件直接重定向302
+    if (!component) component = () => import(`../components/error302`)
+
+    //  系统组件涉及权限及隐私问题找不到本地组件重定向403
+    // if (locale.includes('system') && !component) component = () => import(`../components/error403`)
 
     // const url = import(`../pages/${locale}`)  // vite不支持
 
-    return url
+    return component
 }
 //创建节点的方法
 function iconBC(name) { return React.createElement(Icon[name]); }
