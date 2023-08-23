@@ -36,12 +36,10 @@ const MenuAuthorization = forwardRef((props, ref) => {
                     if (roleInfo.roleCode == details.roleCode) {
                         message.loading("正在初始化菜单，请稍后")
                         getMenu().then(res => {
-                            setTimeout(() => {
-                                store.dispatch({
-                                    type: 'reload',
-                                    data: true
-                                })
-                            }, 1000);
+                            store.dispatch({
+                                type: 'reload',
+                                data: true
+                            })
                         })
                     }
                 } else {

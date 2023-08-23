@@ -75,12 +75,10 @@ const PermissionModule = forwardRef((props, ref) => {
                 if (item.id == record.id) {
                     message.loading("正在更新菜单，请稍后")
                     getMenu().then(res => {
-                        setTimeout(() => {
-                            store.dispatch({
-                                type: 'reload',
-                                data: true
-                            })
-                        }, 1000);
+                        store.dispatch({
+                            type: 'reload',
+                            data: true
+                        })
                     })
                 }
                 if (item.children) menuFun(item.children)
