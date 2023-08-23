@@ -2,7 +2,7 @@
 
   .ant-layout {
     width: 100%;
-    min-width: 1200px;
+    min-width: 1400px;
     min-height: 100vh !important;
     overflow-x: hidden;
   }
@@ -10,6 +10,10 @@
   .ant-layout-sider {
     /* height: 100vh; */
     background: #001529;
+  }
+
+  .ant-layout-header {
+    padding: 0;
   }
 
   header {
@@ -81,6 +85,7 @@
 
   .site-layout .site-layout-background {
     background: #fff;
+    z-index: 2;
   }
 
   .tuichu {
@@ -103,12 +108,14 @@
     display: flex;
   }
 
-  .userName,.user-Setting {
+  .userName,
+  .user-Setting {
     padding: 0 10px;
     // margin-right: 10px;
   }
 
-  .userName:hover,.user-Setting:hover {
+  .userName:hover,
+  .user-Setting:hover {
     cursor: pointer;
     background: rgba(0, 0, 0, .025);
     transition: 0.8s;
@@ -139,7 +146,7 @@
   .breadcrumb {
     width: 96%;
     margin-bottom: 0;
-    padding-left: 10px;
+    // padding-left: 10px;
     background: #fff;
 
 
@@ -193,7 +200,7 @@
     color: var(--main-bg);
   }
 
-  .breadcrumb .ant-tabs-tab:hover .breadcrumbTitle {}
+  // .breadcrumb .ant-tabs-tab:hover .breadcrumbTitle {}
 
   .breadcrumb .ant-tabs-tab:hover .anticon-close {
     opacity: 1;

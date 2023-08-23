@@ -44,7 +44,8 @@
 
 
 /* 复选框选中颜色 */
-.ant-checkbox-checked .ant-checkbox-inner {
+.ant-checkbox-checked .ant-checkbox-inner,
+.ant-tree-checkbox-checked .ant-tree-checkbox-inner {
     background-color: var(--main-bg);
     border-color: var(--main-bg);
 }
@@ -95,9 +96,21 @@ input:hover,
 .ant-pagination-item-active:hover,
 .ant-btn-default:hover,
 .ant-btn-primary:hover,
-.ant-btn-primary:focus {
+.ant-btn-primary:focus,
+.ant-btn-default:focus,
+.ant-tree-checkbox-wrapper:hover .ant-tree-checkbox-inner,
+.ant-tree-checkbox:hover .ant-tree-checkbox-inner,
+.ant-tree-checkbox-input:focus+.ant-tree-checkbox-inner,
+.ant-radio-checked::after,
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus+.ant-radio-inner {
     border-color: var(--main-bg);
 
+}
+
+.ant-radio-checked .ant-radio-inner {
+    border-color: var(--main-bg) !important;
 }
 
 .ant-dropdown-trigger {
@@ -120,7 +133,6 @@ input:hover,
 }
 
 a,
-link,
 link:hover,
 .ant-picker-today-btn,
 a:hover,
@@ -132,6 +144,23 @@ a:hover,
 .ant-pagination-item-active a,
 .ant-pagination-item-active:hover a,
 .ant-btn-default:hover,
+.ant-table-row-expand-icon:focus-visible,
+.ant-table-row-expand-icon:hover,
+.ant-checkbox-checked::after,
+.ant-btn-link,
+.ant-btn-link:hover,
+.ant-btn-link:focus,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-active,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-active,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-open,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected {
+    color: var(--main-bg);
+}
+
 .ant-menu-item-selected,
 .ant-menu-light .ant-menu-item:hover,
 .ant-menu-light .ant-menu-item-active,
@@ -140,12 +169,7 @@ a:hover,
 .ant-menu-light .ant-menu-submenu-title:hover,
 .ant-menu-submenu-selected,
 .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-expand-icon,
-.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow,
-.ant-table-row-expand-icon:focus-visible,
-.ant-table-row-expand-icon:hover,
-.ant-checkbox-checked::after,
-.ant-btn-link,
-.ant-btn-link:hover {
+.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow {
     color: var(--main-bg) !important;
 }
 
@@ -157,7 +181,8 @@ a:hover,
     background: var(--main-bg);
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected,
+.ant-radio-inner::after {
     background-color: var(--main-bg-menu);
 }
 
@@ -169,5 +194,5 @@ a:hover,
 .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open::after,
 .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected::after,
 .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected::after {
-    border-bottom: 2px solid var(--main-bg) !important;
+    border-bottom: 2px solid var(--main-bg);
 }

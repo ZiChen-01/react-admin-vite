@@ -37,9 +37,13 @@ const Commonview = () => {
     let [routeList, setRouteList] = useState([])
     let [Stylebg, setStylebg] = useState("dark")
     let [pattern, setPattern] = useState("broadside")//导航模式
+    let [styWidth, setStyWidth] = useState()//内容宽度
+    let [styNav, setStyNav] = useState()//固定导航
 
     let ThemeStyle = getCookies("ThemeStyle")
     let patternStyle = getCookies("pattern")
+    let widthStyle = getCookies("widthStyle")
+    let navStyle = getCookies("navStyle")
     routes.map(item => {
         if (item.label == "首页") {
             routeList.push(item)
@@ -59,12 +63,13 @@ const Commonview = () => {
         }
         // 导航模式
         if (patternStyle) setPattern(patternStyle)
+        setStyWidth(widthStyle)
+        setStyNav(navStyle)
         // 获取导航模式
         store.subscribe(() => {
             const { pattern } = store.getState()
             setPattern(pattern)
         })
-
         // 右键事件监听
         const tabDom = document.getElementsByClassName("ant-tabs")[0]
         tabDom.addEventListener("contextmenu", onContextmenu)
@@ -227,31 +232,45 @@ const Commonview = () => {
     return (
         <>
             <Layout className="commonview">
-                {pattern == "broadside" ? <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={collapsed}>
-                    <div className="logo">
-                        <img src={logo} alt="" />
-                        {title ? <span className='logoTitle' style={{ color: ThemeStyle && ThemeStyle == "light" ? "#000000D9" : "" }}>{titleH2}</span> : ''}
-                    </div>
-                    <Menu
-                        theme={Stylebg}
-                        onClick={onClick}
-                        style={{ width: '100%' }}
-                        defaultOpenKeys={[defaultOpenKeys]}
-                        selectedKeys={[current]}
-                        mode="inline"
-                        items={routes}
-                    />
-                </Sider> : ""}
+                {pattern == "broadside" ?
+                    <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={collapsed}>
+                        <div className="logo">
+                            <img src={logo} alt="" />
+                            {title ?
+                                <span className='logoTitle' style={{
+                                    color: ThemeStyle && ThemeStyle == "light" ? "#000000D9" : ""
+                                }}>{titleH2}</span>
+                                : ''
+                            }
+                        </div>
+                        <Menu
+                            theme={Stylebg}
+                            onClick={onClick}
+                            style={{ width: '100%' }}
+                            defaultOpenKeys={[defaultOpenKeys]}
+                            selectedKeys={[current]}
+                            mode="inline"
+                            items={routes}
+                        />
+                    </Sider> : ""}
                 <Layout className="site-layout">
-                    <Header className="site-layout-background" style={{ padding: 0 }}>
+                    <Header className="site-layout-background" style={{
+                        padding: pattern == "broadside" ? "0 30px 0 0" : 0,
+                        position: pattern == "top" && styNav == "true" ? "fixed" : "",
+                        minWidth: pattern == "top" && styNav == "true" ? "100%" : "",
+                        top: pattern == "top" && styNav == "true" ? "0" : "",
+                    }}>
                         {pattern == "broadside" ? React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             className: 'trigger',
                             onClick: () => { setCollapsed(!collapsed); setTitle(!title) },
                         }) : ""}
+
                         <div className='headBox' style={{
                             padding: pattern == "broadside" ? 0 : "0 10px",
                             background: Stylebg == "dark" && pattern == "top" ? "#001529" : "#fff",
                             color: Stylebg == "dark" && pattern == "top" ? "#fff" : "#000",
+                            padding: pattern == "top" && styWidth == "true" ? "0px 15%" : "0 10px",
+                            minWidth: pattern == "top" && styNav == "true" ? "1400px" : "100%",
                         }}>
                             <span>{pattern == "broadside" ? "欢迎登录" : ""}{titleH2}</span>
                             {pattern == "top" ?
@@ -262,7 +281,7 @@ const Commonview = () => {
                                     selectedKeys={[current]}
                                     mode="horizontal"
                                     items={routes}
-                                    style={{ borderBottom: 0 }}
+                                    style={{ borderBottom: 0, width: pattern == "top" ? "60%" : "" }}
                                 /> : ""}
                             <div className='userinfo'>
                                 <Tooltip title="后台布局设置">
@@ -278,7 +297,10 @@ const Commonview = () => {
                         </div>
                     </Header>
                     {/* 标签栏 */}
-                    <div className="tabsList-box">
+                    <div className="tabsList-box" style={{
+                        padding: pattern == "top" && styWidth == "true" ? "0px 15%" : "0 0 0 10px",
+                        marginTop: pattern == "top" && styNav == "true" ? "64px" : "",
+                    }}>
                         <div className="tabsList-box-view">
                             <div className='breadcrumb'>
                                 <Tabs
@@ -324,7 +346,7 @@ const Commonview = () => {
 
                         </div>
                     </div>
-                    <Content>
+                    <Content style={{ margin: pattern == "top" && styWidth == "true" ? "20px 15%" : "10px" }}>
                         {/* 配置路由子组件 */}
                         <Routes>
                             {getRoutes(routes)}

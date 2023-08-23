@@ -13,6 +13,8 @@ const Setting = forwardRef((props, ref) => {
     let [darkChecked, setDarkChecked] = useState(false)
     let [grayChecked, setGrayChecked] = useState(false)
     let [weakChecked, setWeakChecked] = useState(false)
+    let [widthChecked, setWidthChecked] = useState(false)
+    let [navChecked, setNavChecked] = useState(false)
     let [bgCheck, setBgCheck] = useState("#1890ff")
     let [StyleCheck, setStyleCheck] = useState("dark")
     let [pattern, setPattern] = useState("broadside")
@@ -46,6 +48,8 @@ const Setting = forwardRef((props, ref) => {
     const ThemeBgColor = getCookies("ThemeBgColor")
     const ThemeStyle = getCookies("ThemeStyle")
     const patternStyle = getCookies("pattern")
+    const widthStyle = getCookies("widthStyle")
+    const navStyle = getCookies("navStyle")
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setSettingVisible
@@ -67,6 +71,13 @@ const Setting = forwardRef((props, ref) => {
         if (patternStyle) setPattern(patternStyle)
         if (ThemeBgColor) setBgCheck(ThemeBgColor)
         if (ThemeStyle) setStyleCheck(ThemeStyle)
+        if (widthStyle == "true") {
+            setWidthChecked(true)
+        } else {
+            setWidthChecked(false)
+        }
+        if (navStyle == "true") setNavChecked(true)
+        else setNavChecked(false)
     }, []);
     // 深夜模式
     const darkChange = (e) => {
@@ -159,13 +170,27 @@ const Setting = forwardRef((props, ref) => {
             data: "top"
         })
         setCookies('pattern', "top", 365)
+        setWidthChecked(true)
+        setCookies('widthStyle', true, 365)
         message.loading("模式切换中，请稍后")
+        window.location.reload()
+    }
+    // 内容宽度
+    const gudingChange = (e) => {
+        setWidthChecked(e)
+        setCookies('widthStyle', e, 365)
+        window.location.reload()
+    }
+    // 固定导航
+    const navChange = (e) => {
+        setNavChecked(e)
+        setCookies('navStyle', e, 365)
         window.location.reload()
     }
 
     return (
         <>
-            <Drawer headerStyle={{ display: "none" }} open={SettingVisible} closable={true} onClose={() => { setSettingVisible(false) }} width='20%' className="Setting">
+            <Drawer headerStyle={{ display: "none" }} open={SettingVisible} closable={true} onClose={() => { setSettingVisible(false) }} className="Setting">
                 <Divider>模式设置</Divider>
                 <div className="theme-item">
                     <span>深夜模式</span>
@@ -241,6 +266,16 @@ const Setting = forwardRef((props, ref) => {
                             </div>
                         </div>
                     </Tooltip>
+                </div>
+                <div className="theme-item">
+                    <span>内容区域宽度</span>
+                    <span style={{ fontSize: "12px", color: "#bbb" }}>只在顶部导航模式生效</span>
+                    <Switch checked={widthChecked} disabled={pattern == "broadside"} checkedChildren="固定" unCheckedChildren="流式" onChange={e => gudingChange(e)} />
+                </div>
+                <div className="theme-item">
+                    <span>固定  Header</span>
+                    <span style={{ fontSize: "12px", color: "#bbb" }}>只在顶部导航模式生效</span>
+                    <Switch checked={navChecked} disabled={pattern == "broadside"} checkedChildren="固定" unCheckedChildren="流式" onChange={e => navChange(e)} />
                 </div>
             </Drawer >
         </>
