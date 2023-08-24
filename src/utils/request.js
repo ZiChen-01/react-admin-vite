@@ -5,7 +5,7 @@ const Server = axios.create({
     headers: {
         'Content-Type': "application/json; charset=utf-8",
     },
-    timeout: window.envConfig['API_BASE_TIMEOUT']*1000,//超时时间
+    timeout: window.envConfig['API_BASE_TIMEOUT'] * 1000,//超时时间
 });
 
 
@@ -48,7 +48,7 @@ Server.interceptors.request.use(function (config) {
 Server.interceptors.response.use(function (response) {
     console.log(response);
     if (response && response.data) {
-        if (response.data.code != 0 && response.data.code != 200 && response.data.errCode != "000000") {
+        if (response.data.code && response.data.code != 0 && response.data.code != 200) {//&& response.data.errCode != "000000"
             const errorText = response.data.message || codeMessage[response.data.code];
             const { config: { url }, data: { code } } = response;
             notification.error({
