@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Layout, Menu, Popconfirm, Dropdown, Tooltip, Tabs } from 'antd';
-import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, BarsOutlined, SettingOutlined, CloseOutlined } from '@ant-design/icons';
+import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, BarsOutlined, SettingOutlined, CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
@@ -39,7 +39,7 @@ const Commonview = () => {
     let [pattern, setPattern] = useState("broadside")//导航模式
     let [styWidth, setStyWidth] = useState()//内容宽度
     let [styNav, setStyNav] = useState()//固定导航
-
+    let [fullScreen, setFullScreen] = useState(false)//全屏
     let ThemeStyle = getCookies("ThemeStyle")
     let patternStyle = getCookies("pattern")
     let widthStyle = getCookies("widthStyle")
@@ -49,6 +49,35 @@ const Commonview = () => {
             routeList.push(item)
         }
     })
+    useEffect(() => {
+        if (fullScreen) {
+            const element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
+        } else {
+            if (document.fullscreenElement ||
+                document.mozFullScreenElement ||
+                document.webkitFullscreenElement ||
+                document.msFullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    }, [fullScreen])
     useEffect(() => {
         // 设置导航颜色
         if (ThemeStyle) {
@@ -269,10 +298,10 @@ const Commonview = () => {
                             // padding: pattern == "broadside" ? 0 : "0 10px",
                             background: Stylebg == "dark" && pattern == "top" ? "#001529" : "#fff",
                             color: Stylebg == "dark" && pattern == "top" ? "#fff" : "#000",
-                            padding: pattern == "top" && styWidth == "true" ? "0px 15%" :"0 10px",
+                            padding: pattern == "top" && styWidth == "true" ? "0px 15%" : "0 10px",
                             minWidth: pattern == "top" && styNav == "true" ? "1500px" : "100%",
                         }}>
-                            <span>{pattern == "broadside" ? "欢迎登录" : <img src={logo} alt="" className="headBox-logo"/>}{titleH2}</span>
+                            <span>{pattern == "broadside" ? "欢迎登录" : <img src={logo} alt="" className="headBox-logo" />}{titleH2}</span>
                             {pattern == "top" ?
                                 <Menu
                                     theme={Stylebg}
@@ -284,6 +313,11 @@ const Commonview = () => {
                                     style={{ borderBottom: 0, width: pattern == "top" ? "60%" : "" }}
                                 /> : ""}
                             <div className='userinfo'>
+                                <Tooltip title={fullScreen ? "退出全屏" : "全屏显示"}>
+                                    <span className='user-Setting' onClick={() => setFullScreen(!fullScreen)}>
+                                        {fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+                                    </span>
+                                </Tooltip>
                                 <Tooltip title="后台布局设置">
                                     <span className='user-Setting' onClick={setting}>
                                         <SettingOutlined spin />
