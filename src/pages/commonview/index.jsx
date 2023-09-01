@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Layout, Menu, Popconfirm, Dropdown, Tooltip, Tabs } from 'antd';
+import { Layout, Menu, Popconfirm, Dropdown, Tooltip, Tabs, notification } from 'antd';
 import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, BarsOutlined, SettingOutlined, CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
@@ -15,6 +15,7 @@ import Contextmenu from '@/components/Contextmenu';
 //用于获取状态
 import store from "@/redux/store";
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
+import { dateState } from "@/utils/moment";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -30,6 +31,7 @@ const Commonview = () => {
     let titleH2 = window.envConfig.ROOT_APP_NAME
     let navigate = useNavigate()
     let location = useLocation()
+
     let [current, setCurrent] = useState(location.pathname);
     let [defaultOpenKeys, setDefaultOpenKeys] = useState(location.pathname)
     let [collapsed, setCollapsed] = useState(false);
@@ -49,6 +51,20 @@ const Commonview = () => {
             routeList.push(item)
         }
     })
+
+    useEffect(() => {
+        const Jiaxiaohan = localStorage.getItem("Jiaxiaohan")
+        if (Jiaxiaohan) {
+            const userInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.userInfo
+            notification.success({
+                message: userInfo.realname,
+                description: "欢迎登录，" + dateState() + "好",
+            });
+        }
+        setTimeout(() => {
+            localStorage.removeItem("islogin")
+        }, 2000);
+    }, [])
     useEffect(() => {
         if (fullScreen) {
             const element = document.documentElement;

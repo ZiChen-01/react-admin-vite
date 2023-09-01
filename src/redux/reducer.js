@@ -25,7 +25,7 @@ const reducer = (preState = defaultState, action) => {
             }
         case 'ThemeStyle':
             return {
-                pattern: data
+                ThemeStyle: data
             }
         case 'pattern':
             return {

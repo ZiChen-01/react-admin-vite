@@ -49,6 +49,7 @@ const Login = () => {
           setTimeout(() => {
             navigate('/dashboard/analysis')
           }, 300);
+          localStorage.setItem("Jiaxiaohan", true)
         })
 
       }
