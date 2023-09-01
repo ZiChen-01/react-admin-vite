@@ -431,7 +431,7 @@ function UserInfo() {
             }} arrow={{
                 pointAtCenter: true,
             }}>
-                <span className='userName'>欢迎您，{userInfo?.realname}</span>
+                <span className='userName'>{userInfo?.realname}</span>
             </Dropdown>
             {/* 修改密码 */}
             <ChangePassword ref={passwordRef} />

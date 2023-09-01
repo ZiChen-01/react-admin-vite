@@ -21,6 +21,10 @@
     background-color: var(--main-bg);
 }
 
+.anticon {
+    cursor: pointer;
+}
+
 /* 弹出框标题 */
 .ant-modal-title,
 .ant-drawer-title {
@@ -42,6 +46,24 @@
     color: #fff !important;
 }
 
+/* 步骤条 */
+.ant-steps-item:hover .ant-steps-item-icon {
+    border-color: var(--main-bg) !important;
+    color: var(--main-bg) !important;
+}
+
+.ant-steps-item:hover .ant-steps-item-title {
+    border-color: var(--main-bg) !important;
+    color: var(--main-bg) !important;
+}
+
+.ant-steps-item:hover .ant-steps-icon {
+    color: var(--main-bg) !important;
+}
+
+.ant-steps-item-active:hover .ant-steps-icon {
+    color: #fff !important;
+}
 
 /* 复选框选中颜色 */
 .ant-checkbox-checked .ant-checkbox-inner,
@@ -115,14 +137,14 @@ input:hover,
     border-color: var(--main-bg) !important;
 }
 
-.ant-dropdown-trigger {
+.ant-table .ant-dropdown-trigger {
     margin: 0 10px;
 }
 
 .ant-popover-message-icon {
     display: inline-block;
     margin-right: 8px;
-    color: #faad14;
+    color: var(--main-bg);
     font-size: 14px;
 }
 
@@ -183,7 +205,8 @@ a:hover,
 .ant-checkbox-indeterminate .ant-checkbox-inner::after,
 .ant-switch-checked,
 .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after,
-.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon,.ant-spin .ant-spin-dot-item {
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon,
+.ant-spin .ant-spin-dot-item {
     background: var(--main-bg);
 }
 

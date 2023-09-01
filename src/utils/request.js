@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { notification } from 'antd'
+import { notification, Modal } from 'antd'
 const Server = axios.create({
     baseURL: window.envConfig['API_BASE_URL'],//域名请求地址
     headers: {
@@ -31,7 +31,7 @@ const codeMessage = {
 Server.interceptors.request.use(function (config) {
     // 在请求头上缀入token
     if (localStorage.getItem(window.envConfig['ROOT_APP_INFO'])) {
-        const token = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO'])).token
+        const token = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.token
         config.headers["X-Access-Token"] = token;
     }
     return config;
@@ -80,23 +80,41 @@ Server.interceptors.response.use(function (response) {
             description: errorText,
         });
         // 500及401重新登录
-        if (status == 500 || status == 401) clearStorage()
+        if (status == 500 || status == 401) clearStorage(response.statusText)
     } else if (!response) {
         notification.error({
             description: '您的网络发生异常，无法连接服务器，可能为跨域、无效令牌、网络未连接等相关原因',
             message: '网络异常',
         });
-        clearStorage()
+        localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
+        setTimeout(() => {
+            window.location.reload()
+        }, 1000)
     }
 
     return Promise.reject(error);
 });
 
 // 清除本地所有缓存，重新登录
-const clearStorage = () => {
-    localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
-    setTimeout(() => {
-        window.location.reload()
-    }, 1000)
+const clearStorage = (errorText) => {
+    if (errorText.includes("Token失效")) {
+        Modal.error({
+            title: '登录已过期',
+            content: '很抱歉，登录已过期，请重新登录',
+            okText: '重新登录',
+            onOk: () => {
+                localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
+                setTimeout(() => {
+                    window.location.reload()
+                }, 500)
+            }
+        });
+    } else {
+        localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
+        setTimeout(() => {
+            window.location.reload()
+        }, 1500)
+    }
+
 }
 export default Server
