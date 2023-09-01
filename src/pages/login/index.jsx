@@ -49,6 +49,7 @@ const Login = () => {
           setTimeout(() => {
             navigate('/dashboard/analysis')
           }, 300);
+          // 判断是否是登录页进入首页
           localStorage.setItem("Jiaxiaohan", true)
         })
 

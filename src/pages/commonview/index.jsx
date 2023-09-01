@@ -53,6 +53,7 @@ const Commonview = () => {
     })
 
     useEffect(() => {
+        // 判断是否是登录页进入首页
         const Jiaxiaohan = localStorage.getItem("Jiaxiaohan")
         if (Jiaxiaohan) {
             const userInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.userInfo
