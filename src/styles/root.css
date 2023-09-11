@@ -195,8 +195,13 @@ a:hover,
 .ant-menu-light .ant-menu-submenu-title:hover,
 .ant-menu-submenu-selected,
 .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-expand-icon,
-.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow {
+.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow,
+.ant-tag:hover {
     color: var(--main-bg) !important;
+}
+
+.ant-tag-checkable-checked:hover {
+    color: #fff !important;
 }
 
 .ant-tabs-ink-bar,
@@ -206,7 +211,8 @@ a:hover,
 .ant-switch-checked,
 .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after,
 .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon,
-.ant-spin .ant-spin-dot-item {
+.ant-spin .ant-spin-dot-item,
+.ant-tag-checkable-checked {
     background: var(--main-bg);
 }
 
