@@ -32,6 +32,7 @@ const Addusers = forwardRef((props, ref) => {
                 if (res.data.code == 200) {
                     message.success(res.data.message)
                     setIsModalVisible(false)
+                    form.resetFields()
                     props.getlist()
                 }
             } else if (isStatus == 2) {
@@ -39,6 +40,7 @@ const Addusers = forwardRef((props, ref) => {
                 if (res.data.code == 200) {
                     message.success(res.data.message)
                     setIsModalVisible(false)
+                    form.resetFields()
                     props.getlist()
                 }
             }
