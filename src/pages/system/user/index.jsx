@@ -297,7 +297,7 @@ function Users() {
                 </Row>
                 <Row justify="space-between" className="buttonbox">
                     <Col>
-                        <Button type="primary" icon={<SearchOutlined />} onClick={getUserlist}>
+                        <Button type="primary" icon={<SearchOutlined />} onClick={() => { getUserlist; setPageIndex(1); setPageSize(10) }}>
                             查询
                         </Button>
                         <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} style={{ marginLeft: '10px' }}>

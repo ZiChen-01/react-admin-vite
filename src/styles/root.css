@@ -196,7 +196,7 @@ a:hover,
 .ant-menu-submenu-selected,
 .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-expand-icon,
 .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow,
-.ant-tag:hover {
+.ant-tag-checkable:hover {
     color: var(--main-bg) !important;
 }
 
