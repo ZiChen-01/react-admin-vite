@@ -36,12 +36,10 @@ function Users() {
         total,//数据的总条数
         onChange: (pageIndex) => {
             setPageIndex(pageIndex);
-            getUserlist()
         },
         onShowSizeChange: (current, pageSize) => {
             setPageSize(pageSize);
             setPageIndex(1);
-            getUserlist()
         },
     }
     const columns = [
@@ -124,14 +122,14 @@ function Users() {
                                 {
                                     label: (
                                         // <>
-                                            <Popconfirm
-                                                title="确定要删除此用户?"
-                                                onConfirm={() => deleteUser(record)}
-                                                okText="确定"
-                                                cancelText="取消"
-                                            >
-                                                <a> 删除</a>
-                                            </Popconfirm>
+                                        <Popconfirm
+                                            title="确定要删除此用户?"
+                                            onConfirm={() => deleteUser(record)}
+                                            okText="确定"
+                                            cancelText="取消"
+                                        >
+                                            <a> 删除</a>
+                                        </Popconfirm>
                                         // </>
                                     ),
                                     key: '2',
@@ -211,7 +209,7 @@ function Users() {
     };
     useEffect(() => {
         getUserlist()
-    }, [pageIndex])
+    }, [pageIndex, pageSize])
 
     // 重置
     const onReset = () => {
@@ -261,17 +259,17 @@ function Users() {
         <>
             <div className="userList">
                 <Row gutter={24}>
-                    <Col md={6} sm={12}>
+                    <Col>
                         <Form.Item label="用户账号">
                             <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号" />
                         </Form.Item>
                     </Col>
-                    <Col md={6} sm={12}>
+                    <Col>
                         <Form.Item label="用户姓名">
                             <Input value={realname} placeholder='请输入用户姓名' onChange={(e) => setRealname(e.target.value)} />
                         </Form.Item>
                     </Col>
-                    <Col md={6} sm={12}>
+                    <Col md={4} sm={12}>
                         <Form.Item label="性别">
                             <Select defaultValue={sex} value={sex} onChange={(e) => {
                                 setSex(e)
@@ -281,12 +279,12 @@ function Users() {
                             </Select>
                         </Form.Item>
                     </Col>
-                    <Col md={6} sm={12}>
+                    <Col>
                         <Form.Item label="手机号码">
                             <Input value={phone} placeholder='请输入手机号码' onChange={(e) => setPhone(e.target.value)} />
                         </Form.Item>
                     </Col>
-                    <Col md={6} sm={12}>
+                    <Col md={5} sm={12}>
                         <Form.Item label="状态">
                             <Select defaultValue={status} value={status} onChange={(e) => {
                                 setStatus(e)

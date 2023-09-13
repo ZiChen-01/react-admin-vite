@@ -31,12 +31,12 @@ function RoleUserList() {
         total,//数据的总条数
         onChange: (pageIndex) => {
             setPageIndex(pageIndex);
-            getmenulist()
+
         },
         onShowSizeChange: (current, pageSize) => {
             setPageSize(pageSize);
             setPageIndex(1);
-            getmenulist()
+
         },
     }
     const columns = [
@@ -105,7 +105,7 @@ function RoleUserList() {
             width: 250,
             render: (text, record, index) => {
                 // 禁止删除的菜单
-                let menu = ["首页","系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
+                let menu = ["首页", "系统管理", "用户管理", "角色管理", "菜单管理", "机构管理"]
                 return (
                     <>
                         <Button type="link" disabled={record.name == "首页"} onClick={() => edit(record)}>编辑</Button>
@@ -117,7 +117,7 @@ function RoleUserList() {
                             cancelText="取消"
                             disabled={menu.includes(record.name)}
                         >
-                            <Button type="link"  disabled={menu.includes(record.name)}>删除</Button>
+                            <Button type="link" disabled={menu.includes(record.name)}>删除</Button>
                         </Popconfirm>
 
                         <Button type="link" onClick={() => addMenu(record)}>添加下级</Button>
@@ -129,7 +129,7 @@ function RoleUserList() {
 
     useEffect(() => {
         getmenulist()
-    }, [pageIndex])
+    }, [pageIndex, pageSize])
 
     // 获取列表
     const getmenulist = async () => {
@@ -246,7 +246,7 @@ function RoleUserList() {
     };
     // 批量删除对比菜单，操作后刷新页面
     const deleteAllReload = (arrId) => {
-        let menu =JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.menuList
+        let menu = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.menuList
         // 对比选中菜单与本地菜单，只要有一个相同就刷新页面
         const checkId = (arr, targetId) => {
             for (const item of arr) {

@@ -31,12 +31,10 @@ function RoleUserList() {
         total,//数据的总条数
         onChange: (pageIndex) => {
             setPageIndex(pageIndex);
-            getUserlist()
         },
         onShowSizeChange: (current, pageSize) => {
             setPageSize(pageSize);
             setPageIndex(1);
-            getUserlist()
         },
     }
     const columns = [
@@ -166,12 +164,12 @@ function RoleUserList() {
     }
     useEffect(() => {
         getlist()
-    }, [pageIndex])
+    }, [pageIndex, pageSize])
     return (
         <>
             <div className="roleUserList">
                 <Row gutter={24}>
-                    <Col md={6} sm={12}>
+                    <Col>
                         <Form.Item label="角色名称">
                             <Input value={roleName} onChange={(e) => setRoleName(e.target.value)} placeholder="请输入角色名称" />
                         </Form.Item>
