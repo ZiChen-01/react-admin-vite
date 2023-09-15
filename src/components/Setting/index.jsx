@@ -275,7 +275,7 @@ const Setting = forwardRef((props, ref) => {
                 <div className="theme-item">
                     <span>固定  Header</span>
                     <span style={{ fontSize: "12px", color: "#bbb" }}>只在顶部导航模式生效</span>
-                    <Switch checked={navChecked} disabled={pattern == "broadside"} checkedChildren="固定" unCheckedChildren="流式" onChange={e => navChange(e)} />
+                    <Switch checked={navChecked} disabled={pattern == "broadside"} checkedChildren="开启" unCheckedChildren="关闭" onChange={e => navChange(e)} />
                 </div>
             </Drawer >
         </>
