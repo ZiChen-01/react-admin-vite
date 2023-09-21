@@ -12,6 +12,7 @@ const LookUsers = forwardRef((props, ref) => {
     let [selectedRowKeys, setSelectedRowKeys] = useState([])
     let [username, setUsername] = useState('')
     let [activeKey, setActiveKey] = useState('1')
+    let [record, setRecord] = useState(null)
     //将子组件的方法 暴露给父组件
     useImperativeHandle(ref, () => ({
         setLookVisible, setDetails, getUserlist, getAllUserlist, setActiveKey
@@ -33,14 +34,15 @@ const LookUsers = forwardRef((props, ref) => {
         total,//数据的总条数
         onChange: (pageIndex) => {
             setPageIndex(pageIndex);
-            getUserlist()
         },
         onShowSizeChange: (current, pageSize) => {
             setPageSize(pageSize);
             setPageIndex(1);
-            getUserlist()
         },
     }
+    useEffect(() => {
+        if (record) getUserlist(record)
+    }, [pageIndex, pageSize])
     const columns = [
         {
             title: '用户账号',
@@ -97,14 +99,15 @@ const LookUsers = forwardRef((props, ref) => {
         total: total2,//数据的总条数
         onChange: (pageIndex) => {
             setPageIndex2(pageIndex);
-            getAllUserlist()
         },
         onShowSizeChange: (current, pageSize) => {
             setPageSize2(pageSize);
             setPageIndex2(1);
-            getAllUserlist()
         },
     }
+    useEffect(() => {
+        getAllUserlist()
+    }, [pageIndex2, pageSize2])
     const userColumns = [
         {
             title: '用户账号',
@@ -127,6 +130,7 @@ const LookUsers = forwardRef((props, ref) => {
     ]
     // 当前角色用户
     const getUserlist = (item) => {
+        setRecord(item)
         setLoading(true)
         let params = {
             roleId: item.id,
@@ -137,6 +141,8 @@ const LookUsers = forwardRef((props, ref) => {
             if (res.data.code == 0) {
                 setDataUserList(res.data.result.records)
                 setTotal(res.data.result.total)
+                // let ids = res.data.result.records.map(item => item.id)
+                // setSelectedRowKeys(ids)
             }
             setLoading(false)
         })
@@ -160,7 +166,7 @@ const LookUsers = forwardRef((props, ref) => {
         let params = {
             username,
             pageNo: pageIndex2,
-            pageSize2
+            pageSize: pageSize2
         }
         request.getUserList(params).then(res => {
             if (res.data.code == 0) {
@@ -185,6 +191,9 @@ const LookUsers = forwardRef((props, ref) => {
         onChange: (selectedRowKeys, selectedRows) => {
             setSelectedRowKeys(selectedRowKeys)
         },
+        getCheckboxProps: (record) => ({
+            disabled: dataUserList.some(item => item.id === record.id),
+        }),
     };
     // 添加用户到当前角色
     const addSysUserRole = () => {
