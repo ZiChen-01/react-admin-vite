@@ -1,5 +1,8 @@
 import { Space, Switch, Table, Modal, Popconfirm, Button, Col, Row, message } from 'antd';
+//引入antd-icon
+import * as Icon from '@ant-design/icons';
 import { DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+
 import React, { useState, useEffect, useRef } from 'react';
 import request from "@/api"
 import { service } from '@/api/service';
@@ -8,6 +11,7 @@ import PermissionModule from "./permissionModule"
 //用于获取状态
 import store from "@/redux/store";
 import getMenu from "@/routes/routerConfig";
+
 function RoleUserList() {
     let [loading, setLoading] = useState(false)
     let [data, setData] = useState([])
@@ -74,7 +78,14 @@ function RoleUserList() {
             title: 'icon',
             dataIndex: 'icon',
             align: "center",
-            key: 'icon'
+            key: 'icon',
+            render: function (text) {
+                //创建节点的方法
+                function iconBC(name) { return React.createElement(Icon[name]); }
+                return (
+                    text ? iconBC(text) : text
+                )
+            }
         },
         {
             title: '组件',
