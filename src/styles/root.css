@@ -212,7 +212,10 @@ a:hover,
 .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after,
 .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon,
 .ant-spin .ant-spin-dot-item,
-.ant-tag-checkable-checked {
+.ant-tag-checkable-checked,
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
     background: var(--main-bg);
 }
 
