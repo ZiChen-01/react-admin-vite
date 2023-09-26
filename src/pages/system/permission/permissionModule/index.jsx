@@ -1,6 +1,9 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
-import { Button, Drawer, Form, Input, TreeSelect, Alert, Radio, InputNumber, Switch, message } from 'antd';
+import { Button, Drawer, Form, Input, TreeSelect, Alert, Radio, InputNumber, Switch, message, Tooltip } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
+//引入antd-icon
+import * as Icon from '@ant-design/icons';
+
 import request from "@/api"
 import "./index.less"
 import Marquee from 'react-fast-marquee';
@@ -9,6 +12,10 @@ import IconModule from "./iconModule"
 import store from "@/redux/store";
 import getMenu from "@/routes/routerConfig";
 const PermissionModule = forwardRef((props, ref) => {
+    //创建节点的方法
+    function iconBC(name) { return React.createElement(Icon[name]); }
+    let [iconName, setIconName] = useState("")
+
     let [form] = Form.useForm();
     let [title, setTitle] = useState("")
     let [open, setOpen] = useState(false);
@@ -99,6 +106,7 @@ const PermissionModule = forwardRef((props, ref) => {
         setId(data.id)
         data.menuType == 1 ? setValue(data.parentId) : null
         setRadioValue(String(data.menuType))
+        setIconName(data.icon)
         setRoute(data.route)
         setHidden(data.hidden)
         setKeepAlive(data.keepAlive)
@@ -115,7 +123,7 @@ const PermissionModule = forwardRef((props, ref) => {
     return (
         <>
             <Drawer title={title} placement="right" onClose={() => {
-                setOpen(false); form.resetFields(); setRoute(true); setHidden(false); setKeepAlive(false); setAlwaysShown(false); setInternalOrExternal(false); setChildenDisabled(false)
+                setOpen(false); form.resetFields(); setRoute(true); setHidden(false); setKeepAlive(false); setAlwaysShown(false); setInternalOrExternal(false); setChildenDisabled(false); setIconName("")
             }} open={open} closable={false} width="40%" className='permissionModule' footer={
                 <>
                     <Button onClick={() => setOpen(false)} style={{ marginRight: "10px" }}>
@@ -202,7 +210,23 @@ const PermissionModule = forwardRef((props, ref) => {
                         name="icon"
                         rules={[{ required: false, message: '请选择菜单图标!' }]}
                     >
-                        <Input placeholder="请选择菜单图标" addonAfter={<SettingOutlined onClick={selectIcons} />} allowClear />
+                        <Input placeholder="请选择菜单图标"
+                            onClick={selectIcons}
+                            addonBefore={iconName ?
+                                <Tooltip title="当前图标">
+                                    {iconBC(iconName)}
+                                </Tooltip>
+                                : ""}
+                            addonAfter={
+                                <Tooltip title="设置图标">
+                                    <SettingOutlined onClick={selectIcons} />
+                                </Tooltip>
+                            }
+                            allowClear
+                            onChange={(e) => {
+                                if (!e.target.value) setIconName("")
+                            }}
+                        />
                     </Form.Item>
 
                     <Form.Item
@@ -249,7 +273,10 @@ const PermissionModule = forwardRef((props, ref) => {
                     </Form.Item>
                 </Form>
             </Drawer>
-            <IconModule ref={IconModuleRef} setIcon={(e) => form.setFieldsValue({ icon: e })} />
+            <IconModule ref={IconModuleRef} setIcon={(e) => {
+                form.setFieldsValue({ icon: e })
+                setIconName(e)
+            }} />
         </>
     )
 })
