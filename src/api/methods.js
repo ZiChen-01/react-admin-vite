@@ -45,13 +45,30 @@ export function axios(methods, url, params) {
 					'Content-Type': 'multipart/form-data',
 				},
 			});
-		case "download"://下载文件
-			return Server({
+		case "download": // 下载文件
+			let loaded = 0;
+			let estimatedTotal = 0; // 估算的总大小
+			// 发起下载请求
+			const request = Server({
 				url: url,
 				method: 'post',
 				data: params,
-				responseType: 'blob'
+				responseType: 'blob',
+				onDownloadProgress: (progressEvent) => {
+					if (progressEvent.lengthComputable) {
+						loaded = progressEvent.loaded;
+						estimatedTotal = progressEvent.total;
+					} else {
+						// 如果服务器未提供文件大小信息，仅使用已下载的字节数来估算进度
+						loaded = progressEvent.loaded;
+						estimatedTotal = Math.max(estimatedTotal, loaded + 1024); // 使用已下载的字节数加上一个常数来估算总大小
+					}
+					const percentCompleted = Math.round((loaded / estimatedTotal) * 100);
+					console.log(`下载进度：${percentCompleted}%`);
+				},
 			});
+
+			return request;
 		default:
 			return notification.error({
 				message: "请求方式错误",

@@ -1,6 +1,6 @@
 import { axios } from '@/api/methods';
 import { service } from '@/api/service';
-import { notification } from 'antd'
+import { notification, message } from 'antd'
 
 
 // 统一导出供调用  请勿重复命名
@@ -48,29 +48,66 @@ const request = {
     },
     // 下载文件
     downloadFile: (url, fileName, params) => {
-        return axios('download', url, params).then(data => {
-            data = data.data
+        message.loading("正在下载文件，请稍后")
+        return axios('download', url, params).then(response => {
+            let data = response.data;
             if (!data || data.size === 0) {
                 notification.error({
-                    message: `请求错误`,
-                    description: "文件下载失败，请稍后重试",
+                    message: '请求错误',
+                    description: '文件下载失败，请稍后重试',
                 });
-                return
+                return;
             }
-            if (typeof window.navigator.msSaveBlob !== 'undefined') {
-                window.navigator.msSaveBlob(new Blob([data]), fileName)
+
+            if (typeof window.navigator.msSaveBlob !== 'undefined') { //IE浏览器
+                // Internet Explorer
+                window.navigator.msSaveBlob(new Blob([data]), fileName);
             } else {
-                let url = window.URL.createObjectURL(new Blob([data]))
-                let link = document.createElement('a')
-                link.style.display = 'none'
-                link.href = url
-                link.setAttribute('download', fileName)
-                document.body.appendChild(link)
-                link.click()
-                document.body.removeChild(link) //下载完成移除元素
-                window.URL.revokeObjectURL(url) //释放掉blob对象
+                // Other browsers
+                const downloadUrl = window.URL.createObjectURL(new Blob([data]));
+
+                const link = document.createElement('a');
+                link.style.display = 'none';
+                link.href = downloadUrl;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(downloadUrl);
             }
-        })
+
+
+            let percentCompleted = 0;
+            const totalDuration = 6000; // 总共的加载时间（以毫秒为单位）
+
+            // 创建通知
+            const key = 'download-progress-notification';
+            notification.open({
+                key,
+                message: '下载进度',
+                description: `已完成 ${percentCompleted.toFixed(2)} %`,
+            });
+
+            const updateProgress = () => {
+                if (percentCompleted < 100) {
+                    percentCompleted += (100 / totalDuration) * 100;
+                    // 更新通知内容
+                    notification.open({
+                        key,
+                        message: '下载进度',
+                        description: `已完成 ${Math.min(percentCompleted, 100).toFixed(2)} %`,
+                    });
+                } else {
+                    clearInterval(progressInterval); // 当加载完成后停止定时器
+                    // 关闭通知
+                    setTimeout(() => {
+                        notification.close(key);
+                    }, 1000);
+                }
+            };
+
+            const progressInterval = setInterval(updateProgress, totalDuration / 100);
+        });
     }
 };
 
