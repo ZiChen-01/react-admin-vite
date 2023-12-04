@@ -64,7 +64,7 @@ function DeptNew() {
         setLoading(true)
         request.getDeptTree({ deptNo: record ? record.key : null }).then(res => {
             if (res.data.errCode == 0) {
-                let deptTree = JSON.parse(res.data.bizContent).deptTree
+                let deptTree = JSON.parse(res.data.bizContent)?.deptTree || res.data.deptTree
                 // children返回为布尔值，不是array，报错，删除
                 for (let i = 0; i < deptTree.length; i++) {
                     const element = deptTree[i];

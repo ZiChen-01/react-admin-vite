@@ -62,8 +62,8 @@ const Addusers = forwardRef((props, ref) => {
     const getDeptTree = async () => {
         const res = await request.getDeptTreeList({})
         if (res.data.errCode == 0) {
-            let bizContent = JSON.parse(res.data.bizContent)
-            setGetDeptTree(bizContent.tmpDeptInfos)
+            let tmpDeptInfos = JSON.parse(res.data.bizContent)?.tmpDeptInfos || res.data.tmpDeptInfos
+            setGetDeptTree(tmpDeptInfos)
         }
     }
     //校验用户名

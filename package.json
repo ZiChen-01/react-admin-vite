@@ -1,7 +1,7 @@
 {
   "name": "react-admin",
   "description": "React.js + Vite",
-  "author": "江子辰 <18307106535@163.com>",
+  "author": "江一铭<jiangyiming621@163.com>",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -36,7 +36,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
-    "vite": "^4.3.5",
+    "vite": "^4.4.9",
     "vite-plugin-top-level-await": "^1.3.0"
   }
 }
