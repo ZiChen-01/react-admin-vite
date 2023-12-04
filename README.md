@@ -73,7 +73,7 @@ react-admin-vite
 │   ├── utils   ： 工具库
 │   └───App.jsx  ： 入口文件
 │
-└── vite.config.ts  ： vite配置
+└── vite.config.js  ： vite配置
 ```
 
 ## 开始使用
