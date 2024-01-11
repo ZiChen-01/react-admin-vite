@@ -203,7 +203,7 @@ function Author() {
     <div className="author">
       <p> Ant Big Data monitoring system © 2022 <a href="https://gitee.com/jiangsihan/React-admin" target="_blank">React-Ant-Admin@v1.0.5</a></p>
 
-      <p>技术支持：<a href="https://jiangsihan.cn/" target="_blank">前端江太公</a> @  江子辰 <a href="mailto:18307106535@163.com"> Send email to ZiChen_Jiang</a></p>
+      <p>技术支持：<a href="https://jiangsihan.cn/" target="_blank">前端江太公</a> @  江一铭 <a href="mailto:jiangyiming621@163.com"> Send email to Yiming-Jiang</a></p>
     </div>
   )
 }
