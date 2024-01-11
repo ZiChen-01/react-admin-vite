@@ -1,0 +1,1 @@
+import{r as s,j as e}from"../.store/.store.b1843e49.js";const n=""+new URL("../../png/welcome.49086098.png",import.meta.url).href;class r extends s.Component{render(){return window.envConfig.ROOT_APP_NAME,e.jsx("main",{className:"analsis",children:e.jsxs("div",{className:"imgbox",children:[" ",e.jsx("img",{src:n,alt:""})]})})}}export{r as default};
