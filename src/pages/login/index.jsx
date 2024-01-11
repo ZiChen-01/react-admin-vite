@@ -29,8 +29,8 @@ const Login = () => {
   const onFinish = async (userInfo) => {
     setLoading(true)
     setSubmitLoginName('正在登录...')
-    
-    // 模拟登陆
+
+    // 模拟登陆（后端未部署）
     if (userInfo.username != "admin") {
       setLoading(false)
       setSubmitLoginName('登录')
