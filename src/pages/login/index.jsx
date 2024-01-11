@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.less'
-import { Form, Input, Button, Row, Col, Checkbox } from 'antd';
+import { Form, Input, Button, Row, Col, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import request from '@/api'
 import { useNavigate } from 'react-router-dom'
@@ -29,6 +29,29 @@ const Login = () => {
   const onFinish = async (userInfo) => {
     setLoading(true)
     setSubmitLoginName('正在登录...')
+    
+    // 模拟登陆
+    if (userInfo.username != "admin") {
+      setLoading(false)
+      setSubmitLoginName('登录')
+      return message.error("找不到该用户")
+    }
+    if (userInfo.password != "123456") {
+      setLoading(false)
+      setSubmitLoginName('登录')
+      return message.error("用户密码错误")
+    }
+    localStorage.setItem(window.envConfig['ROOT_APP_INFO'], JSON.stringify({
+      roleInfo: "",
+      userInfo: "",
+      token: ""
+    }))
+    setTimeout(() => {
+      navigate('/dashboard/analysis')
+    }, 300);
+    localStorage.setItem("ZhuXiaoJia", true)
+    return
+
     // 真实登录
     userInfo.password = passwordEncryption(userInfo.password) //密码加密
     request.getLogin(userInfo).then(res => {
@@ -50,7 +73,7 @@ const Login = () => {
             navigate('/dashboard/analysis')
           }, 300);
           // 判断是否是登录页进入首页
-          localStorage.setItem("Jiaxiaohan", true)
+          localStorage.setItem("ZhuXiaoJia", true)
         })
 
       }

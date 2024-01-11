@@ -54,8 +54,8 @@ const Commonview = () => {
 
     useEffect(() => {
         // 判断是否是登录页进入首页
-        const Jiaxiaohan = localStorage.getItem("Jiaxiaohan")
-        if (Jiaxiaohan) {
+        const ZhuXiaoJia = localStorage.getItem("ZhuXiaoJia")
+        if (ZhuXiaoJia) {
             const userInfo = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.userInfo
             notification.success({
                 message: userInfo.realname,
@@ -63,7 +63,7 @@ const Commonview = () => {
             });
         }
         setTimeout(() => {
-            localStorage.removeItem("islogin")
+            localStorage.removeItem("ZhuXiaoJia")
         }, 2000);
     }, [])
     useEffect(() => {
