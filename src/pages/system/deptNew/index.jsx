@@ -92,7 +92,7 @@ function DeptNew() {
             <Table rowKey={(row) => row.key} dataSource={data} columns={columns} loading={loading}
                 pagination={pagination} expandable={{
                     defaultExpandedRowKeys: defaultExpandedRowKeys,
-                }} />;
+                }} />
         </div>
     )
 }
