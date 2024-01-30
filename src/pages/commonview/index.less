@@ -1,4 +1,27 @@
 .commonview {
+  .Sider-menu {
+    width: 200px !important;
+    max-width: 200px !important;
+    min-width: 200px !important;
+
+    .ant-menu-item,
+    .ant-menu-submenu-title {
+      padding-left: 24px !important;
+    }
+
+    .ant-menu-item-only-child {
+      padding-left: 48px !important;
+    }
+  }
+
+  .searchmenu {
+    width: 300px;
+  }
+
+  .ant-layout-sider-collapsed {
+    max-width: 80px !important;
+    min-width: 80px !important;
+  }
 
   .ant-layout {
     width: 100%;
@@ -55,7 +78,8 @@
 
   .logo img,
   .headBox-logo {
-    width: 30px;
+    width: 50px;
+    // width: 30px;
     // margin-top: -5px;
   }
 
@@ -111,6 +135,7 @@
 
   .userinfo {
     display: flex;
+    align-items: center;
   }
 
   .userName,

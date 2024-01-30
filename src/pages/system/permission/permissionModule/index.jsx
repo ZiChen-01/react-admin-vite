@@ -126,7 +126,7 @@ const PermissionModule = forwardRef((props, ref) => {
                 setOpen(false); form.resetFields(); setRoute(true); setHidden(false); setKeepAlive(false); setAlwaysShown(false); setInternalOrExternal(false); setChildenDisabled(false); setIconName("")
             }} open={open} closable={false} width="40%" className='permissionModule' footer={
                 <>
-                    <Button onClick={() => setOpen(false)} style={{ marginRight: "10px" }}>
+                    <Button onClick={() => setOpen(false)} style={{ marginRight: ".5vw" }}>
                         取消
                     </Button>
                     <Button type="primary" onClick={submit}>
@@ -234,7 +234,7 @@ const PermissionModule = forwardRef((props, ref) => {
                         name="sortNo"
                         rules={[{ required: false, message: '' }]}
                     >
-                        <InputNumber placeholder="请输入菜单排序" style={{ width: "200px" }} />
+                        <InputNumber placeholder="请输入菜单排序" />
                     </Form.Item>
                     <Form.Item
                         label="是否路由菜单"

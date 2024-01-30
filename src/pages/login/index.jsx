@@ -126,7 +126,7 @@ const Login = () => {
       <div className="login-content-box">
         <section className="login-content">
           <div className="haed">
-            <img src={logo} alt="" className='logoImg' />
+             {/* <img src={logo} alt="" className='logoImg' /> */}
             <h2>
               {title}
             </h2>
@@ -172,7 +172,7 @@ const Login = () => {
                   { validator: validateInputCode, }
                 ]}>
                 <Row justify="space-between">
-                  <Col style={{ width: "270px" }}>
+                  <Col className="yanzhengma">
                     <Input size="large" placeholder="验证码" prefix={<SafetyCertificateOutlined className="site-form-item-icon" />} />
                   </Col>
                   <Col>

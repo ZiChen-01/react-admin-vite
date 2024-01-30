@@ -241,3 +241,7 @@ a:hover,
     background-color: var(--main-bg-menu);
     color: var(--main-bg);
 }
+/* 日期选择bar */
+.ant-picker-range .ant-picker-active-bar{
+    background-color: var(--main-bg);
+}

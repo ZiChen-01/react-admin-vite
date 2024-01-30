@@ -259,17 +259,17 @@ function Users() {
         <>
             <div className="userList">
                 <Row gutter={24}>
-                    <Col>
+                    <Col span={6}>
                         <Form.Item label="用户账号">
                             <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="请输入账号" />
                         </Form.Item>
                     </Col>
-                    <Col>
+                    <Col span={6}>
                         <Form.Item label="用户姓名">
                             <Input value={realname} placeholder='请输入用户姓名' onChange={(e) => setRealname(e.target.value)} />
                         </Form.Item>
                     </Col>
-                    <Col md={4} sm={12}>
+                    <Col span={6}>
                         <Form.Item label="性别">
                             <Select defaultValue={sex} value={sex} onChange={(e) => {
                                 setSex(e)
@@ -284,7 +284,7 @@ function Users() {
                             <Input value={phone} placeholder='请输入手机号码' onChange={(e) => setPhone(e.target.value)} />
                         </Form.Item>
                     </Col>
-                    <Col md={5} sm={12}>
+                    <Col span={6}>
                         <Form.Item label="状态">
                             <Select defaultValue={status} value={status} onChange={(e) => {
                                 setStatus(e)
@@ -295,12 +295,12 @@ function Users() {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Row justify="space-between" className="buttonbox">
+                <Row justify="space-between" className="searchBar">
                     <Col>
                         <Button type="primary" icon={<SearchOutlined />} onClick={() => { getUserlist(); setPageIndex(1); setPageSize(10) }}>
                             查询
                         </Button>
-                        <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} style={{ marginLeft: '10px' }}>
+                        <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} className="searchreset">
                             重置
                         </Button>
                     </Col>

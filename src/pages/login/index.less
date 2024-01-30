@@ -1,6 +1,7 @@
 .login {
 	width: 100%;
-	min-height: 100%;
+	height: 100%;
+	min-height: 700px;
 	// background-image: url('../../assets/images/login-bg.jpg');
 	background-size: 100% 100%;
 	overflow: hidden;
@@ -11,24 +12,28 @@
 		width: 97%;
 		height: 94%;
 		padding: 0 4% 0 20px;
-		background-color: rgba(225,225,225,.3) !important;
+		background-color: rgba(225, 225, 225, .3) !important;
 		position: absolute;
 		overflow: hidden;
 		border-radius: 10px;
 		top: 3%;
 		left: 1.5%;
+		// animation: slideInLeftToRight  1s ease-in-out;
 		.login-content {
 			width: 500px;
 			height: 450px;
 			background: #fff;
-			margin: 200px auto;
+			// margin: 200px auto;
+			margin-left: 60%;
+			margin-top: 10%;
 			padding: 45px 40px;
 			border-radius: 5px;
-			background: rgba(255, 255, 255, 0.2);
+			// background: rgba(255, 255, 255, 0.2);
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
+			animation: slideInRightToLeft 1s ease-in-out;
 		}
 
 		.login-content>div {
@@ -37,7 +42,7 @@
 
 		.haed {
 			display: flex;
-			margin-bottom: 20px;
+			margin-bottom: 30px;
 			align-items: center;
 			justify-content: center;
 			// border-bottom: 4px solid #fff;
@@ -52,7 +57,8 @@
 			}
 
 			h2 {
-				color: var(--main-color);
+				// color: var(--main-color);
+				animation: slideInLeftToRight  0.8s ease-in-out;
 			}
 		}
 
@@ -72,15 +78,26 @@
 			font-size: 30px;
 			text-align: center;
 			font-weight: bold;
-			color: #fff;
+			// color: #fff;
 			margin: 0;
 			margin-left: 10px;
 		}
 
 		.login-form .login-form-button {
-			margin-top: 20px;
+			margin-top: 30px;
 			width: 100%;
-			height: 40px
+			height: 44px
+		}
+
+		.author {
+			color: #fff;
+			text-align: center;
+			padding-top: 60px;
+			animation: author 2s infinite;
+			position: absolute;
+			left: 50%;
+			bottom: 0;
+			margin-left: -260px;
 		}
 
 		@keyframes author {
@@ -91,7 +108,6 @@
 
 		.author a {
 			color: var(--main-bg);
-			;
 		}
 
 		.author p {
@@ -196,14 +212,39 @@
 		}
 	}
 
-	.author {
-		// color: #fff;
-		text-align: center;
-		padding-top: 60px;
-		animation: author 2s infinite;
-		position: fixed;
-		left: 50%;
-		bottom: 10px;
-		margin-left: -260px;
+	.yanzhengma {
+		width: 270px;
+	}
+
+	@keyframes slideInLeftToRight {
+		0% {
+			transform: translateX(-100%);
+			/* Start from the left */
+			opacity: 0;
+			/* Optionally, fade in as it moves */
+		}
+
+		100% {
+			transform: translateX(0);
+			/* Move to the right */
+			opacity: 1;
+			/* Fully visible */
+		}
+	}
+
+	@keyframes slideInRightToLeft {
+		0% {
+			transform: translateX(100%);
+			/* Start from the right */
+			opacity: 0;
+			/* Optionally, fade in as it moves */
+		}
+
+		100% {
+			transform: translateX(0);
+			/* Move to the left */
+			opacity: 1;
+			/* Fully visible */
+		}
 	}
 }

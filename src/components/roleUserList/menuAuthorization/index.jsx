@@ -135,7 +135,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
         <>
             <Drawer title="菜单角色权限配置" open={menuVisible} closable={false} onClose={() => { setMenuVisible(false) }} width='40%' className="MenuAuthorization" footer={
                 <>
-                    <Row justify="space-between" className="buttonbox">
+                    <Row justify="space-between" className="searchBar">
                         <Col>
                             <Dropdown trigger={['click']} menu={{
                                 items: [
@@ -174,7 +174,7 @@ const MenuAuthorization = forwardRef((props, ref) => {
                             </Dropdown>
                         </Col>
                         <Col>
-                            <Button onClick={() => { setMenuVisible(false) }} style={{ marginRight: "10px" }}>
+                            <Button onClick={() => { setMenuVisible(false) }} style={{ marginRight: ".5vw" }}>
                                 取消
                             </Button>
                             <Button type="primary" onClick={handleOk}>

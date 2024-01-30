@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Layout, Menu, Popconfirm, Dropdown, Tooltip, Tabs, notification } from 'antd';
-import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, BarsOutlined, SettingOutlined, CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { Layout, Menu, Popconfirm, Dropdown, Tooltip, Tabs, notification, Modal, TreeSelect } from 'antd';
+import Icon, { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined, BarsOutlined, SettingOutlined, CloseOutlined, FullscreenExitOutlined, FullscreenOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import './index.less'
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
@@ -42,7 +42,7 @@ const Commonview = () => {
     let [styWidth, setStyWidth] = useState()//内容宽度
     let [styNav, setStyNav] = useState()//固定导航
     let [fullScreen, setFullScreen] = useState(false)//全屏
-    let ThemeStyle = getCookies("ThemeStyle")
+    let ThemeStyle = getCookies("ThemeStyle") || "light"
     let patternStyle = getCookies("pattern")
     let widthStyle = getCookies("widthStyle")
     let navStyle = getCookies("navStyle")
@@ -133,10 +133,28 @@ const Commonview = () => {
     };
     // 退出登录
     const logOut = () => {
-        localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
-        setTimeout(() => {
-            window.location.reload()
-        }, 1000)
+        Modal.confirm({
+            title: '确认退出登录',
+            icon: <ExclamationCircleOutlined />,
+            content: '退出登录后将清除账号所有本地信息及数据！',
+            okText: '确认',
+            cancelText: '取消',
+            style: {
+                top: '10vw',
+                width:"20vw"
+            },
+            onOk: async () => {
+                // await request.logout({})
+                localStorage.removeItem(window.envConfig['ROOT_APP_INFO']);
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000)
+                // notification.success({
+                //     message: "账号退出成功",
+                //     description: "欢迎下次登录",
+                // });
+            }
+        });
     }
 
     // 标签栏
@@ -279,7 +297,7 @@ const Commonview = () => {
         <>
             <Layout className="commonview">
                 {pattern == "broadside" ?
-                    <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={collapsed}>
+                    <Sider className="site-layout-background Sider-menu" trigger={null} collapsible collapsed={collapsed}>
                         <div className="logo">
                             <img src={logo} alt="" />
                             {title ?
@@ -301,7 +319,7 @@ const Commonview = () => {
                     </Sider> : ""}
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{
-                        padding: pattern == "broadside" ? "0 30px 0 0" : 0,
+                        padding: pattern == "broadside" ? "0 1.5vw 0 0" : 0,
                         position: pattern == "top" && styNav == "true" ? "fixed" : "",
                         minWidth: pattern == "top" && styNav == "true" ? "100%" : "",
                         top: pattern == "top" && styNav == "true" ? "0" : "",
@@ -312,11 +330,11 @@ const Commonview = () => {
                         }) : ""}
 
                         <div className='headBox' style={{
-                            // padding: pattern == "broadside" ? 0 : "0 10px",
+                            // padding: pattern == "broadside" ? 0 : "0 0.5vw",
                             background: Stylebg == "dark" && pattern == "top" ? "#001529" : "#fff",
                             color: Stylebg == "dark" && pattern == "top" ? "#fff" : "#000",
-                            padding: pattern == "top" && styWidth == "true" ? "0px 15%" : "0 10px",
-                            minWidth: pattern == "top" && styNav == "true" ? "1500px" : "100%",
+                            padding: pattern == "top" && styWidth == "true" ? `0 10vw` : "0 0.5vw",
+                            minWidth: pattern == "top" && styNav == "true" ? "78.13vw" : "100%",
                         }}>
                             <span>{pattern == "broadside" ? "欢迎登录" : <img src={logo} alt="" className="headBox-logo" />}{titleH2}</span>
                             {pattern == "top" ?
@@ -330,6 +348,9 @@ const Commonview = () => {
                                     style={{ borderBottom: 0, width: pattern == "top" ? "60%" : "" }}
                                 /> : ""}
                             <div className='userinfo'>
+                                {
+                                    pattern == "top" ? "" : <MenuSearch toRouter={(e) => { toRouter(e) }} />
+                                }
                                 <Tooltip title={fullScreen ? "退出全屏" : "全屏显示"}>
                                     <span className='user-Setting' onClick={() => setFullScreen(!fullScreen)}>
                                         {fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
@@ -341,16 +362,17 @@ const Commonview = () => {
                                     </span>
                                 </Tooltip>
                                 <UserInfo />
-                                <Popconfirm title="真的要注销登录吗 ?" okText="确认" cancelText="取消" onConfirm={logOut}>
+                                <span className='tuichu' onClick={logOut}><LogoutOutlined />退出登录</span>
+                                {/* <Popconfirm title="真的要注销登录吗 ?" okText="确认" cancelText="取消" onConfirm={logOut}>
                                     <span className='tuichu'><LogoutOutlined />退出登录</span>
-                                </Popconfirm>
+                                </Popconfirm> */}
                             </div>
                         </div>
                     </Header>
                     {/* 标签栏 */}
                     <div className="tabsList-box" style={{
-                        padding: pattern == "top" && styWidth == "true" ? "0px 15%" : "0 0 0 10px",
-                        marginTop: pattern == "top" && styNav == "true" ? "64px" : "",
+                        padding: pattern == "top" && styWidth == "true" ? "0 10vw" : "0 0 0 0.5vw",
+                        marginTop: pattern == "top" && styNav == "true" ? "3.3vw" : "",
                     }}>
                         <div className="tabsList-box-view">
                             <div className='breadcrumb'>
@@ -397,7 +419,7 @@ const Commonview = () => {
 
                         </div>
                     </div>
-                    <Content style={{ margin: pattern == "top" && styWidth == "true" ? "20px 15%" : "10px" }}>
+                    <Content style={{ margin: pattern == "top" && styWidth == "true" ? "1vw 10vw" : "0.5vw" }}>
                         {/* 配置路由子组件 */}
                         <Routes>
                             {getRoutes(routes)}
@@ -473,5 +495,60 @@ function getRoutes(routes) {
     });
     return routesElement;
 }
+// 搜索菜单
+function MenuSearch(props) {
+    let navigate = useNavigate()
+    const [value, setValue] = useState(undefined);
+    const [treeData, setTreeData] = useState([]);
 
+    useEffect(() => {
+        const menuList = JSON.parse(localStorage.getItem(window.envConfig['ROOT_APP_INFO']))?.menuList
+        function resetMenu(list) {
+            for (let i = 0; i < list?.length; i++) {
+                const element = list[i];
+                element.title = element.meta.title
+                element.value = element.path
+                if (element.children) resetMenu(element.children)
+            }
+        }
+
+        resetMenu(menuList)
+        console.log(menuList);
+        setTreeData(menuList)
+    }, [])
+    const onChange = (newValue) => {
+        setValue(newValue);
+        if (newValue) {
+            let i = {
+                key: newValue
+            }
+            props.toRouter(i)
+        }
+
+    };
+    // 自定义筛选函数，可以筛选中文内容
+    const filterTreeNode = (inputValue, treeNode) => {
+        // 使用 title 和 value 属性进行筛选
+        return treeNode.title.includes(inputValue);
+    };
+    return (
+        <>
+            <TreeSelect
+                showSearch
+                className="searchmenu"
+                value={value}
+                dropdownStyle={{
+                    maxHeight: 400,
+                    overflow: 'auto',
+                }}
+                placeholder="搜索菜单"
+                allowClear
+                treeDefaultExpandAll
+                filterTreeNode={filterTreeNode} // 使用自定义筛选函数
+                onChange={onChange}
+                treeData={treeData}
+            />
+        </>
+    )
+}
 export default Commonview;

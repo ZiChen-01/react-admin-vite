@@ -15,8 +15,8 @@ const Setting = forwardRef((props, ref) => {
     let [weakChecked, setWeakChecked] = useState(false)
     let [widthChecked, setWidthChecked] = useState(false)
     let [navChecked, setNavChecked] = useState(false)
-    let [bgCheck, setBgCheck] = useState("#1890ff")
-    let [StyleCheck, setStyleCheck] = useState("dark")
+    let [bgCheck, setBgCheck] = useState(window.envConfig['ROOT_APP_COLOR'])
+    let [StyleCheck, setStyleCheck] = useState("light")
     let [pattern, setPattern] = useState("broadside")
     // 主题颜色
     const colorList = [
@@ -190,7 +190,7 @@ const Setting = forwardRef((props, ref) => {
 
     return (
         <>
-            <Drawer headerStyle={{ display: "none" }} open={SettingVisible} closable={true} onClose={() => { setSettingVisible(false) }} className="Setting">
+            <Drawer headerStyle={{ display: "none" }} open={SettingVisible} closable={true} onClose={() => { setSettingVisible(false) }} className="Setting" width="20%">
                 <Divider>模式设置</Divider>
                 <div className="theme-item">
                     <span>深夜模式</span>
@@ -269,12 +269,12 @@ const Setting = forwardRef((props, ref) => {
                 </div>
                 <div className="theme-item">
                     <span>内容区域宽度</span>
-                    <span style={{ fontSize: "12px", color: "#bbb" }}>只在顶部导航模式生效</span>
+                    <span style={{ fontSize: ".6vw", color: "#bbb" }}>只在顶部导航模式生效</span>
                     <Switch checked={widthChecked} disabled={pattern == "broadside"} checkedChildren="固定" unCheckedChildren="流式" onChange={e => gudingChange(e)} />
                 </div>
                 <div className="theme-item">
                     <span>固定  Header</span>
-                    <span style={{ fontSize: "12px", color: "#bbb" }}>只在顶部导航模式生效</span>
+                    <span style={{ fontSize: ".6vw", color: "#bbb" }}>只在顶部导航模式生效</span>
                     <Switch checked={navChecked} disabled={pattern == "broadside"} checkedChildren="开启" unCheckedChildren="关闭" onChange={e => navChange(e)} />
                 </div>
             </Drawer >

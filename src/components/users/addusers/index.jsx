@@ -162,7 +162,7 @@ const Addusers = forwardRef((props, ref) => {
             <Drawer title={isStatus == 1 ? "添加用户" : isStatus == 2 ? "编辑用户" : "详情"} open={isModalVisible} onOk={handleOk} closable={false} onClose={() => { setIsModalVisible(false); form.resetFields() }} width='40%'
                 footer={
                     <>
-                        <Button onClick={() => { setIsModalVisible(false); form.resetFields() }} style={{ marginRight: "10px" }}>
+                        <Button onClick={() => { setIsModalVisible(false); form.resetFields() }} style={{ marginRight: ".5vw" }}>
                             取消
                         </Button>
                         {isStatus != 3 ? <Button type="primary" onClick={handleOk}>

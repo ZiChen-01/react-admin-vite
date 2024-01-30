@@ -7,6 +7,7 @@ window.envConfig = {
     API_BASE_PORT:"/admin-manager",    //二级地址（可为空），用于拼接API_BASE_URL后面
     API_BASE_TIMEOUT:10,  //请求超时时间（单位/s）
     ROOT_APP_INFO:"react-admin-Info",  //本地存储名称（用户信息、角色信息、菜单信息、token等）为避免项目冲突请给每个项目单独命名
+    ROOT_APP_COLOR: "#1890ff",//主题色（浅蓝#1890ff、深蓝#2f54eb、火红#f5222d、浅红#fa541c、橙#faad14、青#13C2C2、绿#52c41a、紫#a876ed）
 }
 
 // 详细配置信息请查看文档：https://jiangsihan.gitee.io/react-admin-vite-press

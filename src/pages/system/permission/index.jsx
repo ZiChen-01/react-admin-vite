@@ -286,11 +286,11 @@ function RoleUserList() {
     return (
         <>
             <div id="permission">
-                <Row justify="space-between" className="buttonbox">
+                <Row justify="space-between" className="searchBar">
                     <Col>
                         <Button type="primary" icon={<PlusOutlined />} onClick={newUser}> 新增</Button>
                         {
-                            selectedRowKeys.length != 0 ? <Button icon={<DeleteOutlined />} onClick={confirmModal} style={{ marginLeft: "10px" }}> 批量删除</Button> : ""
+                            selectedRowKeys.length != 0 ? <Button icon={<DeleteOutlined />} onClick={confirmModal} className="searchreset"> 批量删除</Button> : ""
                         }
                     </Col>
                     <Col>

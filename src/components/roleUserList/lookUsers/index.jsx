@@ -241,10 +241,10 @@ const LookUsers = forwardRef((props, ref) => {
                                         <Button type="primary" icon={<SearchOutlined />} onClick={getAllUserlist}>
                                             查询
                                         </Button>
-                                        <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} style={{ marginLeft: '10px' }}>
+                                        <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} className="searchreset">
                                             重置
                                         </Button>
-                                        {selectedRowKeys.length != 0 ? <Button type="primary" icon={<PlusOutlined />} onClick={addSysUserRole} style={{ marginLeft: '10px' }}>
+                                        {selectedRowKeys.length != 0 ? <Button type="primary" icon={<PlusOutlined />} onClick={addSysUserRole} className="searchreset">
                                             添加
                                         </Button> : ""}
 

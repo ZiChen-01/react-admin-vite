@@ -5,6 +5,13 @@ import { fileURLToPath } from 'url'
 import topLevelAwait from 'vite-plugin-top-level-await'
 const __filenameNew = fileURLToPath(import.meta.url)
 const __dirnameNew = path.dirname(__filenameNew)
+import pxtovw from 'postcss-px-to-viewport'
+
+//配置参数
+const usePxtovw = pxtovw({
+  viewportWidth: 1920,
+  viewportUnit: 'vw'
+})
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -83,6 +90,9 @@ export default defineConfig({
           // "primary-color": "#EAA516",
         },
       }
+    },
+    postcss: {
+      plugins: [usePxtovw]
     }
   }
 })

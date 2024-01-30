@@ -12,7 +12,7 @@ import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 function App() {
   useTheme()
   // 主题配色
-  let ThemeBgColor = getCookies("ThemeBgColor")
+  let ThemeBgColor = getCookies("ThemeBgColor") || window.envConfig['ROOT_APP_COLOR']
   // 如果本地没有主题色字段，默认加载
   if (!ThemeBgColor) {
     // import("@/styles/root.css")

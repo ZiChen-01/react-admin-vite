@@ -169,22 +169,22 @@ function RoleUserList() {
         <>
             <div className="roleUserList">
                 <Row gutter={24}>
-                    <Col>
+                    <Col span={6}>
                         <Form.Item label="角色名称">
                             <Input value={roleName} onChange={(e) => setRoleName(e.target.value)} placeholder="请输入角色名称" />
                         </Form.Item>
                     </Col>
-                    <Col md={6} sm={12}>
+                    <Col span={6}>
 
                     </Col>
                 </Row>
 
-                <Row justify="space-between" className="buttonbox">
+                <Row justify="space-between" className="searchBar">
                     <Col>
                         <Button type="primary" icon={<SearchOutlined />} onClick={() => { getlist(); setPageIndex(1); setPageSize(10) }}>
                             查询
                         </Button>
-                        <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} style={{ marginLeft: '10px' }}>
+                        <Button type="primary" icon={<ReloadOutlined />} onClick={onReset} className="searchreset">
                             重置
                         </Button>
 
@@ -196,7 +196,7 @@ function RoleUserList() {
                         {/* <Button type="primary" icon={<ExportOutlined />} onClick={handleAdd}>
                             导入
                         </Button>
-                        <Button type="primary" icon={<DownloadOutlined />} onClick={handleAdd} style={{ marginLeft: '10px' }}>
+                        <Button type="primary" icon={<DownloadOutlined />} onClick={handleAdd} className="searchreset">
                             导出
                         </Button> */}
                     </Col>
