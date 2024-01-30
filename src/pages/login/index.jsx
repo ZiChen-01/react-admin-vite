@@ -8,7 +8,7 @@ import { passwordEncryption } from "@/utils/passwordEncryption";
 import { encrypt, decrypt } from "@/utils/aes";
 import logo from "@/assets/images/logo-react.png"
 import Three from "@/components/Three"
-import loginBg from "@/assets/images/login-bg.jfif"
+import loginBg from "@/assets/images/login_bg1.png"
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
 import GraphicCode from '@/components/GraphicCode';
 
@@ -124,9 +124,10 @@ const Login = () => {
     <div className="login" style={{ backgroundImage: `url(${loginBg})` }}>
       {/* <Three /> */}
       <div className="login-content-box">
+        <div className="logo_left_top">襄阳市信息一体化平台</div>
         <section className="login-content">
           <div className="haed">
-             {/* <img src={logo} alt="" className='logoImg' /> */}
+            {/* <img src={logo} alt="" className='logoImg' /> */}
             <h2>
               {title}
             </h2>
@@ -201,7 +202,7 @@ const Login = () => {
 function Author() {
   return (
     <div className="author">
-      <p> Ant Big Data monitoring system © 2022 <a href="https://gitee.com/jiangsihan/React-admin" target="_blank">React-Ant-Admin@v1.0.5</a></p>
+      <p> Ant Big Data monitoring system © 2022 <a href="https://gitee.com/jiangsihan/React-admin" target="_blank">React-Ant-Admin@v2.0.0</a></p>
 
       <p>技术支持：<a href="https://jiangsihan.cn/" target="_blank">前端江太公</a> @ 江一铭 <a href="mailto:jiangyiming621@163.com"> Send email to Yiming-Jiang</a> 初始账号密码：admin 123456</p>
     </div>
