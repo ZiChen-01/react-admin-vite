@@ -2,7 +2,7 @@
 window.envConfig = {
     key : 0,  //环境地址 0:开发 1:测试  2:生产
     proxy : true,  //是否开启代理，允许跨域（只在开发环境有效 true/false)
-    ROOT_APP_NAME:'襄阳市信息一体化', //项目系统名称
+    ROOT_APP_NAME:'襄阳市轨道交通信息化', //项目系统名称
     API_BASE_URL:"",    //地址域名IP等(此处为空禁写，请在switch语句配置地址)
     API_BASE_PORT:"/admin-manager",    //二级地址（可为空），用于拼接API_BASE_URL后面
     API_BASE_TIMEOUT:10,  //请求超时时间（单位/s）

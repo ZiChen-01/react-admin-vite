@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { passwordEncryption } from "@/utils/passwordEncryption";
 import { encrypt, decrypt } from "@/utils/aes";
 import logo from "@/assets/images/logo-react.png"
+import xiangyang from "@/assets/images/xiangyang.png"
 import Three from "@/components/Three"
 import loginBg from "@/assets/images/login_bg1.png"
 import { setCookies, getCookies, removeCookies } from '@/utils/cookies'
@@ -124,7 +125,7 @@ const Login = () => {
     <div className="login" style={{ backgroundImage: `url(${loginBg})` }}>
       {/* <Three /> */}
       <div className="login-content-box">
-        <div className="logo_left_top">襄阳市信息一体化平台</div>
+        <div className="logo_left_top"><img src={xiangyang} alt="" /></div>
         <section className="login-content">
           <div className="haed">
             {/* <img src={logo} alt="" className='logoImg' /> */}
